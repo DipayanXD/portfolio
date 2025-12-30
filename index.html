@@ -509,60 +509,190 @@
                 </div>
             </div>
         </div>
+
         <div class="window photos"
-            style="display:none; width: 850px; height: 500px; background: #222; border-radius: 16px; position: absolute; top: 10%; left: 10%; box-shadow: 0 15px 40px rgba(0,0,0,0.5); border: 1px solid #444; z-index: 10; overflow: hidden;">
+            style="display:none; width: 1000px; height: 600px; background: #fff; border-radius: 12px; position: absolute; top: 8%; left: 8%; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid #ccc; z-index: 10; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
 
-            <div class="window__taskbar"
-                style="background: #ffffff; border-bottom: 1px solid #e0e0e0; height: 44px; display: flex; align-items: center; padding: 0 16px;">
-                <div class="window__taskbar--actions" style="display: flex; gap: 8px;">
-                    <button class="close-photos"
-                        style="width: 12px; height: 12px; border-radius: 50%; background:#ff5f56; border: 1px solid #e0443e; cursor: pointer;"></button>
-                    <button class="backfull-photos"
-                        style="width: 12px; height: 12px; border-radius: 50%; background:#ffbd2e; border: 1px solid #d89e24; cursor: pointer;"></button>
-                    <button class="full-photos"
-                        style="width: 12px; height: 12px; border-radius: 50%; background:#27c93f; border: 1px solid #1aab29; cursor: pointer;"></button>
+            <div style="display: flex; height: 100%;">
+
+                <div class="photos-sidebar"
+                    style="width: 260px; background: #f2f3f5; border-right: 1px solid #e1e1e1; display: flex; flex-direction: column; padding-top: 15px;">
+                    <div class="window__taskbar--actions"
+                        style="display: flex; gap: 8px; padding-left: 20px; margin-bottom: 25px;">
+                        <button class="close-photos"
+                            style="width: 12px; height: 12px; border-radius: 50%; background:#ff5f56; border: 1px solid #e0443e; cursor: pointer;"></button>
+                        <button class="backfull-photos"
+                            style="width: 12px; height: 12px; border-radius: 50%; background:#ffbd2e; border: 1px solid #d89e24; cursor: pointer;"></button>
+                        <button class="full-photos"
+                            style="width: 12px; height: 12px; border-radius: 50%; background:#27c93f; border: 1px solid #1aab29; cursor: pointer;"></button>
+                    </div>
+
+                    <div style="padding: 0 10px; overflow-y: auto;">
+                        <div
+                            style="color: #999; font-size: 11px; font-weight: 600; margin-bottom: 5px; padding-left: 10px;">
+                            Photos</div>
+                        <div class="nav-item active"
+                            style="padding: 6px 10px; border-radius: 6px; font-size: 13px; color: #333; display: flex; align-items: center; gap: 10px; background: #dcdde1; cursor: default;">
+                            <span class="material-icons-outlined"
+                                style="font-size: 16px; color: #007aff;">photo_library</span>
+                            Library
+                        </div>
+                        <div class="nav-item"
+                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <span class="material-icons-outlined" style="font-size: 16px;">history</span> Memories
+                        </div>
+                        <div class="nav-item"
+                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <span class="material-icons-outlined" style="font-size: 16px;">people</span> People
+                        </div>
+
+                        <div
+                            style="color: #999; font-size: 11px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; padding-left: 10px;">
+                            Albums</div>
+                        <div class="nav-item"
+                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <span class="material-icons-outlined" style="font-size: 16px;">folder</span> Media Types
+                        </div>
+                        <div class="nav-item"
+                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <span class="material-icons-outlined" style="font-size: 16px;">folder_shared</span> Shared
+                            Albums
+                        </div>
+                        <div class="nav-item"
+                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <span class="material-icons-outlined" style="font-size: 16px;">folder_special</span> 
+                            My Achievements
+                        </div>
+                    </div>
                 </div>
-                <div class="window__taskbar--content" style="flex: 1; text-align: center;">
-                    <h2
-                        style="color: #333; font-size: 14px; margin: 0; font-family: 'Lexend', sans-serif; font-weight: 500;">
-                        Achievements Gallery</h2>
-                </div>
-            </div>
 
-            <div class="content"
-                style="padding: 30px; overflow-y: auto; height: calc(100% - 44px); background: #1e1e1e;">
-                <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                <div style="flex: 1; background: #fff; display: flex; flex-direction: column;">
 
-                    <div class="photo-card"
-                        style="width: 240px; background: #2d2d2d; padding: 25px 20px; border-radius: 12px; border: 1px solid #3d3d3d; text-align: center; color: white;">
-                        <div style="font-size: 48px; margin-bottom: 15px;">🏆</div>
-                        <h3 style="font-size: 18px; margin: 10px 0; color: #fff;">1st Position</h3>
-                        <p style="color: #aaa; font-size: 13px;">BUG HUNT Competition</p>
-                        <span
-                            style="display:inline-block; margin-top:15px; background:#ffd700; color:black; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:bold;">2025</span>
+                    <div
+                        style="height: 50px; border-bottom: 1px solid #e1e1e1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+                        <div style="display: flex; gap: 15px; color: #666;">
+                            <span class="material-icons-outlined"
+                                style="font-size: 18px; cursor:pointer;">chevron_left</span>
+                            <span class="material-icons-outlined"
+                                style="font-size: 18px; cursor:pointer; opacity: 0.5;">chevron_right</span>
+                        </div>
+                        <div style="font-weight: 600; font-size: 14px; color: #333;">My Albums</div>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <span class="material-icons-outlined"
+                                style="font-size: 18px; color: #666; cursor:pointer;">search</span>
+                            <input type="text" placeholder="Search"
+                                style="background: #eef2f5; border: none; padding: 6px 10px; border-radius: 6px; font-size: 12px; width: 120px; outline: none;">
+                        </div>
                     </div>
 
-                    <div class="photo-card"
-                        style="width: 240px; background: #2d2d2d; padding: 25px 20px; border-radius: 12px; border: 1px solid #3d3d3d; text-align: center; color: white;">
-                        <div style="font-size: 48px; margin-bottom: 15px;">🌍</div>
-                        <h3 style="font-size: 18px; margin: 10px 0; color: #fff;">Open Source</h3>
-                        <p style="color: #aaa; font-size: 13px;">Hacktoberfest & Open Odyssey</p>
-                        <span
-                            style="display:inline-block; margin-top:15px; background:#00e0ff; color:black; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:bold;">CONTRIBUTOR</span>
-                    </div>
+                    <div style="flex: 1; overflow-y: auto; padding: 30px;">
 
-                    <div class="photo-card"
-                        style="width: 240px; background: #2d2d2d; padding: 25px 20px; border-radius: 12px; border: 1px solid #3d3d3d; text-align: center; color: white;">
-                        <div style="font-size: 48px; margin-bottom: 15px;">🎓</div>
-                        <h3 style="font-size: 18px; margin: 10px 0; color: #fff;">BCA Degree</h3>
-                        <p style="color: #aaa; font-size: 13px;">Techno Main Salt Lake</p>
-                        <span
-                            style="display:inline-block; margin-top:15px; background:#ff5f56; color:white; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:bold;">STUDENT</span>
-                    </div>
+                        <div style="margin-bottom: 25px;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                                <h1 style="font-size: 32px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">
+                                    Achievements</h1>
+                                <span style="font-size: 12px; color: #666;">Showing: All Items</span>
+                            </div>
+                            <div
+                                style="margin-top: 5px; font-size: 13px; color: #007aff; font-weight: 500; cursor: pointer;">
+                                3 Items &nbsp;&nbsp; Show as Memory &nbsp;&nbsp; Slideshow
+                            </div>
+                        </div>
 
+                        <div class="luxury-grid">
+
+                            <div class="luxury-card"
+                                style="background-image: url('images/Photos-app/bug_hunt.png'); ">
+
+                                <div class="card-header">
+                                    <div class="card-title">Bug Hunt 2025</div>
+                                    <div class="card-status">
+                                        <div class="spinner"></div> Competition
+                                    </div>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="avatar"
+                                        style="background-image: url('https://ui-avatars.com/api/?name=Dipayan+Das&background=0D8ABC&color=fff');">
+                                    </div>
+                                    <div class="meta-text">
+                                        <h4>1st Position</h4>
+                                        <p>2025 • TMSL - Genesis</p>
+                                    </div>
+                                </div>
+
+                                <div class="card-cta">
+                                    <span class="material-icons-round" style="font-size: 20px;">add</span>
+                                </div>
+                            </div>
+
+                            <div class="luxury-card"
+                                style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1000&auto=format&fit=crop');">
+
+                                <div class="card-header">
+                                    <div class="card-title">Open Source</div>
+                                    <div class="card-status">
+                                        <div class="spinner"></div> Contributing
+                                    </div>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="avatar"
+                                        style="background-image: url('https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png');">
+                                    </div>
+                                    <div class="meta-text">
+                                        <h4>Hacktoberfest</h4>
+                                        <p>Global • Python & C</p>
+                                    </div>
+                                </div>
+
+                                <div class="card-cta">
+                                    <span class="material-icons-round" style="font-size: 20px;">arrow_forward</span>
+                                </div>
+                            </div>
+
+                            <div class="luxury-card"
+                                style="background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1000&auto=format&fit=crop');">
+
+                                <div class="card-header">
+                                    <div class="card-title">Education</div>
+                                    <div class="card-status">
+                                        <span
+                                            style="width:6px; height:6px; background:#4cd964; border-radius:50%;"></span>
+                                        Active Student
+                                    </div>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="avatar"
+                                        style="background-image: url('https://ui-avatars.com/api/?name=TMSL&background=333&color=fff');">
+                                    </div>
+                                    <div class="meta-text">
+                                        <h4>BCA Degree</h4>
+                                        <p>2028 • Kolkata</p>
+                                    </div>
+                                </div>
+
+                                <div class="card-cta">
+                                    <span class="material-icons-round" style="font-size: 20px;">school</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <style>
+            /* Hover animation for cards */
+            .photo-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+            }
+        </style>
+
+
 
         <div class="window maps">
             <div class="window__taskbar">

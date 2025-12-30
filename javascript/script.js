@@ -671,7 +671,17 @@ async function runHackerBio() {
 }
 
 // Start the sequence when page loads
-window.addEventListener('load', runHackerBio);
+// --- TERMINAL ANIMATION FIX ---
+let bioStarted = false; // Flag to ensure animation runs only once
+
+terminalApp.opening.addEventListener("click", () => {
+    open_window(terminalApp.window, terminalApp.point, terminalApp.app_name);
+    // Only run animation if it hasn't started yet
+    if (!bioStarted) {
+        bioStarted = true;
+        runHackerBio();
+    }
+});
 
 /********** End Battery **********/
 
