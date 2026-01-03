@@ -23,6 +23,7 @@ const elements = {
   batteryProgress: document.querySelector(".battery__progress"),
   batteryIsChargingLogo: document.querySelector(".is-charging"),
   powerSource: document.querySelector(".power-source"),
+  themeToggle: document.getElementById("themeToggle"),
 };
 
 // Calculator App
@@ -106,7 +107,7 @@ photosApp.opening.addEventListener("click", () => {
   photosApp.window.style.display = "block";
   document.querySelector(".navbar").style.display = "flex";
   // Bring to front
-  photosApp.window.style.zIndex = "100"; 
+  photosApp.window.style.zIndex = "100";
 });
 
 photosApp.close.addEventListener("click", () => {
@@ -316,7 +317,7 @@ calculatorApp.close.addEventListener("click", () =>
   )
 );
 document.querySelectorAll('.window, .calculator').forEach(win => {
-    win.addEventListener('mousedown', () => bringToFront(win));
+  win.addEventListener('mousedown', () => bringToFront(win));
 });
 calculatorApp.opening_l.addEventListener("click", handleOpenCal_lunchpad);
 elements.open_spotlight.addEventListener("click", handleopen_spotlight);
@@ -568,7 +569,7 @@ elements.batteryButton.addEventListener("click", () => {
 // async function runTerminalSequence() {
 //   const container = document.querySelector('.terminal_content');
 //   container.innerHTML = `<p>Last Login: ${new Date().toDateString()} on admin_console</p>`; // Reset
-  
+
 //   for (let line of terminalContent) {
 //     // Create line structure
 //     const p = document.createElement('p');
@@ -586,11 +587,11 @@ elements.batteryButton.addEventListener("click", () => {
 //       textSpan.textContent += char;
 //       await new Promise(r => setTimeout(r, 40)); // Typing speed (40ms)
 //     }
-    
+
 //     // Add small delay between lines
 //     await new Promise(r => setTimeout(r, 400));
 //   }
-  
+
 //   // Add the blinking cursor at the end
 //   const cursorLine = document.createElement('div');
 //   cursorLine.className = 'terminal_line';
@@ -617,7 +618,7 @@ const bioLines = [
 
 async function runHackerBio() {
   const container = document.getElementById('typing-area');
-  
+
   // Update Date
   document.getElementById("currentDate").innerText = new Date().toDateString();
 
@@ -625,16 +626,16 @@ async function runHackerBio() {
     // 1. Create the line element
     const p = document.createElement('p');
     p.style.margin = "5px 0"; // Spacing
-    
+
     // 2. Add Prompt if it's a command
     if (line.type === 'command') {
       p.innerHTML = `<span class="color_green">➜</span> <span class="color_blue">~</span> `;
     }
-    
+
     // 3. Add the text span
     const textSpan = document.createElement('span');
     if (line.color) textSpan.style.color = line.color;
-    if (line.type === 'output') textSpan.style.opacity = "0.9"; 
+    if (line.type === 'output') textSpan.style.opacity = "0.9";
     p.appendChild(textSpan);
     container.appendChild(p);
 
@@ -644,7 +645,7 @@ async function runHackerBio() {
       // Scroll to bottom as we type
       const termWindow = document.querySelector('.terminal_content');
       termWindow.scrollTop = termWindow.scrollHeight;
-      
+
       // Typing speed (randomized slightly for realism)
       await new Promise(r => setTimeout(r, Math.random() * 30 + 30));
     }
@@ -654,18 +655,18 @@ async function runHackerBio() {
   }
 
   // --- ANIMATION FINISHED: RESTORE INTERACTIVITY ---
-  
+
   // Reveal the hidden 'real' input line from index.html
   const realInputLine = document.querySelector('.terminal_line');
   realInputLine.style.display = 'block';
-  
+
   // Move it to the end of our typed content
   container.appendChild(realInputLine);
-  
+
   // Focus the cursor
   const cursor = document.querySelector('.cursor');
   cursor.focus();
-  
+
   // Initialize the original terminal logic so Enter key works
   init_terminal_line();
 }
@@ -675,12 +676,12 @@ async function runHackerBio() {
 let bioStarted = false; // Flag to ensure animation runs only once
 
 terminalApp.opening.addEventListener("click", () => {
-    open_window(terminalApp.window, terminalApp.point, terminalApp.app_name);
-    // Only run animation if it hasn't started yet
-    if (!bioStarted) {
-        bioStarted = true;
-        runHackerBio();
-    }
+  open_window(terminalApp.window, terminalApp.point, terminalApp.app_name);
+  // Only run animation if it hasn't started yet
+  if (!bioStarted) {
+    bioStarted = true;
+    runHackerBio();
+  }
 });
 
 /********** End Battery **********/
@@ -688,3 +689,29 @@ terminalApp.opening.addEventListener("click", () => {
 // Call the functions
 calculateBattery();
 digi();
+
+/********** Theme Logic **********/
+const handleThemeToggle = () => {
+  document.body.classList.toggle("light-mode");
+  const isLight = document.body.classList.contains("light-mode");
+
+  // Persist
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+
+  // Update Icon
+  const icon = elements.themeToggle.querySelector(".material-icons-round");
+  icon.textContent = isLight ? "dark_mode" : "light_mode";
+};
+
+// Initialize Theme
+const initTheme = () => {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "light") {
+    document.body.classList.add("light-mode");
+    elements.themeToggle.querySelector(".material-icons-round").textContent = "dark_mode";
+  }
+};
+
+elements.themeToggle.addEventListener("click", handleThemeToggle);
+initTheme();

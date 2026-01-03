@@ -1,20 +1,73 @@
 :root {
+  /* Core Palette */
   --color-white: #fff;
-  --color-white-100: rgba(255, 255, 255, 0.1);
-  --color-white-200: rgba(255, 255, 255, 0.2);
-  --color-white-400: rgba(255, 255, 255, 0.4);
-  --color-white-800: rgba(255, 255, 255, 0.8);
-  --color-white-900: rgba(255, 255, 255, 0.9);
   --color-black: #1e1e1e;
-  --color-black-100: rgba(0, 0, 0, 0.1);
-  --color-black-50: rgba(211, 197, 197, 0.39);
-  --color-black-200: rgba(0, 0, 0, 0.2);
-  --color-black-500: rgba(0, 0, 0, 0.5);
-  --color-black-600: rgba(0, 0, 0, 0.6);
   --color-blue-800: #007ff7;
-  --app-color-white: rgb(252, 255, 251);
   --color-red: rgba(255, 2, 2, 0.788);
   --color-green: #11dd4e;
+
+  /* Theme Defaults (Dark Mode) */
+  --bg-wallpaper: url("../background/iridescence.jpg");
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.4);
+
+  --surface-navbar: linear-gradient(to right, rgba(110, 20, 56, 0.85), rgba(39, 5, 152, 0.85), rgba(229, 76, 45, 0.85));
+  --surface-window: rgba(20, 20, 40, 0.7);
+  --surface-dock: rgba(255, 255, 255, 0.1);
+  --surface-popover: rgba(30, 30, 30, 0.75);
+  --surface-popover: rgba(30, 30, 30, 0.75);
+  --surface-card: rgba(30, 30, 30, 0.6);
+  --surface-header-solid: #2e2e2e;
+  /* Solid Dark Grey */
+
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-medium: rgba(255, 255, 255, 0.2);
+
+  --shadow-window: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --shadow-text: 0 2px 5px rgba(0, 0, 0, 0.4);
+  --hover-bg: rgba(255, 255, 255, 0.15);
+
+  /* Helper Legacy Vars - Mapped to Theme Vars where possible */
+  --color-white-900: var(--text-primary);
+  --color-white-800: var(--text-secondary);
+  --color-white-400: var(--text-tertiary);
+  --color-white-200: var(--hover-bg);
+  --color-white-100: var(--border-light);
+  --color-black-500: rgba(0, 0, 0, 0.5);
+  /* Keep strict black for overlays */
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+  --bg-wallpaper: url("../background/mac os big sur.jpg");
+  --text-primary: #1d1d1f;
+  --text-secondary: rgba(60, 60, 67, 0.8);
+  --text-tertiary: rgba(60, 60, 67, 0.5);
+
+  --surface-navbar: rgba(255, 255, 255, 0.75);
+  --surface-window: rgba(255, 255, 255, 0.85);
+  --surface-dock: rgba(255, 255, 255, 0.5);
+  --surface-popover: rgba(250, 250, 250, 0.9);
+  --surface-popover: rgba(250, 250, 250, 0.9);
+  --surface-card: rgba(255, 255, 255, 0.75);
+  --surface-header-solid: #f3f3f3;
+  /* Solid Light Grey */
+
+  --border-light: rgba(0, 0, 0, 0.1);
+  --border-medium: rgba(0, 0, 0, 0.15);
+
+  --shadow-window: 0 20px 40px rgba(0, 0, 0, 0.2);
+  --shadow-text: none;
+  --hover-bg: rgba(0, 0, 0, 0.08);
+  /* Darker hover for light mode */
+
+  /* Legacy Overrides */
+  --color-white-900: var(--text-primary);
+  --color-white-800: var(--text-secondary);
+  --color-white-400: var(--text-tertiary);
+  --color-white-200: var(--hover-bg);
+  --color-white-100: var(--border-light);
 }
 
 * {
@@ -43,7 +96,7 @@ body {
   height: 100vh;
   user-select: none;
   font-family: "Lexend", sans-serif;
-  background: url("../background/iridescence.jpg") center/cover no-repeat;
+  background: var(--bg-wallpaper) center/cover no-repeat;
   overflow: hidden;
 }
 
@@ -63,9 +116,11 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  color: var(--color-white-900);
-  box-shadow: 0 2px 10px var(--color-black-100);
-  background: linear-gradient(to right, #6e1438, #270598, #e54c2d);
+  color: var(--text-primary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: var(--surface-navbar);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,7 +128,7 @@ body {
   animation: top-to-bottom 0.3s;
 }
 
-.navbar > ul {
+.navbar>ul {
   display: flex;
   align-items: center;
 }
@@ -83,7 +138,7 @@ body {
   font-size: 14px;
   margin: 0 4px;
   cursor: url(../cursor/Link.cur), pointer;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.288);
+  text-shadow: var(--shadow-text);
   transition: 0.2s;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
@@ -114,7 +169,8 @@ body {
 
 li.app_name {
   display: none;
-  font-weight: 900 !important;
+  font-weight: 700 !important;
+  color: var(--text-primary);
 }
 
 .navbar__right li {
@@ -217,8 +273,8 @@ li.app_name {
   width: 220px;
   transition: all ease-out 0.2s;
   padding: 4px;
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--surface-popover);
+  border: 1px solid var(--border-light);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   -webkit-backdrop-filter: blur(60px);
   backdrop-filter: blur(60px);
@@ -279,7 +335,7 @@ li.app_name {
   background-color: #0063f7;
 }
 
-li > ul {
+li>ul {
   display: none;
   position: absolute;
   align-items: center;
@@ -290,30 +346,30 @@ li > ul {
   font-weight: 600;
   padding: 4px;
   min-width: 200px;
-  background: var(--color-white-400);
+  background: var(--surface-popover);
   backdrop-filter: blur(11px);
   border-radius: 5px;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.363);
 }
 
-li:hover > ul {
+li:hover>ul {
   display: flex;
 }
 
-li > ul > li {
+li>ul>li {
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   padding-bottom: 5px;
   margin-bottom: 5px !important;
 }
 
-li > ul > li:last-child {
+li>ul>li:last-child {
   border-bottom: 0;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
 }
 
-li > ul > li > button {
+li>ul>li>button {
   color: var(--color-white);
   width: 100%;
   height: 100%;
@@ -329,16 +385,16 @@ li > ul > li > button {
   cursor: url(../cursor/Link.cur), pointer;
 }
 
-li > ul > li > button:hover {
+li>ul>li>button:hover {
   color: var(--color-white);
   background: var(--color-blue-800);
 }
 
-li > ul > li > button:active {
+li>ul>li>button:active {
   background-color: #0063f7;
 }
 
-li > .menu__container {
+li>.menu__container {
   display: none;
   position: absolute;
   width: 380px;
@@ -347,9 +403,10 @@ li > .menu__container {
   right: 50%;
   height: 24rem;
   transform: translateX(50%);
-  background-color: rgba(224, 222, 222, 0.349);
+  transform: translateX(50%);
+  background-color: var(--surface-popover);
   backdrop-filter: blur(11px);
-  border: 1px solid rgba(70, 50, 77, 0.308);
+  border: 1px solid var(--border-medium);
   box-shadow: 0 7px 15px rgba(26, 26, 26, 0.24);
   overflow: hidden;
   padding: 15px;
@@ -359,7 +416,7 @@ li:hover .menu__container {
   display: flex;
 }
 
-li > .menu__container > .grid__controling {
+li>.menu__container>.grid__controling {
   width: 100%;
   height: 100%;
   display: grid;
@@ -374,7 +431,7 @@ li > .menu__container > .grid__controling {
   grid-gap: 1em 1em;
 }
 
-li > .menu__container > .grid__controling .control_center--grid {
+li>.menu__container>.grid__controling .control_center--grid {
   display: grid;
   box-shadow: 0 5px 15px rgba(44, 44, 44, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.178);
@@ -382,31 +439,31 @@ li > .menu__container > .grid__controling .control_center--grid {
   border-radius: 12px;
 }
 
-.menu__container > .grid__controling .col-5 {
+.menu__container>.grid__controling .col-5 {
   grid-area: Toggles;
 }
 
-.menu__container > .grid__controling .col-7 {
+.menu__container>.grid__controling .col-7 {
   grid-area: DoNotDisturb;
 }
 
-.menu__container > .grid__controling .col-3--brightness {
+.menu__container>.grid__controling .col-3--brightness {
   grid-area: KeyboardBrightness;
 }
 
-.menu__container > .grid__controling .col-3--battery {
+.menu__container>.grid__controling .col-3--battery {
   grid-area: Battery;
 }
 
-.menu__container > .grid__controling .col-12--light {
+.menu__container>.grid__controling .col-12--light {
   grid-area: Display;
 }
 
-.menu__container > .grid__controling .col-12--volume {
+.menu__container>.grid__controling .col-12--volume {
   grid-area: Audio;
 }
 
-.menu__container > .grid__controling .col-12--music {
+.menu__container>.grid__controling .col-12--music {
   grid-area: Music;
 }
 
@@ -426,7 +483,7 @@ li > .menu__container > .grid__controling .control_center--grid {
   position: relative;
 }
 
-.menu__container > .grid__controling input[type="range"] {
+.menu__container>.grid__controling input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   outline: 0;
@@ -448,7 +505,7 @@ li > .menu__container > .grid__controling .control_center--grid {
   transform: translatey(-50%);
 }
 
-.menu__container > .grid__controling input[type="range"]::-webkit-slider-thumb {
+.menu__container>.grid__controling input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 2rem;
   width: 2rem;
@@ -550,7 +607,8 @@ li > .menu__container > .grid__controling .control_center--grid {
   height: 65px;
   transform: translateX(-50%);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--color-white-200);
+  border: 1px solid var(--border-light);
+  background: var(--surface-dock);
   border-radius: 14px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.555);
   z-index: 10;
@@ -603,7 +661,7 @@ li > .menu__container > .grid__controling .control_center--grid {
   width: 7.1rem;
 }
 
-.dock .icon:hover + * img {
+.dock .icon:hover+* img {
   width: 5.6rem;
   margin: 0 0 25px 0;
 }
@@ -632,10 +690,10 @@ li > .menu__container > .grid__controling .control_center--grid {
   height: 430px;
   overflow: hidden;
   border-radius: 1rem;
-  background: transparent;
-  box-shadow: 0 20px 30px var(--color-black-500);
-  border: 1px solid #ffffff34;
+  box-shadow: var(--shadow-window);
+  border: 1px solid var(--border-light);
   animation: zoom-out 0.3s;
+  background: var(--surface-window);
   z-index: 10;
   touch-action: none;
 }
@@ -645,7 +703,8 @@ li > .menu__container > .grid__controling .control_center--grid {
   display: flex;
   justify-content: space-between;
   padding: 0 16px;
-  background-color: var(--app-color-white);
+  background-color: var(--surface-header-solid);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .window__taskbar--actions {
@@ -727,10 +786,11 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .window__taskbar--content h2 {
-  color: var(--color-black);
   font-weight: 600;
   font-size: 18px;
+  color: var(--text-primary);
 }
+
 
 .terminal .window__taskbar,
 .Vscode .window__taskbar,
@@ -743,7 +803,8 @@ li > .menu__container > .grid__controling .control_center--grid {
   height: 91%;
   overflow-y: scroll;
   padding-left: 1rem;
-  background-color: rgba(5, 5, 99, 0.63);
+  background-color: rgba(5, 5, 20, 0.5);
+  /* Keep terminal dark-ish mostly */
   backdrop-filter: blur(12px);
   color: rgb(235, 235, 235);
   font-size: 20px;
@@ -779,6 +840,8 @@ li > .menu__container > .grid__controling .control_center--grid {
   transition: 0.2s;
   padding: 5px;
   cursor: url(../cursor/Link.cur), pointer;
+  color: var(--text-primary);
+  /* Ensure white in dark mode */
 }
 
 .window__taskbar--right .containerSearch {
@@ -787,21 +850,21 @@ li > .menu__container > .grid__controling .control_center--grid {
   justify-content: space-between;
   width: 45%;
   height: 75%;
-  background-color: var(--app-color-white);
+  background-color: var(--surface-navbar);
   border-radius: 5px;
   border: 1px solid rgba(123, 123, 123, 0.412);
   padding-left: 8px;
 }
 
 .window__taskbar--right .containerSearch svg {
-  fill: rgba(123, 123, 123, 0.412);
+  fill: var(--text-tertiary);
 }
 
 .window__taskbar--right input[type="search"] {
   width: 85%;
   height: 100%;
   background-color: transparent;
-  color: var(--color-black);
+  color: var(--text-primary);
   font-size: 18px;
   padding-right: 10px;
   font-family: "Lexend", sans-serif;
@@ -816,8 +879,14 @@ li > .menu__container > .grid__controling .control_center--grid {
 .Parent__content--typing {
   width: 70%;
   height: 100%;
-  border-top: 1px solid #e0e2e1;
-  background-color: var(--app-color-white);
+  border-top: 1px solid var(--border-light);
+  background-color: var(--color-white);
+  /* Light mode default */
+}
+
+body:not(.light-mode) .Parent__content--typing {
+  background-color: #1e1e1e;
+  /* Dark mode solid */
 }
 
 .content__typing {
@@ -828,7 +897,7 @@ li > .menu__container > .grid__controling .control_center--grid {
   outline: none;
   resize: none;
   display: none;
-  color: var(--color-black);
+  color: var(--text-primary);
   font-weight: 900;
   font-size: 18px;
   font-family: "Raleway", sans-serif;
@@ -838,8 +907,13 @@ li > .menu__container > .grid__controling .control_center--grid {
 .content__sidebar {
   width: 30%;
   height: 100%;
-  background: var(--color-white-400);
-  backdrop-filter: blur(1rem);
+  background: #f5f5f7;
+  /* Light mode sidebar */
+}
+
+body:not(.light-mode) .content__sidebar {
+  background: #2d2d2d;
+  /* Dark mode sidebar solid */
 }
 
 .content__sidebar--notes {
@@ -856,7 +930,7 @@ li > .menu__container > .grid__controling .control_center--grid {
   font-family: "Lexend", sans-serif;
   font-size: 18px;
   outline: none;
-  color: var(--color-black);
+  color: var(--text-primary);
   transition: all 0.2s;
   border-radius: 4px;
   margin: 10px auto;
@@ -870,7 +944,7 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .content__sidebar--notes input::placeholder {
-  color: white;
+  color: var(--text-secondary);
 }
 
 .spotlight_serach {
@@ -902,10 +976,11 @@ li > .menu__container > .grid__controling .control_center--grid {
   font-family: Lexend;
   margin-left: 10px;
   padding-right: 10px;
+  color: var(--text-primary);
 }
 
 .spotlight_serach input::placeholder {
-  color: white;
+  color: var(--text-secondary);
 }
 
 .launchpad {
@@ -941,19 +1016,19 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .searchbox .searchContainer svg {
-  fill: #fff;
+  fill: var(--text-primary);
 }
 
 .searchbox input {
   text-align: center;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 17px;
   height: 100%;
   font-family: "Roboto", sans-serif;
 }
 
 .searchbox input::placeholder {
-  color: #fff;
+  color: var(--text-secondary);
   font-weight: 100;
 }
 
@@ -1002,24 +1077,25 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .launchpad .child-launchpad strong {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 ::-webkit-scrollbar {
-  background-color: #fff;
+  background-color: transparent;
   width: 16px;
 }
 
 /* background of the scrollbar except button or resizer */
 ::-webkit-scrollbar-track {
-  background-color: #fff;
+  background-color: transparent;
 }
 
 /* scrollbar itself */
 ::-webkit-scrollbar-thumb {
-  background-color: #babac0;
+  background-color: var(--text-tertiary);
   border-radius: 16px;
-  border: 4px solid #fff;
+  border: 4px solid transparent;
+  background-clip: content-box;
 }
 
 /* set button(top and bottom of the scrollbar) */
@@ -1105,12 +1181,17 @@ li > .menu__container > .grid__controling .control_center--grid {
   max-width: 100%;
   height: 25rem;
   max-height: 80%;
-  background: var(--color-black-500);
+  background: var(--surface-window);
   backdrop-filter: blur(1rem);
   border-radius: 1rem;
   box-shadow: 0 0.5rem 2rem var(--color-black-500);
-  border: 1px solid var(--color-white-200);
+  border: 1px solid var(--border-light);
   animation: zoom-out 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+body.light-mode .calculator {
+  background: rgba(255, 255, 255, 0.45);
+  /* More transparent for blur effect */
 }
 
 .calculator__top {
@@ -1190,7 +1271,7 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .calculator__top--output {
   flex: 1;
-  color: var(--color-white);
+  color: var(--text-primary);
   font-size: 2rem;
   text-align: right;
   font-family: "Lexend";
@@ -1318,7 +1399,7 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .widgets-panel__calendar h4 {
-  color: #ffffff;
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -1327,7 +1408,7 @@ li > .menu__container > .grid__controling .control_center--grid {
 }
 
 .widgets-panel__calendar h2 {
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 45px;
   font-weight: 300;
 }
@@ -1397,6 +1478,7 @@ li > .menu__container > .grid__controling .control_center--grid {
   border-color: #555 !important;
   cursor: default;
 }
+
 /* --- LUXURY CARD DESIGN LANGUAGE --- */
 .luxury-grid {
   display: grid;
@@ -1408,7 +1490,8 @@ li > .menu__container > .grid__controling .control_center--grid {
 .luxury-card {
   position: relative;
   height: 380px;
-  border-radius: 32px; /* Aggressive radius */
+  border-radius: 32px;
+  /* Aggressive radius */
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -1432,17 +1515,19 @@ li > .menu__container > .grid__controling .control_center--grid {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50%; /* Covers the bottom half */
-  border-radius: 0 0 32px 32px; /* Match card radius */
+  height: 50%;
+  /* Covers the bottom half */
+  border-radius: 0 0 32px 32px;
+  /* Match card radius */
 
   /* 1. Create the frosted glass look */
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px); /* For Safari */
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0.6)
-  ); /* Darken bottom slightly */
+  -webkit-backdrop-filter: blur(15px);
+  /* For Safari */
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.6));
+  /* Darken bottom slightly */
 
   /* 2. Fade the top edge so it blends smoothly */
   /* Transparent at top, solid black (visible) at bottom */
@@ -1463,7 +1548,8 @@ li > .menu__container > .grid__controling .control_center--grid {
 
 .card-title {
   font-family: -apple-system, sans-serif;
-  font-weight: 300; /* Thin */
+  font-weight: 300;
+  /* Thin */
   font-size: 15px;
   color: white;
   letter-spacing: 0.5px;
@@ -1517,7 +1603,8 @@ li > .menu__container > .grid__controling .control_center--grid {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: #cacaca; /* Dark text because of white fog */
+  color: #cacaca;
+  /* Dark text because of white fog */
 }
 
 .meta-text p {
@@ -1535,7 +1622,8 @@ li > .menu__container > .grid__controling .control_center--grid {
   width: 44px;
   height: 44px;
   background: white;
-  border-radius: 50%; /* Pill/Circle */
+  border-radius: 50%;
+  /* Pill/Circle */
   display: flex;
   align-items: center;
   justify-content: center;
