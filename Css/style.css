@@ -21,6 +21,12 @@
   --surface-header-solid: #2e2e2e;
   /* Solid Dark Grey */
 
+  /* Photos App Theme */
+  --surface-photos-sidebar: #464645;
+  --surface-photos-content: #1e1e1e;
+  --surface-photos-active: rgba(255, 255, 255, 0.1);
+  --surface-photos-input: #333333;
+
   --border-light: rgba(255, 255, 255, 0.1);
   --border-medium: rgba(255, 255, 255, 0.2);
 
@@ -53,6 +59,12 @@ body.light-mode {
   --surface-card: rgba(255, 255, 255, 0.75);
   --surface-header-solid: #f3f3f3;
   /* Solid Light Grey */
+
+  /* Photos App Light Mode */
+  --surface-photos-sidebar: #e2e1e7;
+  --surface-photos-content: #ffffff;
+  --surface-photos-active: #dcdde1;
+  --surface-photos-input: #eef2f5;
 
   --border-light: rgba(0, 0, 0, 0.1);
   --border-medium: rgba(0, 0, 0, 0.15);
@@ -1635,4 +1647,95 @@ body.light-mode .calculator {
 
 .card-cta:active {
   transform: scale(0.9);
+}
+
+/* --- PHOTOS APP THEME STYLES --- */
+.photos-sidebar {
+  width: 240px;
+  background: var(--surface-navbar);
+  /* Use sidebar-like background */
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-light);
+}
+
+.sidebar-header {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+
+.photos-sidebar .nav-item {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.photos-sidebar .nav-item:hover {
+  background: var(--hover-bg);
+}
+
+.photos-sidebar .nav-item.active {
+  background: var(--hover-bg);
+  /* Use theme active/hover color */
+  cursor: default;
+  color: var(--text-primary);
+}
+
+.photos-sidebar .nav-item span {
+  font-size: 16px;
+  color: var(--color-blue-800);
+}
+
+.photos-main {
+  flex: 1;
+  background: var(--surface-window);
+  /* Main content background */
+  display: flex;
+  flex-direction: column;
+}
+
+.photos-toolbar {
+  height: 50px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--surface-header-solid);
+  /* Match window header */
+}
+
+.toolbar-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.photos-search {
+  background: var(--hover-bg);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  width: 120px;
+  outline: none;
+  color: var(--text-primary);
+}
+
+.photos-header {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
 }

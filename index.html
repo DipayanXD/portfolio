@@ -520,12 +520,12 @@
         </div>
 
         <div class="window photos"
-            style="display:none; width: 1000px; height: 600px; background: #fff; border-radius: 12px; position: absolute; top: 8%; left: 8%; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid #ccc; z-index: 10; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+            style="display:none; width: 1000px; height: 600px; background: var(--surface-photos-content); border-radius: 12px; position: absolute; top: 8%; left: 8%; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid var(--border-light); z-index: 10; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
 
             <div style="display: flex; height: 100%;">
 
                 <div class="photos-sidebar"
-                    style="width: 260px; background: #e2e1e7; border-right: 1px solid #e1e1e1; display: flex; flex-direction: column; padding-top: 15px;">
+                    style="width: 260px; background: var(--surface-photos-sidebar); border-right: 1px solid var(--border-light); display: flex; flex-direction: column; padding-top: 15px;">
                     <div class="window__taskbar--actions"
                         style="display: flex; gap: 8px; padding-left: 20px; margin-bottom: 25px;">
                         <button class="close-photos"
@@ -538,59 +538,60 @@
 
                     <div style="padding: 0 10px; overflow-y: auto;">
                         <div
-                            style="color: #999; font-size: 11px; font-weight: 600; margin-bottom: 5px; padding-left: 10px;">
+                            style="color: var(--text-tertiary); font-size: 11px; font-weight: 600; margin-bottom: 5px; padding-left: 10px;">
                             Photos</div>
                         <div class="nav-item active"
-                            style="padding: 6px 10px; border-radius: 6px; font-size: 13px; color: #333; display: flex; align-items: center; gap: 10px; background: #dcdde1; cursor: default;">
+                            style="padding: 6px 10px; border-radius: 6px; font-size: 13px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; background: var(--surface-photos-active); cursor: default;">
                             <span class="material-icons-outlined"
                                 style="font-size: 16px; color: #007aff;">photo_library</span>
                             Library
                         </div>
                         <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <span class="material-icons-outlined" style="font-size: 16px;">history</span> Memories
                         </div>
                         <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <span class="material-icons-outlined" style="font-size: 16px;">people</span> People
                         </div>
 
                         <div
-                            style="color: #999; font-size: 11px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; padding-left: 10px;">
+                            style="color: var(--text-tertiary); font-size: 11px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; padding-left: 10px;">
                             Albums</div>
                         <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <span class="material-icons-outlined" style="font-size: 16px;">folder</span> Media Types
                         </div>
                         <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <span class="material-icons-outlined" style="font-size: 16px;">folder_shared</span> Shared
                             Albums
                         </div>
                         <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: #444; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <span class="material-icons-outlined" style="font-size: 16px;">folder_special</span>
                             My Achievements
                         </div>
                     </div>
                 </div>
 
-                <div style="flex: 1; background: #fff; display: flex; flex-direction: column;">
+                <div
+                    style="flex: 1; background: var(--surface-photos-content); color: var(--text-primary); display: flex; flex-direction: column;">
 
                     <div
-                        style="height: 50px; border-bottom: 1px solid #e1e1e1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
-                        <div style="display: flex; gap: 15px; color: #666;">
+                        style="height: 50px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+                        <div style="display: flex; gap: 15px; color: var(--text-secondary);">
                             <span class="material-icons-outlined"
                                 style="font-size: 18px; cursor:pointer;">chevron_left</span>
                             <span class="material-icons-outlined"
                                 style="font-size: 18px; cursor:pointer; opacity: 0.5;">chevron_right</span>
                         </div>
-                        <div style="font-weight: 600; font-size: 14px; color: #333;">My Albums</div>
+                        <div style="font-weight: 600; font-size: 14px; color: var(--text-primary);">My Albums</div>
                         <div style="display: flex; gap: 15px; align-items: center;">
                             <span class="material-icons-outlined"
-                                style="font-size: 18px; color: #666; cursor:pointer;">search</span>
+                                style="font-size: 18px; color: var(--text-secondary); cursor:pointer;">search</span>
                             <input type="text" placeholder="Search"
-                                style="background: #eef2f5; border: none; padding: 6px 10px; border-radius: 6px; font-size: 12px; width: 120px; outline: none;">
+                                style="background: var(--surface-photos-input); color: var(--text-primary); border: none; padding: 6px 10px; border-radius: 6px; font-size: 12px; width: 120px; outline: none;">
                         </div>
                     </div>
 
@@ -600,7 +601,7 @@
                             <div style="display: flex; justify-content: space-between; align-items: flex-end;">
                                 <h1 style="font-size: 32px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">
                                     Achievements</h1>
-                                <span style="font-size: 12px; color: #666;">Showing: All Items</span>
+                                <span style="font-size: 12px; color: var(--text-secondary);">Showing: All Items</span>
                             </div>
                             <div
                                 style="margin-top: 5px; font-size: 13px; color: #007aff; font-weight: 500; cursor: pointer;">
