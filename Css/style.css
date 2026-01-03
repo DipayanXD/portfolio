@@ -370,7 +370,7 @@ li>ul>li:last-child {
 }
 
 li>ul>li>button {
-  color: var(--color-white);
+  color: var(--text-primary);
   width: 100%;
   height: 100%;
   display: flex;
@@ -1326,8 +1326,8 @@ body.light-mode .calculator {
   position: absolute;
   border-radius: 7px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.219);
-  border: 1px solid rgba(255, 255, 255, 0.281);
+  background: var(--surface-popover);
+  border: 1px solid var(--border-light);
   overflow: hidden;
   backdrop-filter: blur(15px);
 }
@@ -1349,7 +1349,7 @@ body.light-mode .calculator {
 }
 
 .context-menu ul li button {
-  color: var(--color-white);
+  color: var(--text-primary);
   width: 100%;
   height: 100%;
   text-align: left;
