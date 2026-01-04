@@ -784,12 +784,63 @@
 
                         </div>
 
+                        <!-- Months View Layout -->
+                        <div class="months-grid-layout" style="display: none; padding: 10px 30px;">
+
+                            <!-- Month Group: April 2025 -->
+                            <div id="months-2025" style="margin-bottom: 40px; scroll-margin-top: 20px;">
+                                <h2
+                                    style="font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; font-family: 'SF Pro Display', sans-serif;">
+                                    April 2025</h2>
+
+                                <!-- Large Month Card -->
+                                <div class="month-card"
+                                    style="width: 100%; aspect-ratio: 16/9; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border: 1px solid var(--border-light); cursor: pointer;">
+
+                                    <!-- Date Badge (Top Left) -->
+                                    <div
+                                        style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); color: #fff; font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
+                                        15
+                                    </div>
+
+                                    <!-- Hover Overlay (Optional) -->
+                                    <div class="hover-overlay"
+                                        style="position: absolute; inset: 0; background: rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.3s;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Month Group: October 2024 -->
+                            <div id="months-2024" style="margin-bottom: 40px; scroll-margin-top: 20px;">
+                                <h2
+                                    style="font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; font-family: 'SF Pro Display', sans-serif;">
+                                    October 2024</h2>
+
+                                <!-- Large Month Card -->
+                                <div class="month-card"
+                                    style="width: 100%; aspect-ratio: 16/9; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border: 1px solid var(--border-light); cursor: pointer;">
+
+                                    <!-- Date Badge (Top Left) -->
+                                    <div
+                                        style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); color: #fff; font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
+                                        4
+                                    </div>
+
+                                    <!-- Hover Overlay (Optional) -->
+                                    <div class="hover-overlay"
+                                        style="position: absolute; inset: 0; background: rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.3s;">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <!-- Years View Layout -->
                         <div class="years-grid-layout"
                             style="display: none; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 10px;">
 
                             <!-- 2025 Year Card -->
-                            <div class="year-card"
+                            <div class="year-card" onclick="goToMonths('2025')"
                                 style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
                                 <div
                                     style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
@@ -803,7 +854,7 @@
                             </div>
 
                             <!-- 2024 Year Card -->
-                            <div class="year-card"
+                            <div class="year-card" onclick="goToMonths('2024')"
                                 style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
                                 <div
                                     style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
@@ -830,10 +881,24 @@
         </div>
 
         <script>
+            function goToMonths(year) {
+                // Switch to Months view
+                filterPhotos('months');
+
+                // Scroll to specific year group after a brief delay to allow rendering
+                setTimeout(() => {
+                    const el = document.getElementById('months-' + year);
+                    if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 10);
+            }
+
             function filterPhotos(mode) {
                 const cards = document.querySelectorAll('.photo-card');
                 const photoGrid = document.querySelector('.photos-grid-layout');
                 const yearsGrid = document.querySelector('.years-grid-layout');
+                const monthsGrid = document.querySelector('.months-grid-layout');
 
                 const btnYears = document.getElementById('btn-years');
                 const btnMonths = document.getElementById('btn-months');
@@ -855,30 +920,22 @@
                     btn.style.border = '1px solid rgba(255,255,255,0.1)';
                 };
 
+                // Hide all grids first
+                photoGrid.style.display = 'none';
+                yearsGrid.style.display = 'none';
+                if (monthsGrid) monthsGrid.style.display = 'none';
+
                 // Toggle Views
                 if (mode === 'years') {
                     activeStyle(btnYears);
-                    photoGrid.style.display = 'none';
                     yearsGrid.style.display = 'grid';
+                } else if (mode === 'months') {
+                    activeStyle(btnMonths);
+                    if (monthsGrid) monthsGrid.style.display = 'block';
                 } else {
+                    activeStyle(btnAll);
                     photoGrid.style.display = 'grid';
-                    yearsGrid.style.display = 'none';
-
-                    if (mode === 'all') {
-                        activeStyle(btnAll);
-                        cards.forEach(card => card.style.display = 'block');
-                    } else if (mode === 'months') {
-                        activeStyle(btnMonths);
-                        cards.forEach(card => {
-                            const date = card.getAttribute('data-date');
-                            // Mock Logic: Show only October (10) for "Months" view
-                            if (date && date.includes('-10-')) {
-                                card.style.display = 'block';
-                            } else {
-                                card.style.display = 'none';
-                            }
-                        });
-                    }
+                    cards.forEach(card => card.style.display = 'block');
                 }
             }
         </script>

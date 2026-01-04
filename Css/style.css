@@ -1,10 +1,24 @@
 :root {
   /* Core Palette */
   --color-white: #fff;
-  --color-black: #1e1e1e;
-  --color-blue-800: #007ff7;
-  --color-red: rgba(255, 2, 2, 0.788);
-  --color-green: #11dd4e;
+  --color-black: #1C1C1E;
+  /* Apple Dark Gray */
+  --color-blue-800: #007AFF;
+  /* Apple Blue */
+  --color-red: #FF3B30;
+  /* Apple Red */
+  --color-green: #34C759;
+  /* Apple Green */
+  --color-orange: #FF9500;
+  /* Apple Orange */
+  --color-yellow: #FFCC00;
+  /* Apple Yellow */
+  --color-gray-light: #E5E5EA;
+  /* Apple Light Gray */
+  --color-gray-mid: #8E8E93;
+  /* Apple Mid Gray */
+  --color-gray-dark: #3A3A3C;
+  /* Apple Dark Gray 2 */
 
   /* Theme Defaults (Dark Mode) */
   --bg-wallpaper: url("../background/iridescence.jpg");
@@ -18,12 +32,14 @@
   --surface-popover: rgba(30, 30, 30, 0.75);
   --surface-popover: rgba(30, 30, 30, 0.75);
   --surface-card: rgba(30, 30, 30, 0.6);
-  --surface-header-solid: #2e2e2e;
+  --surface-header-solid: #3A3A3C;
+  /* Apple Dark Gray 2 */
   /* Solid Dark Grey */
 
   /* Photos App Theme */
   --surface-photos-sidebar: rgba(70, 70, 69, 0.1);
-  --surface-photos-content: #1e1e1e;
+  --surface-photos-content: #1C1C1E;
+  /* Apple Dark Gray */
   --surface-photos-active: rgba(255, 255, 255, 0.1);
   --surface-photos-input: #333333;
 
