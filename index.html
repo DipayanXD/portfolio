@@ -519,238 +519,423 @@
             </div>
         </div>
 
-        <div class="window photos"
-            style="display:none; width: 1000px; height: 600px; background: var(--surface-photos-content); border-radius: 12px; position: absolute; top: 8%; left: 8%; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid var(--border-light); z-index: 10; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
-
-            <div style="display: flex; height: 100%;">
-
-                <div class="photos-sidebar"
-                    style="width: 260px; background: var(--surface-photos-sidebar); border-right: 1px solid var(--border-light); display: flex; flex-direction: column; padding-top: 15px;">
-                    <div class="window__taskbar--actions"
-                        style="display: flex; gap: 8px; padding-left: 20px; margin-bottom: 25px;">
-                        <button class="close-photos"
-                            style="width: 12px; height: 12px; border-radius: 50%; background:#ff5f56; border: 1px solid #e0443e; cursor: pointer;"></button>
-                        <button class="backfull-photos"
-                            style="width: 12px; height: 12px; border-radius: 50%; background:#ffbd2e; border: 1px solid #d89e24; cursor: pointer;"></button>
-                        <button class="full-photos"
-                            style="width: 12px; height: 12px; border-radius: 50%; background:#27c93f; border: 1px solid #1aab29; cursor: pointer;"></button>
-                    </div>
-
-                    <div style="padding: 0 10px; overflow-y: auto;">
-                        <div
-                            style="color: var(--text-tertiary); font-size: 11px; font-weight: 600; margin-bottom: 5px; padding-left: 10px;">
-                            Photos</div>
-                        <div class="nav-item active"
-                            style="padding: 6px 10px; border-radius: 6px; font-size: 13px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; background: var(--surface-photos-active); cursor: default;">
-                            <span class="material-icons-outlined"
-                                style="font-size: 16px; color: #007aff;">photo_library</span>
-                            Library
-                        </div>
-                        <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <span class="material-icons-outlined" style="font-size: 16px;">history</span> Memories
-                        </div>
-                        <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <span class="material-icons-outlined" style="font-size: 16px;">people</span> People
-                        </div>
-
-                        <div
-                            style="color: var(--text-tertiary); font-size: 11px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; padding-left: 10px;">
-                            Albums</div>
-                        <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <span class="material-icons-outlined" style="font-size: 16px;">folder</span> Media Types
-                        </div>
-                        <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <span class="material-icons-outlined" style="font-size: 16px;">folder_shared</span> Shared
-                            Albums
-                        </div>
-                        <div class="nav-item"
-                            style="padding: 6px 10px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <span class="material-icons-outlined" style="font-size: 16px;">folder_special</span>
-                            My Achievements
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    style="flex: 1; background: var(--surface-photos-content); color: var(--text-primary); display: flex; flex-direction: column;">
-
-                    <div
-                        style="height: 50px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
-                        <div style="display: flex; gap: 15px; color: var(--text-secondary);">
-                            <span class="material-icons-outlined"
-                                style="font-size: 18px; cursor:pointer;">chevron_left</span>
-                            <span class="material-icons-outlined"
-                                style="font-size: 18px; cursor:pointer; opacity: 0.5;">chevron_right</span>
-                        </div>
-                        <div style="font-weight: 600; font-size: 14px; color: var(--text-primary);">My Albums</div>
-                        <div style="display: flex; gap: 15px; align-items: center;">
-                            <span class="material-icons-outlined"
-                                style="font-size: 18px; color: var(--text-secondary); cursor:pointer;">search</span>
-                            <input type="text" placeholder="Search"
-                                style="background: var(--surface-photos-input); color: var(--text-primary); border: none; padding: 6px 10px; border-radius: 6px; font-size: 12px; width: 120px; outline: none;">
-                        </div>
-                    </div>
-
-                    <div style="flex: 1; overflow-y: auto; padding: 30px;">
-
-                        <div style="margin-bottom: 25px;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                                <h1 style="font-size: 32px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">
-                                    Achievements</h1>
-                                <span style="font-size: 12px; color: var(--text-secondary);">Showing: All Items</span>
-                            </div>
-                            <div
-                                style="margin-top: 5px; font-size: 13px; color: #007aff; font-weight: 500; cursor: pointer;">
-                                3 Items &nbsp;&nbsp; Show as Memory &nbsp;&nbsp; Slideshow
-                            </div>
-                        </div>
-
-                        <div class="luxury-grid">
-
-                            <div class="luxury-card" style="background-image: url('images/Photos-app/bug_hunt.png'); ">
-
-                                <div class="card-header">
-                                    <div class="card-title">Bug Hunt 2025</div>
-                                    <div class="card-status">
-                                        <div class="spinner"></div> Competition
-                                    </div>
-                                </div>
-
-                                <div class="card-meta">
-                                    <div class="avatar"
-                                        style="background-image: url('https://ui-avatars.com/api/?name=Dipayan+Das&background=0D8ABC&color=fff');">
-                                    </div>
-                                    <div class="meta-text">
-                                        <h4>1st Position</h4>
-                                        <p>2025 • TMSL - Genesis</p>
-                                    </div>
-                                </div>
-
-                                <div class="card-cta">
-                                    <span class="material-icons-round" style="font-size: 20px;">add</span>
-                                </div>
-                            </div>
-
-                            <div class="luxury-card"
-                                style="background-image: url('images/Photos-app/hacktoberfest24.png');">
-
-                                <div class="card-header">
-                                    <div class="card-title">Open Source</div>
-                                    <div class="card-status">
-                                        <div class="spinner"></div> Contributing
-                                    </div>
-                                </div>
-
-                                <div class="card-meta">
-                                    <div class="avatar"
-                                        style="background-image: url('https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png');">
-                                    </div>
-                                    <div class="meta-text">
-                                        <h4>Hacktoberfest</h4>
-                                        <p>Global • Python & C</p>
-                                    </div>
-                                </div>
-
-                                <div class="card-cta">
-                                    <span class="material-icons-round" style="font-size: 20px;">arrow_forward</span>
-                                </div>
-                            </div>
-
-                            <div class="luxury-card"
-                                style="background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1000&auto=format&fit=crop');">
-
-                                <div class="card-header">
-                                    <div class="card-title">Education</div>
-                                    <div class="card-status">
-                                        <span
-                                            style="width:6px; height:6px; background:#4cd964; border-radius:50%;"></span>
-                                        Active Student
-                                    </div>
-                                </div>
-
-                                <div class="card-meta">
-                                    <div class="avatar"
-                                        style="background-image: url('https://ui-avatars.com/api/?name=TMSL&background=333&color=fff');">
-                                    </div>
-                                    <div class="meta-text">
-                                        <h4>BCA Degree</h4>
-                                        <p>2028 • Kolkata</p>
-                                    </div>
-                                </div>
-
-                                <div class="card-cta">
-                                    <span class="material-icons-round" style="font-size: 20px;">school</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <style>
-            /* Hover animation for cards */
+            .photo-card {
+                transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease !important;
+                -webkit-tap-highlight-color: transparent;
+                -webkit-font-smoothing: antialiased;
+                backface-visibility: hidden;
+                transform: translateZ(0);
+                background-color: #1e1e1e;
+            }
+
             .photo-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+                transform: scale(1.03) translateZ(0);
+                box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5) !important;
+                z-index: 5;
+            }
+
+            .year-card {
+                transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease !important;
+                -webkit-tap-highlight-color: transparent;
+                backface-visibility: hidden;
+                transform: translateZ(0);
+                background-color: #1e1e1e;
+            }
+
+            .year-card:hover {
+                transform: scale(1.025) translateZ(0);
+                box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6) !important;
+                z-index: 5;
             }
         </style>
+        <div class="window photos"
+            style="display:none; width: 1200px; height: 750px; border-radius: 24px; position: absolute; top: 5%; left: 5%; box-shadow: 0 50px 120px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.15) inset; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 10; overflow: hidden; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; background: rgba(20, 20, 20, 0.6);">
 
+            <div style="display: flex; height: 100%; position: relative;">
 
+                <!-- Liquid Sidebar -->
+                <div class="photos-sidebar"
+                    style="box-sizing: border-box; width: 260px; margin: 12px; height: calc(100% - 24px); border-radius: 20px; background: linear-gradient(135deg, rgba(50, 60, 70, 0.4), rgba(30, 40, 50, 0.3)); backdrop-filter: blur(50px) saturate(180%); -webkit-backdrop-filter: blur(50px) saturate(180%); border: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.2); box-shadow: 10px 0 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.3); display: flex; flex-direction: column; padding: 18px; z-index: 5;">
 
-        <div class="window maps">
-            <div class="window__taskbar">
-                <div class="window__taskbar--actions">
-                    <button class="close-map"></button>
-                    <button class="backfull-map"></button>
-                    <button class="full-map"></button>
+                    <!-- Window Controls & Sidebar Toggle -->
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                        <div class="window__taskbar--actions" style="display: flex; gap: 8px;">
+                            <button class="close-photos"
+                                style="width: 12px; height: 12px; border-radius: 50%; background:#ff5f56; border: 1px solid #e0443e; cursor: pointer; padding:0;"></button>
+                            <button class="backfull-photos"
+                                style="width: 12px; height: 12px; border-radius: 50%; background:#ffbd2e; border: 1px solid #d89e24; cursor: pointer; padding:0;"></button>
+                            <button class="full-photos"
+                                style="width: 12px; height: 12px; border-radius: 50%; background:#27c93f; border: 1px solid #1aab29; cursor: pointer; padding:0;"></button>
+                        </div>
+                        <span class="material-icons-round"
+                            style="color:rgba(255,255,255,0.4); font-size: 20px; cursor: pointer;">view_sidebar</span>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="sidebar-nav" style="flex: 1; overflow-y: auto;">
+
+                        <!-- Main Group -->
+                        <div style="margin-bottom: 24px;">
+                            <div class="nav-item active"
+                                style="padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 500; color: #fff; background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px; margin-bottom: 6px; cursor: default; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">photo_library</span> Library
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 8px 12px; border-radius: 8px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">collections_bookmark</span>
+                                Collections
+                            </div>
+                        </div>
+
+                        <!-- Pinned -->
+                        <div style="margin-bottom: 24px;">
+                            <div
+                                style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); margin-bottom: 8px; padding-left: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Pinned</div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">favorite_border</span>
+                                Favorites
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">save_alt</span> Recently
+                                Saved
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round" style="font-size: 18px; color: #0a84ff;">map</span>
+                                Map
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">videocam</span> Videos
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">camera_alt</span> Screenshots
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">person</span> People & Pets
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span class="material-icons-round"
+                                        style="font-size: 18px; color: #0a84ff;">delete</span> Recently Deleted
+                                </div>
+                                <span class="material-icons-round"
+                                    style="font-size: 14px; color: rgba(255,255,255,0.3);">lock</span>
+                            </div>
+                        </div>
+
+                        <!-- Albums -->
+                        <div style="margin-bottom: 20px;">
+                            <div
+                                style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); margin-bottom: 8px; padding-left: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Albums</div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">folder_open</span> Media
+                                Types
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">folder_shared</span> Shared
+                                Albums
+                            </div>
+                            <div class="nav-item"
+                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: #0a84ff;">emoji_events</span> My
+                                Achievements
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="window__taskbar--content">
-                    <h2>Maps</h2>
+
+                <!-- Main Content -->
+                <!-- Main Content -->
+                <div class="photos-main"
+                    style="flex: 1; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column;">
+
+                    <!-- Header -->
+                    <div
+                        style="height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                        <!-- Left -->
+                        <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
+                            <div style="display: flex; gap: 12px; margin-left: 20px;">
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: rgba(255,255,255,0.5); cursor: pointer;">arrow_back_ios</span>
+                                <span class="material-icons-round"
+                                    style="font-size: 18px; color: rgba(255,255,255,0.2); cursor: pointer;">arrow_forward_ios</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <span style="color: #fff; font-weight: 600; font-size: 15px;">Library</span>
+                                <span style="color: rgba(255,255,255,0.4); font-size: 11px;">Oct 4, 2025</span>
+                            </div>
+                        </div>
+
+                        <!-- Center -->
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div
+                                style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px 10px; display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                                <button
+                                    style="color: rgba(255,255,255,0.9); padding: 0 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">−</button>
+                                <div style="width: 1px; height: 14px; background: rgba(255,255,255,0.15);"></div>
+                                <button
+                                    style="color: rgba(255,255,255,0.9); padding: 0 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">+</button>
+                            </div>
+                            <div
+                                style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px; display: flex; font-size: 12px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                                <button id="btn-years" onclick="filterPhotos('years')"
+                                    style="color: rgba(255,255,255,0.6); padding: 5px 16px; border-radius: 18px; cursor: pointer; background: transparent; border: none; font-size: 13px;">Years</button>
+                                <div
+                                    style="width: 1px; height: 12px; background: rgba(255,255,255,0.1); margin: auto 0;">
+                                </div>
+                                <button id="btn-months" onclick="filterPhotos('months')"
+                                    style="color: rgba(255,255,255,0.6); padding: 5px 16px; border-radius: 18px; cursor: pointer; background: transparent; border: none; font-size: 13px;">Months</button>
+                                <button id="btn-all" onclick="filterPhotos('all')"
+                                    style="color: #fff; background: rgba(255,255,255,0.15); border-radius: 16px; padding: 5px 16px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-size: 13px;">All
+                                    Photos</button>
+                            </div>
+                        </div>
+
+                        <!-- Right -->
+                        <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 20px;">
+                            <div
+                                style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px 8px; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                                <span class="material-icons-outlined"
+                                    style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">tune</span>
+                                <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15);"></div>
+                                <span class="material-icons-outlined"
+                                    style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">filter_list</span>
+                                <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15);"></div>
+                                <span class="material-icons-outlined"
+                                    style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">more_horiz</span>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <span class="material-icons-outlined"
+                                    style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">info</span>
+                                <span class="material-icons-outlined"
+                                    style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">ios_share</span>
+                                <span class="material-icons-outlined"
+                                    style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">favorite_border</span>
+                            </div>
+                            <span class="material-icons-outlined"
+                                style="font-size: 22px; color:rgba(255,255,255,0.9); cursor: pointer;">search</span>
+                        </div>
+                    </div>
+
+                    <!-- Scrollable Content -->
+                    <div style="flex: 1; overflow-y: auto; padding: 30px;">
+
+                        <div class="photos-grid-layout"
+                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                            <!-- Cards -->
+
+                            <!-- Bug Hunt Card -->
+                            <div class="photo-card" data-date="2025-04-15"
+                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.4); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
+                                <div
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
+                                    <div
+                                        style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                                        Bug Hunt 2025</div>
+                                </div>
+                            </div>
+                            <!-- Hacktoberfest Card -->
+                            <!-- Hacktoberfest / Open Source Card -->
+                            <div class="photo-card" data-date="2024-10-04"
+                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.5); border: 1px solid rgba(76, 217, 100, 0.2); cursor: pointer;">
+                                <div
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
+                                    <div
+                                        style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); color: #4cd964;">
+                                        OPEN SOURCE</div>
+                                </div>
+                            </div>
+
+                            <!-- Education Card -->
+                            <!-- Education Card -->
+                            <div class="photo-card" data-date="2024-05-20"
+                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_education.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.4); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
+                                <div
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
+                                    <div
+                                        style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                                        Education</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Years View Layout -->
+                        <div class="years-grid-layout"
+                            style="display: none; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 10px;">
+
+                            <!-- 2025 Year Card -->
+                            <div class="year-card"
+                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
+                                <div
+                                    style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
+                                    <h2
+                                        style="margin: 0; font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,0.6); font-family: 'SF Pro Display', sans-serif;">
+                                        2025</h2>
+                                </div>
+                                <div
+                                    style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.6) 100%);">
+                                </div>
+                            </div>
+
+                            <!-- 2024 Year Card -->
+                            <div class="year-card"
+                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
+                                <div
+                                    style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
+                                    <h2
+                                        style="margin: 0; font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,0.6); font-family: 'SF Pro Display', sans-serif;">
+                                        2024</h2>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div
+                        style="padding: 16px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
+                        <div style="font-size: 14px; color: #fff; font-weight: 600; margin-bottom: 2px;">3 Achievements
+                        </div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.4);">Last Synced 7 Minutes Ago</div>
+                    </div>
                 </div>
+
             </div>
-            <div class="content">
-                <iframe width="100%" height="100%"
-                    src="https://maps.google.com/maps?q=2880%20Broadway,%20Amol&t=&z=13&ie=UTF8&iwloc=&output=embed">
-                </iframe>
+
+        </div>
+
+        <script>
+            function filterPhotos(mode) {
+                const cards = document.querySelectorAll('.photo-card');
+                const photoGrid = document.querySelector('.photos-grid-layout');
+                const yearsGrid = document.querySelector('.years-grid-layout');
+
+                const btnYears = document.getElementById('btn-years');
+                const btnMonths = document.getElementById('btn-months');
+                const btnAll = document.getElementById('btn-all');
+
+                // Reset Buttons
+                [btnYears, btnMonths, btnAll].forEach(btn => {
+                    btn.style.background = 'transparent';
+                    btn.style.color = 'rgba(255,255,255,0.6)';
+                    btn.style.boxShadow = 'none';
+                    btn.style.border = 'none';
+                });
+
+                // Active Style
+                const activeStyle = (btn) => {
+                    btn.style.background = 'rgba(255,255,255,0.15)';
+                    btn.style.color = '#fff';
+                    btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+                    btn.style.border = '1px solid rgba(255,255,255,0.1)';
+                };
+
+                // Toggle Views
+                if (mode === 'years') {
+                    activeStyle(btnYears);
+                    photoGrid.style.display = 'none';
+                    yearsGrid.style.display = 'grid';
+                } else {
+                    photoGrid.style.display = 'grid';
+                    yearsGrid.style.display = 'none';
+
+                    if (mode === 'all') {
+                        activeStyle(btnAll);
+                        cards.forEach(card => card.style.display = 'block');
+                    } else if (mode === 'months') {
+                        activeStyle(btnMonths);
+                        cards.forEach(card => {
+                            const date = card.getAttribute('data-date');
+                            // Mock Logic: Show only October (10) for "Months" view
+                            if (date && date.includes('-10-')) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    }
+                }
+            }
+        </script>
+    </div>
+
+
+
+
+
+    <div class="window maps">
+        <div class="window__taskbar">
+            <div class="window__taskbar--actions">
+                <button class="close-map"></button>
+                <button class="backfull-map"></button>
+                <button class="full-map"></button>
+            </div>
+            <div class="window__taskbar--content">
+                <h2>Maps</h2>
             </div>
         </div>
-        <div class="calculator">
-            <div class="calculator__top">
-                <div class="calculator__top--taskabr">
-                    <button class="close-cal"></button>
-                    <button class="max-cal" disabled></button>
-                    <button class="min-cal" disabled></button>
-                </div>
-                <input class="calculator__top--output display" type="text" value="0" />
-            </div>
-            <div class="input">
-                <button value="C" class="button operator-2">C</button>
-                <button value="+/-" class="button operator-2">+/-</button>
-                <button value="%" class="button operator-2">%</button>
-                <button value="/" class="button operator">÷</button>
-                <button value="7" class="button number">7</button>
-                <button value="8" class="button number">8</button>
-                <button value="9" class="button number">9</button>
-                <button value="*" class="button operator">×</button>
-                <button value="4" class="button number">4</button>
-                <button value="5" class="button number">5</button>
-                <button value="6" class="button number">6</button>
-                <button value="-" class="button operator">−</button>
-                <button value="1" class="button number">1</button>
-                <button value="2" class="button number">2</button>
-                <button value="3" class="button number">3</button>
-                <button value="+" class="button operator">+</button>
-                <button value="0" class="button number large">0</button>
-                <button value="." class="button number">.</button>
-                <button value="=" class="button operator r-radius">=</button>
-            </div>
+        <div class="content">
+            <iframe width="100%" height="100%"
+                src="https://maps.google.com/maps?q=2880%20Broadway,%20Amol&t=&z=13&ie=UTF8&iwloc=&output=embed">
+            </iframe>
         </div>
+    </div>
+    <div class="calculator">
+        <div class="calculator__top">
+            <div class="calculator__top--taskabr">
+                <button class="close-cal"></button>
+                <button class="max-cal" disabled></button>
+                <button class="min-cal" disabled></button>
+            </div>
+            <input class="calculator__top--output display" type="text" value="0" />
+        </div>
+        <div class="input">
+            <button value="C" class="button operator-2">C</button>
+            <button value="+/-" class="button operator-2">+/-</button>
+            <button value="%" class="button operator-2">%</button>
+            <button value="/" class="button operator">÷</button>
+            <button value="7" class="button number">7</button>
+            <button value="8" class="button number">8</button>
+            <button value="9" class="button number">9</button>
+            <button value="*" class="button operator">×</button>
+            <button value="4" class="button number">4</button>
+            <button value="5" class="button number">5</button>
+            <button value="6" class="button number">6</button>
+            <button value="-" class="button operator">−</button>
+            <button value="1" class="button number">1</button>
+            <button value="2" class="button number">2</button>
+            <button value="3" class="button number">3</button>
+            <button value="+" class="button operator">+</button>
+            <button value="0" class="button number large">0</button>
+            <button value="." class="button number">.</button>
+            <button value="=" class="button operator r-radius">=</button>
+        </div>
+    </div>
     </div>
 
     <section class="widgets-panel">

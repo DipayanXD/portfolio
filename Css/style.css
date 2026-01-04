@@ -22,7 +22,7 @@
   /* Solid Dark Grey */
 
   /* Photos App Theme */
-  --surface-photos-sidebar: #464645;
+  --surface-photos-sidebar: rgba(70, 70, 69, 0.1);
   --surface-photos-content: #1e1e1e;
   --surface-photos-active: rgba(255, 255, 255, 0.1);
   --surface-photos-input: #333333;
@@ -1198,6 +1198,17 @@ body:not(.light-mode) .content__sidebar {
   border-radius: 1rem;
   box-shadow: 0 0.5rem 2rem var(--color-black-500);
   border: 1px solid var(--border-light);
+
+  /* Centering */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -10rem;
+  /* Width is 20rem */
+  margin-top: -12.5rem;
+  /* Height is 25rem */
+  z-index: 20;
+
   animation: zoom-out 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -1486,7 +1497,6 @@ body.light-mode .calculator {
 
 .photo-card:hover {
   transform: translateY(-5px);
-  background: #383838 !important;
   border-color: #555 !important;
   cursor: default;
 }
@@ -1738,4 +1748,59 @@ body.light-mode .calculator {
   margin: 0;
   letter-spacing: -0.5px;
   color: var(--text-primary);
+}
+
+/* MacOS 26 Liquid Glass Theme */
+.photos-sidebar {
+  transition: all 0.3s ease;
+}
+
+.nav-item {
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.nav-item:active {
+  background: rgba(255, 255, 255, 0.05) !important;
+  transform: scale(0.98);
+}
+
+.photo-card {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.photo-card:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important;
+  z-index: 5;
+}
+
+.photo-card:active {
+  transform: scale(0.98) !important;
+}
+
+/* Custom Scrollbar for Photos App */
+.photos-sidebar .sidebar-nav::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.photos-main>div::-webkit-scrollbar {
+  width: 6px;
+}
+
+.photos-main>div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.photos-main>div::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+.photos-main>div::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
