@@ -857,31 +857,57 @@ const mailLogic = {
     iconInfo.style.animation = 'spin 1s linear infinite';
     iconInfo.innerText = 'sync';
 
-    // Integrate with a real service here later. For now, simulate.
-    setTimeout(() => {
+    // API Call to Backend
+    setTimeout(() => { // Optional: Keep a small delay or remove if instant
       const cc = document.getElementById('compose-cc').value;
-      this.saveToSent(senderName, senderEmail, subject, body, cc);
+      const to = "Dipayan Das"; // Hardcoded recipient name as per UI
 
-      // Success State
-      iconInfo.style.animation = 'none';
-      iconInfo.innerText = 'check';
-      this.sendBtn.style.background = '#32d74b'; // Success Green
-      this.sendBtn.style.transform = 'scale(1.1)';
+      fetch('http://localhost:3000/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: to,
+          name: senderName,
+          email: senderEmail,
+          subject: subject,
+          message: body,
+          cc: cc
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            this.saveToSent(senderName, senderEmail, subject, body, cc);
 
-      setTimeout(() => {
-        this.composeOverlay.style.display = 'none';
-        this.resetForm();
+            // Success State
+            iconInfo.style.animation = 'none';
+            iconInfo.innerText = 'check';
+            this.sendBtn.style.background = '#32d74b'; // Success Green
+            this.sendBtn.style.transform = 'scale(1.1)';
 
-        // Reset Button
-        iconInfo.innerText = 'arrow_upward';
-        this.sendBtn.style.background = '#0a84ff';
-        this.sendBtn.style.transform = 'scale(1)';
+            setTimeout(() => {
+              this.composeOverlay.style.display = 'none';
+              this.resetForm();
 
-        // Play sent sound if valid (optional)
-        // new Audio('assets/sounds/sent_mail.mp3').play().catch(e => console.log(e));
-      }, 1000);
+              // Reset Button
+              iconInfo.innerText = 'arrow_upward';
+              this.sendBtn.style.background = '#0a84ff';
+              this.sendBtn.style.transform = 'scale(1)';
+            }, 1000);
+          } else {
+            throw new Error(data.error || 'Failed to send');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error sending email: ' + error.message + '\n\nCheck if server is running on port 3000 and .env credentials are correct.');
 
-    }, 1500);
+          // Reset State
+          iconInfo.style.animation = 'none';
+          iconInfo.innerText = 'arrow_upward';
+          this.sendBtn.style.transform = 'scale(1)';
+        });
+    }, 500); // 500ms minimum loader for UX
   },
 
   saveToSent: function (senderName, senderEmail, subject, body, cc) {

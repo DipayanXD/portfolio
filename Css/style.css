@@ -2740,7 +2740,7 @@ body.light-mode .calculator {
   top: 0;
   left: 0;
   width: 100%;
-  height: 75%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -2756,22 +2756,59 @@ body.light-mode .calculator {
 .memory-overlay-gradient-1 {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, transparent 20%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.6) 100%);
+  z-index: 2;
+  /* Layer 1: Simulated Smoke Texture */
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.04) 0%, transparent 30%),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(150, 160, 170, 0.05) 0%, transparent 40%);
+  filter: blur(40px);
+  /* Soften the smoke blobs */
+  mix-blend-mode: overlay;
   pointer-events: none;
 }
 
 .memory-overlay-gradient-2 {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 20%, transparent 50%, #000 100%);
+  z-index: 5;
+  /* Ensure it sits between image and text */
+  /* Remove opaque black gradient */
+  background: transparent;
+
+  /* Progressive Blur Effect */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  /* Mask to fade the blur from bottom (strong) to top (none) */
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      transparent 25%,
+      black 60%,
+      black 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      transparent 25%,
+      black 60%,
+      black 100%);
+
   pointer-events: none;
 }
 
 .memory-overlay-gradient-3 {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.8) 120%);
+  z-index: 6;
+  /* On top of blur (z-index 5) but below text */
   pointer-events: none;
+  /* Layer 3: Depth Haze + Heavy Vignette + Soft Gradient Falloff */
+  background:
+    /* Depth Haze (Cool tint in center) */
+    radial-gradient(circle at 50% 50%, rgba(40, 50, 80, 0.2) 0%, transparent 60%),
+    /* Heavy Vignette (Edges) */
+    radial-gradient(circle at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.6) 80%, black 100%);
+  mix-blend-mode: multiply;
 }
 
 .memory-details-container {
@@ -2780,7 +2817,8 @@ body.light-mode .calculator {
   left: 0;
   width: 100%;
   padding: 40px 60px 60px;
-  background: linear-gradient(to top, #000 10%, rgba(0, 0, 0, 0.9) 60%, transparent 100%);
+  /* Removed solid black gradient background */
+  background: transparent;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -2794,13 +2832,51 @@ body.light-mode .calculator {
 }
 
 #memory-date {
-  font-size: 14px;
-  color: var(--color-blue-800);
+  /* Badge/Pill Layout */
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 99px;
+  margin-bottom: 24px;
+
+  /* Typography */
+  font-size: 13px;
+  color: #38bdf8;
+  /* Bright Sky Blue for pop */
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  margin-bottom: 16px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+
+  /* Glass Material & Glow */
+  background: rgba(255, 255, 255, 0.08);
+  /* Ultra-subtle fill */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Delicate rim */
+
+  /* Cinematic Glow */
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    /* Depth shadow */
+    0 0 15px rgba(56, 189, 248, 0.3),
+    /* Outer blue glow */
+    inset 0 0 20px rgba(56, 189, 248, 0.05);
+  /* Inner glow */
+
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+  /* Text radiance */
+
+  transition: all 0.3s ease;
+}
+
+#memory-date:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(56, 189, 248, 0.5),
+    inset 0 0 20px rgba(56, 189, 248, 0.1);
+  transform: translateY(-2px);
+  cursor: default;
 }
 
 #memory-title {
