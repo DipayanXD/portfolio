@@ -715,6 +715,37 @@ const initTheme = () => {
 
 elements.themeToggle.addEventListener("click", handleThemeToggle);
 
+// --- Background Toggle Logic ---
+const bgToggleButton = document.getElementById("bgToggle");
+const handleBgToggle = () => {
+  document.body.classList.toggle("static-mode");
+  const isStatic = document.body.classList.contains("static-mode");
+  localStorage.setItem("bgMode", isStatic ? "static" : "live");
+
+  // Update button text/style
+  if (bgToggleButton) {
+    bgToggleButton.innerHTML = isStatic ?
+      `<span class="material-icons-round" style="font-size: 18px;">image</span> Static BG` :
+      `<span class="material-icons-round" style="font-size: 18px;">wallpaper</span> Live BG`;
+
+    if (isStatic) bgToggleButton.classList.add('selected'); // Optional: make it look active
+    else bgToggleButton.classList.remove('selected');
+  }
+};
+
+const initBg = () => {
+  const savedBg = localStorage.getItem("bgMode");
+  if (savedBg === "static") {
+    document.body.classList.add("static-mode");
+    if (bgToggleButton) {
+      bgToggleButton.innerHTML = `<span class="material-icons-round" style="font-size: 18px;">image</span> Static BG`;
+      bgToggleButton.classList.add('selected');
+    }
+  }
+};
+if (bgToggleButton) bgToggleButton.addEventListener("click", handleBgToggle);
+initBg();
+
 // --- Mail App Logic ---
 const mailApp = {
   app_name: document.querySelector(".open-mail"), // Using icon as trigger ref

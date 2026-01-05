@@ -125,8 +125,36 @@ body {
   height: 100vh;
   user-select: none;
   font-family: "Lexend", sans-serif;
-  background: var(--bg-wallpaper) center/cover no-repeat;
+  background: transparent;
   overflow: hidden;
+}
+
+#wallpaper-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  border: none;
+  pointer-events: auto;
+}
+
+body.static-mode #wallpaper-frame {
+  display: none !important;
+}
+
+body.static-mode {
+  background: var(--bg-wallpaper) center/cover no-repeat;
+}
+
+.ui-draggable-dragging {
+  /* backdrop-filter: none !important; */
+  /* -webkit-backdrop-filter: none !important; */
+  box-shadow: none !important;
+  transition: none !important;
+  opacity: 1;
+  /* Keep opacity solid */
 }
 
 #loading {
@@ -470,6 +498,31 @@ li>.menu__container>.grid__controling .control_center--grid {
 
 .menu__container>.grid__controling .col-5 {
   grid-area: Toggles;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  padding: 2px 6px;
+  /* Reduced vertical padding */
+  gap: 1px;
+  /* Minimal gap */
+}
+
+.menu__container>.grid__controling .col-5 button {
+  font-size: 13px;
+  font-weight: 500;
+  padding-left: 14px;
+}
+
+.menu__container>.grid__controling .col-5 button svg,
+.menu__container>.grid__controling .col-5 button .material-icons-round {
+  width: 26px !important;
+  /* Slightly smaller */
+  height: 26px !important;
+  padding: 5px;
+  /* Reduced padding */
+  margin-right: 10px;
+  margin-left: 0;
+  border-radius: 50%;
+  background-color: var(--color-blue-800);
 }
 
 .menu__container>.grid__controling .col-7 {
@@ -505,6 +558,8 @@ li>.menu__container>.grid__controling .control_center--grid {
   transition: all 120ms ease-in-out;
   font-family: "Lexend", sans-serif;
   cursor: url(../cursor/Link.cur), pointer;
+  color: var(--color-white);
+  /* Force white text */
 }
 
 .sound,
@@ -725,6 +780,7 @@ li>.menu__container>.grid__controling .control_center--grid {
   background: var(--surface-window);
   z-index: 10;
   touch-action: none;
+  will-change: transform;
 }
 
 .window__taskbar {
@@ -1855,7 +1911,8 @@ body.light-mode .calculator {
 .window.mail {
   width: 1450px;
   height: 750px;
-  background: rgba(30, 30, 30, 0.4);
+  background: rgba(20, 20, 20, 0.2);
+  /* Reduced from 0.4 to 0.2 to remove heavy tint */
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border-radius: 20px;
@@ -1895,15 +1952,18 @@ body.light-mode .calculator {
 
 /* Column 1: Sidebar */
 .mail-sidebar {
-  width: 200px;
-  /* Slightly narrower to match reference */
-  background: rgba(0, 0, 0, 0.0);
-  /* Keep transparency */
-  border-right: none;
-  padding: 10px;
-  /* Reduced padding for tighter corner */
+  width: 220px;
+  background: rgba(220, 220, 220, 0.5);
+  /* Faint white frost instead of black tint */
+  /* Neutral dark glass tint (Less Red/Blue) */
+  backdrop-filter: blur(60px) saturate(200%) contrast(100%);
+  /* Smoother glass blur */
+  -webkit-backdrop-filter: blur(60px) saturate(200%) contrast(100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
+  box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.05);
 }
 
 .mail-sidebar-group {
@@ -1948,9 +2008,16 @@ body.light-mode .calculator {
 }
 
 .mail-sidebar-item.active {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(80, 80, 80, 0.4);
+  /* Neutral dark glass pill */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* Subtle dark shadow */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Glass rim */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .mail-sidebar-item .material-icons-round {
@@ -1968,6 +2035,11 @@ body.light-mode .calculator {
   color: #ff9f0a;
 }
 
+.mail-sidebar-item .icon-yellow {
+  color: #ffcc00;
+  /* macOS VIP Star yellow */
+}
+
 .mail-sidebar-item .icon-purple {
   color: #af52de;
 }
@@ -1975,6 +2047,8 @@ body.light-mode .calculator {
 .mail-sidebar-item .icon-gray {
   color: rgba(255, 255, 255, 0.5);
 }
+
+
 
 .mail-badge {
   margin-left: auto;
