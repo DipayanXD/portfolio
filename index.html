@@ -304,8 +304,8 @@
             <img src="./icon/dock/vscode.svg" alt="Vscode apps" class="hidden" />
             <hr class="point hidden" id="point-vscode" />
         </button>
-        <button class="icon">
-            <img src="./icon/dock/mail.png" alt="Mail Logo" class="hidden" />
+        <button class="icon open-mail">
+            <img src="./icon/dock/mail.png" alt="Mail Logo" />
         </button>
         <button class="icon open-photos" title="Achievements">
             <img src="./icon/dock/photos.png" alt="Photos Logo" />
@@ -430,7 +430,7 @@
 
                 <div id="typing-area"></div>
 
-                <div class="terminal_line" style="display:none;">
+                <div class="terminal_line hidden-display">
                     <p>
                         <span class="color_green">➜</span>
                         <span class="color_blue">~</span>
@@ -440,505 +440,888 @@
             </div>
         </div>
 
-        <div class="window note">
-            <div class="window__taskbar">
-                <div class="window__taskbar--actions">
-                    <button class="close-note"></button>
-                    <button class="backfull-note"></button>
-                    <button class="full-note">
-                        <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
-                            clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-                            <path d="M4.871 3.553L9.37 8.098V3.553H4.871zm3.134 5.769L3.506 4.777v4.545h4.499z"></path>
-                            <circle cx="6.438" cy="6.438" r="6.438" fill="black"></circle>
-                        </svg>
-                    </button>
+        <div class="window mail">
+            <!-- Global Taskbar Removed -->
+            <div class="mail-app-container">
+                <!-- COL 1: Sidebar -->
+                <div class="mail-sidebar" style="display: flex; flex-direction: column;">
+                    <!-- Sidebar Header / Traffic Lights -->
+                    <div
+                        style="height: 52px; padding: 14px 18px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <div class="window__taskbar--actions" style="position: static; padding: 0; width: auto;">
+                            <button class="close-mail"></button>
+                            <button class="backfull-mail"></button>
+                            <button class="full-mail"></button>
+                        </div>
+                    </div>
+                    <!-- Favorites -->
+                    <div class="mail-sidebar-group">
+                        <div class="mail-group-title">Favorites</div>
+                        <div class="mail-sidebar-item active">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">inbox</span>
+                                <span>All Inboxes</span>
+                            </div>
+                            <span class="mail-badge">7</span>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">cloud</span>
+                                <span>iCloud</span>
+                            </div>
+                            <span class="mail-badge">4</span>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">sync_alt</span>
+                                <span>Exchange</span>
+                            </div>
+                            <span class="mail-badge">3</span>
+                        </div>
+                    </div>
+
+                    <!-- Standard Folders -->
+                    <div class="mail-sidebar-group">
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">star_border</span>
+                                <span>VIPs</span>
+                            </div>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">send</span>
+                                <span>All Sent</span>
+                            </div>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-orange">flag</span>
+                                <span>Flagged</span>
+                            </div>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">schedule</span>
+                                <span>Remind Me</span>
+                            </div>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">outbox</span>
+                                <span>Send Later</span>
+                            </div>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-blue">drafts</span>
+                                <span>All Drafts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Smart Mailboxes -->
+                    <div class="mail-sidebar-group">
+                        <div class="mail-group-title">Smart Mailboxes</div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-purple">settings_slow_motion</span>
+                                <span>Today</span>
+                            </div>
+                        </div>
+                        <div class="mail-sidebar-item">
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round icon-purple">menu_book</span>
+                                <span>Book Club</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="window__taskbar--right">
+                <!-- COL 2: Message List -->
+                <div class="mail-message-list" style="display: flex; flex-direction: column; overflow: hidden;">
+                    <!-- List Header -->
+                    <div class="mail-unified-toolbar" style="justify-content: space-between;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 700; color: #fff;">All Inboxes</div>
+                            <div style="font-size: 11px; color: rgba(255,255,255,0.5);">1,024 messages, 5 unread</div>
+                        </div>
+                        <span class="material-icons-round mail-toolbar-action"
+                            style="font-size: 16px;">filter_list</span>
+                    </div>
 
-                    <div class="Customize__icon hidden">
-                        <span class="material-icons" accesskey="v"> window </span>
+                    <!-- Scrollable Cards -->
+                    <div style="flex: 1; overflow-y: auto;">
+                        <!-- Active Item -->
+                        <div class="mail-message-card active unread">
+                            <div class="mail-card-header">
+                                <span class="mail-sender">Dipayan Das</span>
+                                <span class="mail-time" style="color: rgba(255,255,255,0.8);">12:00 AM</span>
+                            </div>
+                            <div class="mail-subject">How to Connect Me Trough My portfolio OS</div>
+                            <div class="mail-preview">Hello, Thank you for visiting my portfolio operating System</div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="mail-message-card unread">
+                            <div class="mail-card-header">
+                                <span class="mail-sender">Memory Vault</span>
+                                <span class="mail-time">12:00 AM</span>
+                            </div>
+                            <div class="mail-subject">Achievement Stored. Ego Increased</div>
+                            <div class="mail-preview">Another milestone archived. Confidence level adjusted.</div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="mail-message-card unread">
+                            <div class="mail-card-header">
+                                <span class="mail-sender">Update Service</span>
+                                <span class="mail-time">12:00 AM</span>
+                            </div>
+                            <div class="mail-subject">OS Updated. Still Alive</div>
+                            <div class="mail-preview">Minor improvements applied. Major problems postponed.</div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="mail-message-card unread">
+                            <div class="mail-card-header">
+                                <span class="mail-sender">Portfolio Engine</span>
+                                <span class="mail-time">12:00 AM</span>
+                            </div>
+                            <div class="mail-subject">New Project Added. Hope It Works</div>
+                            <div class="mail-preview">Files indexed and optimism enabled.</div>
+                        </div>
                     </div>
-                    <div class="Customize__icon">
-                        <span class="material-icons adding" accesskey="n"> add_circle </span>
+                </div>
+
+                <!-- COL 3: Reading Pane -->
+                <div class="mail-reading-pane" style="display: flex; flex-direction: column; padding: 0; height: 100%;">
+                    <!-- Main Toolbar -->
+                    <div class="mail-unified-toolbar" style="gap: 12px; padding: 0 20px;">
+                        <span class="material-icons-round mail-toolbar-action" title="Get Mail">mark_email_unread</span>
+                        <span class="material-icons-round mail-toolbar-action" title="Compose"
+                            id="toolbar-compose-btn">edit_note</span>
+                        <span class="material-icons-round mail-toolbar-action" title="Archive">archive</span>
+                        <span class="material-icons-round mail-toolbar-action" title="Delete">delete_outline</span>
+                        <span class="material-icons-round mail-toolbar-action" title="Junk">backspace</span>
+
+                        <div style="width: 1px; height: 16px; background: rgba(255,255,255,0.1); margin: 0 4px;">
+                        </div>
+
+                        <span class="material-icons-round mail-toolbar-action" title="Reply">reply</span>
+                        <span class="material-icons-round mail-toolbar-action" title="Reply All">reply_all</span>
+                        <span class="material-icons-round mail-toolbar-action" title="Forward">forward</span>
+
+                        <span class="material-icons-round mail-toolbar-action" title="Flag"
+                            style="color: #32d74b;">flag</span>
+                        <span class="material-icons-round mail-toolbar-action" title="Mute">notifications_off</span>
+
+                        <div style="flex: 1;"></div>
+
+                        <div
+                            style="display: flex; align-items: center; background: rgba(30, 30, 30, 0.4); border-radius: 6px; padding: 4px 8px; width: 140px; border: 1px solid rgba(255,255,255,0.1);">
+                            <span class="material-icons-round"
+                                style="color: rgba(255,255,255,0.4); font-size: 16px; margin-right: 6px;">folder</span>
+                            <span style="font-size: 12px; color: rgba(255,255,255,0.4);">Move to...</span>
+                        </div>
+
+                        <div
+                            style="display: flex; align-items: center; background: rgba(30,30,30,0.4); border-radius: 6px; padding: 4px 8px; width: 160px; border: 1px solid rgba(255,255,255,0.1);">
+                            <span class="material-icons-round"
+                                style="color: rgba(255,255,255,0.4); font-size: 16px; margin-right: 6px;">search</span>
+                            <span style="font-size: 12px; color: rgba(255,255,255,0.4);">Search</span>
+                        </div>
                     </div>
-                    <div class="Customize__icon">
-                        <span class="material-icons deleting" accesskey="r"> delete </span>
+
+                    <!-- Content -->
+                    <div style="flex: 1; padding: 30px; overflow-y: auto;">
+                        <div class="mail-read-header">
+                            <div class="mail-header-top-row">
+                                <div class="mail-read-avatar">
+                                    <img src="./images/me.jpg" onerror="this.src='./icon/apple-white.png'" alt="D">
+                                </div>
+                                <div class="mail-read-meta-stack">
+                                    <div class="mail-read-sender">Dipayan Das</div>
+                                    <div class="mail-read-context">Re: Indian</div>
+                                    <div class="mail-read-to">To: You, Cc: System Core, OS Services, Notification Engine
+                                    </div>
+                                </div>
+                                <div class="mail-read-date">September 03, 2022 at 6:54 PM</div>
+                            </div>
+                            <div class="mail-read-main-subject">How to Contact Me Through My Portfolio OS</div>
+                        </div>
+                        <div class="mail-read-body">
+                            <p>Hello,</p>
+                            <br>
+                            <p>Thank you for visiting my portfolio operating system.</p>
+                            <br>
+                            <p>The Mail application you see inside the system is a functional mockup designed to
+                                demonstrate how
+                                communication works within my portfolio environment. It represents a real email
+                                interface and shows
+                                how you can compose and send messages directly to me through the OS.</p>
+                            <br>
+                            <p>To communicate, you will need to provide your own email address while composing a
+                                message. This
+                                allows me to identify you and reply back to your email properly. The interface is
+                                designed to be simple,
+                                clear, and familiar, so that sending a message feels natural and easy even inside
+                                the
+                                simulated
+                                operating system.</p>
+
+                            <div style="display: flex; align-items: center; margin: 40px 0;">
+                                <img src="./icon/compose.png" alt="Compose New Message"
+                                    style="width: 48px; height: 48px; object-fit: contain; margin-right: 15px; opacity: 0.9;">
+                                <span style="font-size: 16px; color: rgba(255,255,255,0.9);">Click this icon on the top
+                                    to compose a new
+                                    message.</span>
+                            </div>
+
+                            <p>If you have any questions, collaboration ideas, or project discussions in mind, feel
+                                free
+                                to
+                                send a message through the Mail app.</p>
+                            <br>
+                            <p>Regards,<br>
+                                Dipayan Das<br>
+                                BCA Student, Techno Main Salt Lake</p>
+                        </div>
                     </div>
-                    <div class="Customize__icon hidden">
-                        <span class="material-icons"> ios_share </span>
-                    </div>
-                    <div class="containerSearch">
-                        <svg width="24" height="24">
-                            <path
-                                d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z">
-                            </path>
-                        </svg>
-                        <input type="search" name="search" placeholder="search" accesskey="s" />
-                    </div>
+                </div>
+
+                <!-- Toast Notification -->
+                <div class="toast-notification" id="mail-toast">
+                    <span class="material-icons-round" style="color: #32d74b;">check_circle</span>
+                    <span>Message queued in Outbox</span>
                 </div>
             </div>
-            <div class="content">
-                <div class="content__sidebar">
-                    <div class="content__sidebar--notes">
-                        <input type="text" value="About Me" readonly style="cursor: pointer;">
-                        <input type="text" value="Skills" readonly style="cursor: pointer;">
-                        <input type="text" value="Education" readonly style="cursor: pointer;">
+
+            <!-- Compose Overlay (Floating) -->
+            <div class="mail-compose-overlay" style="display: none;">
+                <div class="compose-top-bar">
+                    <span class="material-icons-round compose-close" title="Discard">close</span>
+                </div>
+
+                <div class="compose-header-row">
+                    <span class="compose-title">New Message</span>
+                    <div class="compose-actions">
+                        <span class="material-icons-round action-icon">attach_file</span>
+                        <span class="material-icons-round action-icon">text_format</span>
+                        <span class="material-icons-round action-icon">more_horiz</span>
+                        <button class="compose-send-fab" id="compose-send-btn">
+                            <span class="material-icons-round">arrow_upward</span>
+                        </button>
                     </div>
                 </div>
-                <div class="Parent__content--typing">
-                    <div class="content__typing"
-                        style="display:block; padding: 20px; font-family: 'Lexend', sans-serif; overflow-y: auto; color: var(--text-primary);">
 
-                        <h2 style="border-bottom: 1px solid var(--border-medium); padding-bottom: 5px;">Technical Skills
-                        </h2>
-                        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px; line-height: 1.6;">
-                            [cite_start]<li><strong>Languages:</strong> C, Python [cite: 1927]</li>
-                            [cite_start]<li><strong>Web:</strong> HTML, CSS, JavaScript (Learning) [cite: 1928]</li>
-                            [cite_start]<li><strong>Tools:</strong> Git, GitHub, VS Code, Linux Command Line [cite:
-                                1929]</li>
-                        </ul>
+                <div class="compose-field">
+                    <label>To:</label>
+                    <div class="compose-input-wrapper">
+                        <div class="recipient-chip">
+                            <img src="./images/me.jpg" class="recipient-avatar"
+                                onerror="this.src='./icon/apple-white.png'">
+                            <span class="recipient-name">Dipayan Das</span>
+                            <span class="material-icons-round recipient-remove">close</span>
+                        </div>
+                        <div class="typing-cursor"></div>
+                    </div>
+                </div>
+                <div class="compose-field">
+                    <label>Cc/Bcc:</label>
+                    <input type="text" id="compose-cc">
+                </div>
+                <div class="compose-field">
+                    <label>Subject:</label>
+                    <input type="text" id="compose-subject">
+                </div>
+                <textarea class="compose-body" id="compose-body"
+                    placeholder="Write your message to the system…"></textarea>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
 
-                        <h2
-                            style="border-bottom: 1px solid var(--border-medium); padding-bottom: 5px; margin-top: 20px;">
+    <div class="window note">
+        <div class="window__taskbar">
+            <div class="window__taskbar--actions">
+                <button class="close-note"></button>
+                <button class="backfull-note"></button>
+                <button class="full-note">
+                    <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"
+                        stroke-linejoin="round" stroke-miterlimit="2">
+                        <path d="M4.871 3.553L9.37 8.098V3.553H4.871zm3.134 5.769L3.506 4.777v4.545h4.499z"></path>
+                        <circle cx="6.438" cy="6.438" r="6.438" fill="black"></circle>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="window__taskbar--right">
+
+                <div class="Customize__icon hidden">
+                    <span class="material-icons" accesskey="v"> window </span>
+                </div>
+                <div class="Customize__icon">
+                    <span class="material-icons adding" accesskey="n"> add_circle </span>
+                </div>
+                <div class="Customize__icon">
+                    <span class="material-icons deleting" accesskey="r"> delete </span>
+                </div>
+                <div class="Customize__icon hidden">
+                    <span class="material-icons"> ios_share </span>
+                </div>
+                <div class="containerSearch">
+                    <svg width="24" height="24">
+                        <path
+                            d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z">
+                        </path>
+                    </svg>
+                    <input type="search" name="search" placeholder="search" accesskey="s" />
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__sidebar">
+                <div class="content__sidebar--notes">
+                    <input type="text" value="About Me" readonly class="notes-sidebar-item">
+                    <input type="text" value="Skills" readonly class="notes-sidebar-item">
+                    <input type="text" value="Education" readonly class="notes-sidebar-item">
+                </div>
+            </div>
+            <div class="Parent__content--typing">
+                <div class="content__typing notes-typing-box">
+
+                    <h2 class="notes-skills-header">Technical Skills
+                    </h2>
+                    <ul class="notes-skills-list">
+                        [cite_start]<li><strong>Languages:</strong> C, Python [cite: 1927]</li>
+                        [cite_start]<li><strong>Web:</strong> HTML, CSS, JavaScript (Learning) [cite: 1928]</li>
+                        [cite_start]<li><strong>Tools:</strong> Git, GitHub, VS Code, Linux Command Line [cite:
+                            1929]</li>
+                    </ul>
+
+                    <h2 style="border-bottom: 1px solid var(--border-medium); padding-bottom: 5px; margin-top: 20px;">
+                        Achievements
+                    </h2>
+                    <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+                        [cite_start]<li><strong>1st Position:</strong> BUG HUNT Competition (2025) [cite: 1944]</li>
+                        [cite_start]<li><strong>Open Source:</strong> Hacktoberfest 2024 & Open Odyssey 1.0
+                            Contributor [cite: 1950]</li>
+                    </ul>
+
+                    <h2 style="border-bottom: 1px solid var(--border-medium); padding-bottom: 5px; margin-top: 20px;">
+                        Education</h2>
+                    <p><strong>Bachelor of Computer Applications (BCA)</strong><br>
+                        [cite_start]Techno Main Salt Lake (Expected 2028) [cite: 1921, 1922, 1924]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .photo-card {
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease !important;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            background-color: #1e1e1e;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.03) translateZ(0);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5) !important;
+            z-index: 5;
+        }
+
+        .year-card {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease !important;
+            -webkit-tap-highlight-color: transparent;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            background-color: #1e1e1e;
+        }
+
+        .year-card:hover {
+            transform: scale(1.025) translateZ(0);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6) !important;
+            z-index: 5;
+        }
+    </style>
+    <div class="window photos">
+        <div style="display: flex; height: 100%; position: relative;">
+
+            <!-- Liquid Sidebar -->
+            <div class="photos-sidebar">
+
+                <!-- Window Controls & Sidebar Toggle -->
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                    <div class="window__taskbar--actions" style="display: flex; gap: 8px;">
+                        <button class="close-photos"
+                            style="width: 12px; height: 12px; border-radius: 50%; background:#ff5f56; border: 1px solid #e0443e; cursor: pointer; padding:0;"></button>
+                        <button class="backfull-photos"
+                            style="width: 12px; height: 12px; border-radius: 50%; background:#ffbd2e; border: 1px solid #d89e24; cursor: pointer; padding:0;"></button>
+                        <button class="full-photos"
+                            style="width: 12px; height: 12px; border-radius: 50%; background:#27c93f; border: 1px solid #1aab29; cursor: pointer; padding:0;"></button>
+                    </div>
+                    <span class="material-icons-round"
+                        style="color:rgba(255,255,255,0.4); font-size: 20px; cursor: pointer;">view_sidebar</span>
+                </div>
+
+                <!-- Navigation -->
+                <div class="sidebar-nav" style="flex: 1; overflow-y: auto;">
+
+                    <!-- Main Group -->
+                    <div style="margin-bottom: 24px;">
+                        <div class="nav-item active">
+                            <span class="material-icons-round">photo_library</span> Library
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">collections_bookmark</span>
+                            Collections
+                        </div>
+                    </div>
+
+                    <!-- Pinned -->
+                    <div style="margin-bottom: 24px;">
+                        <div class="sidebar-section-header">
+                            Pinned</div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">favorite_border</span>
+                            Favorites
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">save_alt</span> Recently
+                            Saved
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">map</span>
+                            Map
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">videocam</span> Videos
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">camera_alt</span> Screenshots
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">person</span> People & Pets
+                        </div>
+                        <div class="nav-item" style="justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="material-icons-round">delete</span> Recently Deleted
+                            </div>
+                            <span class="material-icons-round"
+                                style="font-size: 14px; color: rgba(255,255,255,0.3);">lock</span>
+                        </div>
+                    </div>
+
+                    <!-- Albums -->
+                    <div style="margin-bottom: 20px;">
+                        <div class="sidebar-section-header">
+                            Albums</div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">folder_open</span> Media
+                            Types
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">folder_shared</span> Shared
+                            Albums
+                        </div>
+                        <div class="nav-item">
+                            <span class="material-icons-round">emoji_events</span> My
                             Achievements
-                        </h2>
-                        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
-                            [cite_start]<li><strong>1st Position:</strong> BUG HUNT Competition (2025) [cite: 1944]</li>
-                            [cite_start]<li><strong>Open Source:</strong> Hacktoberfest 2024 & Open Odyssey 1.0
-                                Contributor [cite: 1950]</li>
-                        </ul>
-
-                        <h2
-                            style="border-bottom: 1px solid var(--border-medium); padding-bottom: 5px; margin-top: 20px;">
-                            Education</h2>
-                        <p><strong>Bachelor of Computer Applications (BCA)</strong><br>
-                            [cite_start]Techno Main Salt Lake (Expected 2028) [cite: 1921, 1922, 1924]</p>
+                        </div>
                     </div>
+
                 </div>
             </div>
-        </div>
 
-        <style>
-            .photo-card {
-                transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease !important;
-                -webkit-tap-highlight-color: transparent;
-                -webkit-font-smoothing: antialiased;
-                backface-visibility: hidden;
-                transform: translateZ(0);
-                background-color: #1e1e1e;
-            }
+            <!-- Main Content -->
+            <!-- Main Content -->
+            <!-- Main Content -->
+            <div class="photos-main">
 
-            .photo-card:hover {
-                transform: scale(1.03) translateZ(0);
-                box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5) !important;
-                z-index: 5;
-            }
-
-            .year-card {
-                transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease !important;
-                -webkit-tap-highlight-color: transparent;
-                backface-visibility: hidden;
-                transform: translateZ(0);
-                background-color: #1e1e1e;
-            }
-
-            .year-card:hover {
-                transform: scale(1.025) translateZ(0);
-                box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6) !important;
-                z-index: 5;
-            }
-        </style>
-        <div class="window photos"
-            style="display:none; width: 1200px; height: 750px; border-radius: 24px; position: absolute; top: 5%; left: 5%; box-shadow: 0 50px 120px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.15) inset; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 10; overflow: hidden; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; background: rgba(20, 20, 20, 0.6);">
-
-            <div style="display: flex; height: 100%; position: relative;">
-
-                <!-- Liquid Sidebar -->
-                <div class="photos-sidebar"
-                    style="box-sizing: border-box; width: 260px; margin: 12px; height: calc(100% - 24px); border-radius: 20px; background: linear-gradient(135deg, rgba(50, 60, 70, 0.4), rgba(30, 40, 50, 0.3)); backdrop-filter: blur(50px) saturate(180%); -webkit-backdrop-filter: blur(50px) saturate(180%); border: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.2); box-shadow: 10px 0 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.3); display: flex; flex-direction: column; padding: 18px; z-index: 5;">
-
-                    <!-- Window Controls & Sidebar Toggle -->
-                    <div
-                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
-                        <div class="window__taskbar--actions" style="display: flex; gap: 8px;">
-                            <button class="close-photos"
-                                style="width: 12px; height: 12px; border-radius: 50%; background:#ff5f56; border: 1px solid #e0443e; cursor: pointer; padding:0;"></button>
-                            <button class="backfull-photos"
-                                style="width: 12px; height: 12px; border-radius: 50%; background:#ffbd2e; border: 1px solid #d89e24; cursor: pointer; padding:0;"></button>
-                            <button class="full-photos"
-                                style="width: 12px; height: 12px; border-radius: 50%; background:#27c93f; border: 1px solid #1aab29; cursor: pointer; padding:0;"></button>
+                <!-- Header -->
+                <div class="photos-header-toolbar">
+                    <!-- Left -->
+                    <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
+                        <div style="display: flex; gap: 12px; margin-left: 20px;">
+                            <span class="material-icons-round"
+                                style="font-size: 18px; color: rgba(255,255,255,0.5); cursor: pointer;">arrow_back_ios</span>
+                            <span class="material-icons-round"
+                                style="font-size: 18px; color: rgba(255,255,255,0.2); cursor: pointer;">arrow_forward_ios</span>
                         </div>
-                        <span class="material-icons-round"
-                            style="color:rgba(255,255,255,0.4); font-size: 20px; cursor: pointer;">view_sidebar</span>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="color: #fff; font-weight: 600; font-size: 15px;">Library</span>
+                            <span style="color: rgba(255,255,255,0.4); font-size: 11px;">Oct 4, 2025</span>
+                        </div>
                     </div>
 
-                    <!-- Navigation -->
-                    <div class="sidebar-nav" style="flex: 1; overflow-y: auto;">
-
-                        <!-- Main Group -->
-                        <div style="margin-bottom: 24px;">
-                            <div class="nav-item active"
-                                style="padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 500; color: #fff; background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px; margin-bottom: 6px; cursor: default; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">photo_library</span> Library
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 8px 12px; border-radius: 8px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">collections_bookmark</span>
-                                Collections
-                            </div>
+                    <!-- Center -->
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div
+                            style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px 10px; display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                            <button
+                                style="color: rgba(255,255,255,0.9); padding: 0 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">−</button>
+                            <div style="width: 1px; height: 14px; background: rgba(255,255,255,0.15);"></div>
+                            <button
+                                style="color: rgba(255,255,255,0.9); padding: 0 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">+</button>
                         </div>
-
-                        <!-- Pinned -->
-                        <div style="margin-bottom: 24px;">
-                            <div
-                                style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); margin-bottom: 8px; padding-left: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
-                                Pinned</div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">favorite_border</span>
-                                Favorites
+                        <div
+                            style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px; display: flex; font-size: 12px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                            <button id="btn-years" onclick="filterPhotos('years')"
+                                style="color: rgba(255,255,255,0.6); padding: 5px 16px; border-radius: 18px; cursor: pointer; background: transparent; border: none; font-size: 13px;">Years</button>
+                            <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.1); margin: auto 0;">
                             </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">save_alt</span> Recently
-                                Saved
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round" style="font-size: 18px; color: #0a84ff;">map</span>
-                                Map
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">videocam</span> Videos
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">camera_alt</span> Screenshots
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">person</span> People & Pets
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer;">
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <span class="material-icons-round"
-                                        style="font-size: 18px; color: #0a84ff;">delete</span> Recently Deleted
-                                </div>
-                                <span class="material-icons-round"
-                                    style="font-size: 14px; color: rgba(255,255,255,0.3);">lock</span>
-                            </div>
+                            <button id="btn-months" onclick="filterPhotos('months')"
+                                style="color: rgba(255,255,255,0.6); padding: 5px 16px; border-radius: 18px; cursor: pointer; background: transparent; border: none; font-size: 13px;">Months</button>
+                            <button id="btn-all" onclick="filterPhotos('all')"
+                                style="color: #fff; background: rgba(255,255,255,0.15); border-radius: 16px; padding: 5px 16px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-size: 13px;">All
+                                Photos</button>
                         </div>
-
-                        <!-- Albums -->
-                        <div style="margin-bottom: 20px;">
-                            <div
-                                style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); margin-bottom: 8px; padding-left: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
-                                Albums</div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">folder_open</span> Media
-                                Types
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">folder_shared</span> Shared
-                                Albums
-                            </div>
-                            <div class="nav-item"
-                                style="padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: #0a84ff;">emoji_events</span> My
-                                Achievements
-                            </div>
-                        </div>
-
                     </div>
-                </div>
 
-                <!-- Main Content -->
-                <!-- Main Content -->
-                <div class="photos-main"
-                    style="flex: 1; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column;">
-
-                    <!-- Header -->
-                    <div
-                        style="height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.08);">
-                        <!-- Left -->
-                        <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
-                            <div style="display: flex; gap: 12px; margin-left: 20px;">
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: rgba(255,255,255,0.5); cursor: pointer;">arrow_back_ios</span>
-                                <span class="material-icons-round"
-                                    style="font-size: 18px; color: rgba(255,255,255,0.2); cursor: pointer;">arrow_forward_ios</span>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <span style="color: #fff; font-weight: 600; font-size: 15px;">Library</span>
-                                <span style="color: rgba(255,255,255,0.4); font-size: 11px;">Oct 4, 2025</span>
-                            </div>
-                        </div>
-
-                        <!-- Center -->
-                        <div style="display: flex; align-items: center; gap: 20px;">
-                            <div
-                                style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px 10px; display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                                <button
-                                    style="color: rgba(255,255,255,0.9); padding: 0 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">−</button>
-                                <div style="width: 1px; height: 14px; background: rgba(255,255,255,0.15);"></div>
-                                <button
-                                    style="color: rgba(255,255,255,0.9); padding: 0 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">+</button>
-                            </div>
-                            <div
-                                style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px; display: flex; font-size: 12px; font-weight: 500; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                                <button id="btn-years" onclick="filterPhotos('years')"
-                                    style="color: rgba(255,255,255,0.6); padding: 5px 16px; border-radius: 18px; cursor: pointer; background: transparent; border: none; font-size: 13px;">Years</button>
-                                <div
-                                    style="width: 1px; height: 12px; background: rgba(255,255,255,0.1); margin: auto 0;">
-                                </div>
-                                <button id="btn-months" onclick="filterPhotos('months')"
-                                    style="color: rgba(255,255,255,0.6); padding: 5px 16px; border-radius: 18px; cursor: pointer; background: transparent; border: none; font-size: 13px;">Months</button>
-                                <button id="btn-all" onclick="filterPhotos('all')"
-                                    style="color: #fff; background: rgba(255,255,255,0.15); border-radius: 16px; padding: 5px 16px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-size: 13px;">All
-                                    Photos</button>
-                            </div>
-                        </div>
-
-                        <!-- Right -->
-                        <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 20px;">
-                            <div
-                                style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px 8px; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                                <span class="material-icons-outlined"
-                                    style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">tune</span>
-                                <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15);"></div>
-                                <span class="material-icons-outlined"
-                                    style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">filter_list</span>
-                                <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15);"></div>
-                                <span class="material-icons-outlined"
-                                    style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">more_horiz</span>
-                            </div>
-                            <div style="display: flex; gap: 12px;">
-                                <span class="material-icons-outlined"
-                                    style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">info</span>
-                                <span class="material-icons-outlined"
-                                    style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">ios_share</span>
-                                <span class="material-icons-outlined"
-                                    style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">favorite_border</span>
-                            </div>
+                    <!-- Right -->
+                    <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 20px;">
+                        <div
+                            style="background: rgba(40, 40, 40, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 4px 8px; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
                             <span class="material-icons-outlined"
-                                style="font-size: 22px; color:rgba(255,255,255,0.9); cursor: pointer;">search</span>
+                                style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">tune</span>
+                            <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15);"></div>
+                            <span class="material-icons-outlined"
+                                style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">filter_list</span>
+                            <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15);"></div>
+                            <span class="material-icons-outlined"
+                                style="font-size: 18px; color:rgba(255,255,255,0.8); padding: 4px 6px; cursor: pointer;">more_horiz</span>
                         </div>
-                    </div>
-
-                    <!-- Scrollable Content -->
-                    <div style="flex: 1; overflow-y: auto; padding: 30px;">
-
-                        <div class="photos-grid-layout"
-                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
-                            <!-- Cards -->
-
-                            <!-- Bug Hunt Card -->
-                            <div class="photo-card" data-date="2025-04-15"
-                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.4); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
-                                <div
-                                    style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
-                                    <div
-                                        style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
-                                        Bug Hunt 2025</div>
-                                </div>
-                            </div>
-                            <!-- Hacktoberfest Card -->
-                            <!-- Hacktoberfest / Open Source Card -->
-                            <div class="photo-card" data-date="2024-10-04"
-                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.5); border: 1px solid rgba(76, 217, 100, 0.2); cursor: pointer;">
-                                <div
-                                    style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
-                                    <div
-                                        style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); color: #4cd964;">
-                                        OPEN SOURCE</div>
-                                </div>
-                            </div>
-
-                            <!-- Education Card -->
-                            <!-- Education Card -->
-                            <div class="photo-card" data-date="2024-05-20"
-                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_education.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.4); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
-                                <div
-                                    style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
-                                    <div
-                                        style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
-                                        Education</div>
-                                </div>
-                            </div>
-
-
+                        <div style="display: flex; gap: 12px;">
+                            <span class="material-icons-outlined"
+                                style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">info</span>
+                            <span class="material-icons-outlined"
+                                style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">ios_share</span>
+                            <span class="material-icons-outlined"
+                                style="font-size: 20px; color:rgba(255,255,255,0.6); cursor: pointer;">favorite_border</span>
                         </div>
-
-                        <!-- Months View Layout -->
-                        <div class="months-grid-layout" style="display: none; padding: 10px 30px;">
-
-                            <!-- Month Group: April 2025 -->
-                            <div id="months-2025" style="margin-bottom: 40px; scroll-margin-top: 20px;">
-                                <h2
-                                    style="font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; font-family: 'SF Pro Display', sans-serif;">
-                                    April 2025</h2>
-
-                                <!-- Large Month Card -->
-                                <div class="month-card"
-                                    style="width: 100%; aspect-ratio: 16/9; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border: 1px solid var(--border-light); cursor: pointer;">
-
-                                    <!-- Date Badge (Top Left) -->
-                                    <div
-                                        style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); color: #fff; font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
-                                        15
-                                    </div>
-
-                                    <!-- Hover Overlay (Optional) -->
-                                    <div class="hover-overlay"
-                                        style="position: absolute; inset: 0; background: rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.3s;">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Month Group: October 2024 -->
-                            <div id="months-2024" style="margin-bottom: 40px; scroll-margin-top: 20px;">
-                                <h2
-                                    style="font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; font-family: 'SF Pro Display', sans-serif;">
-                                    October 2024</h2>
-
-                                <!-- Large Month Card -->
-                                <div class="month-card"
-                                    style="width: 100%; aspect-ratio: 16/9; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border: 1px solid var(--border-light); cursor: pointer;">
-
-                                    <!-- Date Badge (Top Left) -->
-                                    <div
-                                        style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); color: #fff; font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
-                                        4
-                                    </div>
-
-                                    <!-- Hover Overlay (Optional) -->
-                                    <div class="hover-overlay"
-                                        style="position: absolute; inset: 0; background: rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.3s;">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Years View Layout -->
-                        <div class="years-grid-layout"
-                            style="display: none; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 10px;">
-
-                            <!-- 2025 Year Card -->
-                            <div class="year-card" onclick="goToMonths('2025')"
-                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
-                                <div
-                                    style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
-                                    <h2
-                                        style="margin: 0; font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,0.6); font-family: 'SF Pro Display', sans-serif;">
-                                        2025</h2>
-                                </div>
-                                <div
-                                    style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.6) 100%);">
-                                </div>
-                            </div>
-
-                            <!-- 2024 Year Card -->
-                            <div class="year-card" onclick="goToMonths('2024')"
-                                style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
-                                <div
-                                    style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
-                                    <h2
-                                        style="margin: 0; font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,0.6); font-family: 'SF Pro Display', sans-serif;">
-                                        2024</h2>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div
-                        style="padding: 16px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
-                        <div style="font-size: 14px; color: #fff; font-weight: 600; margin-bottom: 2px;">3 Achievements
-                        </div>
-                        <div style="font-size: 11px; color: rgba(255,255,255,0.4);">Last Synced 7 Minutes Ago</div>
+                        <span class="material-icons-outlined"
+                            style="font-size: 22px; color:rgba(255,255,255,0.9); cursor: pointer;">search</span>
                     </div>
                 </div>
 
+                <!-- Scrollable Content -->
+                <div style="flex: 1; overflow-y: auto; padding: 30px;">
+
+                    <div class="photos-grid-layout"
+                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                        <!-- Cards -->
+
+                        <!-- Bug Hunt Card -->
+                        <div class="photo-card" onclick="openMemory('bughunt')" data-date="2025-04-15"
+                            style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.4); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
+                            <div
+                                style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
+                                <div style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                                    Bug Hunt 2025</div>
+                            </div>
+                        </div>
+                        <!-- Hacktoberfest Card -->
+                        <!-- Hacktoberfest / Open Source Card -->
+                        <div class="photo-card" onclick="openMemory('opensource')" data-date="2024-10-04"
+                            style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.5); border: 1px solid rgba(76, 217, 100, 0.2); cursor: pointer;">
+                            <div
+                                style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
+                                <div
+                                    style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); color: #4cd964;">
+                                    OPEN SOURCE</div>
+                            </div>
+                        </div>
+
+                        <!-- Education Card -->
+                        <!-- Education Card -->
+                        <div class="photo-card" onclick="openMemory('education')" data-date="2024-05-20"
+                            style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_education.png'); background-size: cover; background-position: center; border-radius: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.4); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
+                            <div
+                                style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff;">
+                                <div style="font-size: 14px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                                    Education</div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Months View Layout -->
+                    <div class="months-grid-layout" style="display: none; padding: 10px 30px;">
+
+                        <!-- Month Group: April 2025 -->
+                        <div id="months-2025" style="margin-bottom: 40px; scroll-margin-top: 20px;">
+                            <h2
+                                style="font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; font-family: 'SF Pro Display', sans-serif;">
+                                April 2025</h2>
+
+                            <!-- Large Month Card -->
+                            <div class="month-card" onclick="openMemory('bughunt')"
+                                style="width: 100%; aspect-ratio: 16/9; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border: 1px solid var(--border-light); cursor: pointer;">
+
+                                <!-- Date Badge (Top Left) -->
+                                <div
+                                    style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); color: #fff; font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
+                                    15
+                                </div>
+
+                                <!-- Hover Overlay (Optional) -->
+                                <div class="hover-overlay"
+                                    style="position: absolute; inset: 0; background: rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.3s;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Month Group: October 2024 -->
+                        <div id="months-2024" style="margin-bottom: 40px; scroll-margin-top: 20px;">
+                            <h2
+                                style="font-size: 32px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; font-family: 'SF Pro Display', sans-serif;">
+                                October 2024</h2>
+
+                            <!-- Large Month Card -->
+                            <div class="month-card" onclick="openMemory('opensource')"
+                                style="width: 100%; aspect-ratio: 16/9; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border: 1px solid var(--border-light); cursor: pointer;">
+
+                                <!-- Date Badge (Top Left) -->
+                                <div
+                                    style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); color: #fff; font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
+                                    4
+                                </div>
+
+                                <!-- Hover Overlay (Optional) -->
+                                <div class="hover-overlay"
+                                    style="position: absolute; inset: 0; background: rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.3s;">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Years View Layout -->
+                    <div class="years-grid-layout"
+                        style="display: none; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 10px;">
+
+                        <!-- 2025 Year Card -->
+                        <div class="year-card" onclick="goToMonths('2025')"
+                            style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_bughunt.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
+                            <div style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
+                                <h2
+                                    style="margin: 0; font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,0.6); font-family: 'SF Pro Display', sans-serif;">
+                                    2025</h2>
+                            </div>
+                            <div
+                                style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.6) 100%);">
+                            </div>
+                        </div>
+
+                        <!-- 2024 Year Card -->
+                        <div class="year-card" onclick="goToMonths('2024')"
+                            style="aspect-ratio: 1/1; background-image: url('images/Photos-app/card_opensource.png'); background-size: cover; background-position: center; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1);">
+                            <div style="position: absolute; top: 20px; left: 24px; pointer-events: none; z-index: 2;">
+                                <h2
+                                    style="margin: 0; font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,0.6); font-family: 'SF Pro Display', sans-serif;">
+                                    2024</h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div
+                    style="padding: 16px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
+                    <div style="font-size: 14px; color: #fff; font-weight: 600; margin-bottom: 2px;">3 Achievements
+                    </div>
+                    <div style="font-size: 11px; color: rgba(255,255,255,0.4);">Last Synced 7 Minutes Ago</div>
+                </div>
             </div>
 
         </div>
 
-        <script>
-            function goToMonths(year) {
-                // Switch to Months view
-                filterPhotos('months');
+        <!-- Memory Panel Overlay (Cinematic View) -->
+        <!-- Memory Panel Overlay (Cinematic View) -->
+        <div id="memory-panel">
 
-                // Scroll to specific year group after a brief delay to allow rendering
-                setTimeout(() => {
-                    const el = document.getElementById('months-' + year);
-                    if (el) {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 10);
+            <div
+                style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+
+                <!-- Content Container -->
+                <div id="memory-content-box">
+
+                    <!-- Close Button (moved to top-right z-index) -->
+                    <button onclick="closeMemory()" class="memory-close-btn">
+                        <span class="material-icons-round" style="font-size: 20px;">close</span>
+                    </button>
+
+                    <!-- Hero Backdrop (Full Width, Top 65%) -->
+                    <div class="hero-backdrop">
+
+                        <!-- Main Hero Image -->
+                        <div id="memory-image">
+                        </div>
+
+                        <!-- Layer 1: Smoke/Haze Texture (Gradient Simulation) -->
+                        <div class="memory-overlay-gradient-1">
+                        </div>
+
+                        <!-- Layer 2: Heavy Vignette & Shadow Masking -->
+                        <div class="memory-overlay-gradient-2">
+                        </div>
+                        <div class="memory-overlay-gradient-3">
+                        </div>
+                    </div>
+
+                    <!-- Content Details (Bottom Overlay) -->
+                    <div class="memory-details-container">
+
+                        <!-- Text Content Wrapper (allow select) -->
+                        <div class="memory-text-wrapper">
+                            <div id="memory-date">
+                            </div>
+
+                            <h2 id="memory-title">
+                            </h2>
+
+                            <div id="memory-subtitle">
+                            </div>
+
+                            <div id="memory-description">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // Resume Data
+        const memoryData = {
+            'bughunt': {
+                image: 'images/Photos-app/card_bughunt_landscape.png',
+                date: '2025',
+                title: 'BUG HUNT Champion',
+                subtitle: 'Techno Main Salt Lake, College Technical Event',
+                description: "Dominated the arena in a live debugging standoff to secure a 1st Place Victory. I reverse-engineered broken builds and deployed hotfixes while the clock ticked down—showing zero tolerance for logic errors and pure, systematic problem solving."
+            },
+            'opensource': {
+                image: 'images/Photos-app/card_opensource_landscape.png',
+                date: 'Oct 2024',
+                title: 'Open Source Contributor',
+                subtitle: 'Hacktoberfest 2024 & Open Odyssey 1.0',
+                description: "Code doesn't live on my laptop; it lives on the global grid. Through Hacktoberfest and Open Odyssey, I merged, approved, and deployed tools for the many, not the few—making a real-world impact on live codebases."
+            },
+            'education': {
+                image: 'images/Photos-app/card_education_landscape.png', // Assuming name based on pattern
+                date: 'Expected 2028',
+                title: 'Bachelor of Computer Applications',
+                subtitle: 'Techno Main Salt Lake',
+                description: "Downloading the foundations for the Class of 2028. I'm constructing my stack with Python, Web Tech, and Complex System Logic—not just studying theory, but building the future in the local tech guild."
             }
+        };
 
-            function filterPhotos(mode) {
-                const cards = document.querySelectorAll('.photo-card');
-                const photoGrid = document.querySelector('.photos-grid-layout');
-                const yearsGrid = document.querySelector('.years-grid-layout');
-                const monthsGrid = document.querySelector('.months-grid-layout');
+        function openMemory(id) {
+            const data = memoryData[id];
+            if (!data) return;
 
-                const btnYears = document.getElementById('btn-years');
-                const btnMonths = document.getElementById('btn-months');
-                const btnAll = document.getElementById('btn-all');
+            // Populate Content
+            document.getElementById('memory-image').style.backgroundImage = `url('${data.image}')`;
+            document.getElementById('memory-date').innerText = data.date;
+            document.getElementById('memory-title').innerText = data.title;
+            document.getElementById('memory-subtitle').innerText = data.subtitle;
 
-                // Reset Buttons
-                [btnYears, btnMonths, btnAll].forEach(btn => {
-                    btn.style.background = 'transparent';
-                    btn.style.color = 'rgba(255,255,255,0.6)';
-                    btn.style.boxShadow = 'none';
-                    btn.style.border = 'none';
-                });
+            document.getElementById('memory-description').innerText = data.description;
 
-                // Active Style
-                const activeStyle = (btn) => {
-                    btn.style.background = 'rgba(255,255,255,0.15)';
-                    btn.style.color = '#fff';
-                    btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
-                    btn.style.border = '1px solid rgba(255,255,255,0.1)';
-                };
+            // Show Panel
+            const panel = document.getElementById('memory-panel');
+            const content = document.getElementById('memory-content-box');
 
-                // Hide all grids first
-                photoGrid.style.display = 'none';
-                yearsGrid.style.display = 'none';
-                if (monthsGrid) monthsGrid.style.display = 'none';
+            panel.style.display = 'block';
+            // Force reflow
+            panel.offsetHeight;
 
-                // Toggle Views
-                if (mode === 'years') {
-                    activeStyle(btnYears);
-                    yearsGrid.style.display = 'grid';
-                } else if (mode === 'months') {
-                    activeStyle(btnMonths);
-                    if (monthsGrid) monthsGrid.style.display = 'block';
-                } else {
-                    activeStyle(btnAll);
-                    photoGrid.style.display = 'grid';
-                    cards.forEach(card => card.style.display = 'block');
+            panel.style.opacity = '1';
+            content.style.transform = 'scale(1)';
+        }
+
+        function closeMemory() {
+            const panel = document.getElementById('memory-panel');
+            const content = document.getElementById('memory-content-box');
+
+            panel.style.opacity = '0';
+            content.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                panel.style.display = 'none';
+            }, 400);
+        }
+
+        function goToMonths(year) {
+            // Switch to Months view
+            filterPhotos('months');
+
+            // Scroll to specific year group after a brief delay to allow rendering
+            setTimeout(() => {
+                const el = document.getElementById('months-' + year);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
+            }, 10);
+        }
+
+        function filterPhotos(mode) {
+            const cards = document.querySelectorAll('.photo-card');
+            const photoGrid = document.querySelector('.photos-grid-layout');
+            const yearsGrid = document.querySelector('.years-grid-layout');
+            const monthsGrid = document.querySelector('.months-grid-layout');
+
+            const btnYears = document.getElementById('btn-years');
+            const btnMonths = document.getElementById('btn-months');
+            const btnAll = document.getElementById('btn-all');
+
+            // Reset Buttons
+            [btnYears, btnMonths, btnAll].forEach(btn => {
+                btn.style.background = 'transparent';
+                btn.style.color = 'rgba(255,255,255,0.6)';
+                btn.style.boxShadow = 'none';
+                btn.style.border = 'none';
+            });
+
+            // Active Style
+            const activeStyle = (btn) => {
+                btn.style.background = 'rgba(255,255,255,0.15)';
+                btn.style.color = '#fff';
+                btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+                btn.style.border = '1px solid rgba(255,255,255,0.1)';
+            };
+
+            // Hide all grids first
+            photoGrid.style.display = 'none';
+            yearsGrid.style.display = 'none';
+            if (monthsGrid) monthsGrid.style.display = 'none';
+
+            // Toggle Views
+            if (mode === 'years') {
+                activeStyle(btnYears);
+                yearsGrid.style.display = 'grid';
+            } else if (mode === 'months') {
+                activeStyle(btnMonths);
+                if (monthsGrid) monthsGrid.style.display = 'block';
+            } else {
+                activeStyle(btnAll);
+                photoGrid.style.display = 'grid';
+                cards.forEach(card => card.style.display = 'block');
             }
-        </script>
+        }
+    </script>
     </div>
 
 

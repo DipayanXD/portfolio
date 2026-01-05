@@ -714,4 +714,170 @@ const initTheme = () => {
 };
 
 elements.themeToggle.addEventListener("click", handleThemeToggle);
-initTheme();
+
+// --- Mail App Logic ---
+const mailApp = {
+  app_name: document.querySelector(".open-mail"), // Using icon as trigger ref
+  window: document.querySelector(".mail"),
+  close: document.querySelector(".close-mail"),
+  backfull: document.querySelector(".backfull-mail"),
+  full: document.querySelector(".full-mail"),
+  opening: document.querySelector(".open-mail")
+};
+
+// Event Listeners for Mail App
+mailApp.opening.addEventListener("click", () => {
+  mailApp.window.style.display = "block";
+  document.querySelector(".navbar").style.display = "flex";
+  // Bring to front
+  bringToFront(mailApp.window);
+});
+
+mailApp.close.addEventListener("click", () => {
+  mailApp.window.style.display = "none";
+});
+
+mailApp.full.addEventListener("click", () => {
+  handleFullScreen(mailApp.window);
+});
+
+mailApp.backfull.addEventListener("click", () => {
+  handleMinimize(mailApp.window);
+});
+
+// Make Mail App Draggable
+$(function () {
+  $(".mail").draggable();
+});
+
+// Ensure Mail App comes to front on mousedown
+document.querySelector('.mail').addEventListener('mousedown', () => bringToFront(document.querySelector('.mail')));
+
+
+// --- Mail Functional Logic ---
+const mailLogic = {
+  composeOverlay: null,
+  composeBtn: null,
+  closeBtn: null,
+  sendBtn: null,
+  toInput: null,
+  subjectInput: null,
+  bodyInput: null,
+
+  init: function () {
+    // Initialize elements here to ensure DOM is ready
+    this.composeOverlay = document.querySelector('.mail-compose-overlay');
+    this.composeBtn = document.querySelector('.material-icons-round[title="Compose"]');
+    this.closeBtn = document.querySelector('.compose-close');
+    this.sendBtn = document.getElementById('compose-send-btn');
+    this.toInput = document.getElementById('compose-to');
+    this.subjectInput = document.getElementById('compose-subject');
+    this.bodyInput = document.getElementById('compose-body');
+
+    if (!this.composeBtn || !this.composeOverlay) {
+      console.error('Mail elements not found');
+      return;
+    }
+
+    // Open Compose
+    this.composeBtn.addEventListener('click', () => {
+      this.composeOverlay.style.display = 'flex';
+      this.toInput.focus();
+    });
+
+    // Close Compose
+    if (this.closeBtn) {
+      this.closeBtn.addEventListener('click', () => {
+        this.composeOverlay.style.display = 'none';
+      });
+    }
+
+    // Send Message
+    if (this.sendBtn) {
+      this.sendBtn.addEventListener('click', () => this.handleSend());
+    }
+  },
+
+  handleSend: function () {
+    const to = this.toInput.value;
+    const subject = this.subjectInput.value;
+    const body = this.bodyInput.value;
+
+    if (!to || !subject || !body) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    // GUI Feedback (FAB Animation)
+    const iconInfo = this.sendBtn.querySelector('.material-icons-round');
+    this.sendBtn.style.transform = 'scale(0.9)';
+    this.sendBtn.style.transition = 'all 0.3s ease';
+
+    // Spin animation
+    iconInfo.style.animation = 'spin 1s linear infinite';
+    iconInfo.innerText = 'sync';
+
+    // Integrate with a real service here later. For now, simulate.
+    setTimeout(() => {
+      const cc = document.getElementById('compose-cc').value;
+      this.saveToSent(to, subject, body, cc);
+
+      // Success State
+      iconInfo.style.animation = 'none';
+      iconInfo.innerText = 'check';
+      this.sendBtn.style.background = '#32d74b'; // Success Green
+      this.sendBtn.style.transform = 'scale(1.1)';
+
+      setTimeout(() => {
+        this.composeOverlay.style.display = 'none';
+        this.resetForm();
+
+        // Reset Button
+        iconInfo.innerText = 'arrow_upward';
+        this.sendBtn.style.background = '#0a84ff';
+        this.sendBtn.style.transform = 'scale(1)';
+
+        // Play sent sound if valid (optional)
+        // new Audio('assets/sounds/sent_mail.mp3').play().catch(e => console.log(e));
+      }, 1000);
+
+    }, 1500);
+  },
+
+  saveToSent: function (to, subject, body, cc) {
+    const message = {
+      id: Date.now(),
+      to: to,
+      cc: cc || '',
+      subject: subject,
+      body: body,
+      date: new Date().toLocaleString()
+    };
+
+    const sentBox = JSON.parse(localStorage.getItem('sent-mail') || '[]');
+    sentBox.unshift(message);
+    localStorage.setItem('sent-mail', JSON.stringify(sentBox));
+
+    console.log('Message saved to local storage:', message);
+  },
+
+  resetForm: function () {
+    this.toInput.value = '';
+    document.getElementById('compose-cc').value = '';
+    this.subjectInput.value = '';
+    this.bodyInput.value = '';
+  }
+};
+
+// Initialize Mail Logic
+document.addEventListener('DOMContentLoaded', () => {
+  // Wait for DOM to be fully ready ensuring elements exist
+  setTimeout(() => mailLogic.init(), 100);
+});
+
+// Add spin animation for sending
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+`;
+document.head.appendChild(style);
