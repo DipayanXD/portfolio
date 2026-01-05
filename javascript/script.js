@@ -770,7 +770,13 @@ const mailLogic = {
     this.composeBtn = document.querySelector('.material-icons-round[title="Compose"]');
     this.closeBtn = document.querySelector('.compose-close');
     this.sendBtn = document.getElementById('compose-send-btn');
-    this.toInput = document.getElementById('compose-to');
+    this.toInput = document.getElementById('compose-to'); // Note: This ID might not exist in HTML based on my previous read, checking.. wait, previous read showed recipient chip. Let me check resetForm. It says this.toInput.value = ''.
+    // Actually, looking at the HTML, I don't see an input with ID 'compose-to'.
+    // The recipient is a chip: <div class="recipient-chip">...</div>
+    // But let's stick to adding the NEW fields first.
+
+    this.senderNameInput = document.getElementById('compose-sender-name');
+    this.senderEmailInput = document.getElementById('compose-sender-email');
     this.subjectInput = document.getElementById('compose-subject');
     this.bodyInput = document.getElementById('compose-body');
 
@@ -782,7 +788,8 @@ const mailLogic = {
     // Open Compose
     this.composeBtn.addEventListener('click', () => {
       this.composeOverlay.style.display = 'flex';
-      this.toInput.focus();
+      // Focus on name first since it's the new required field at top (or arguably Name/Email)
+      if (this.senderNameInput) this.senderNameInput.focus();
     });
 
     // Close Compose
@@ -799,12 +806,14 @@ const mailLogic = {
   },
 
   handleSend: function () {
-    const to = this.toInput.value;
+    // const to = this.toInput.value; // "To" is currently hardcoded/visual only in the HTML provided (recipient chip)
+    const senderName = this.senderNameInput.value;
+    const senderEmail = this.senderEmailInput.value;
     const subject = this.subjectInput.value;
     const body = this.bodyInput.value;
 
-    if (!to || !subject || !body) {
-      alert('Please fill in all fields.');
+    if (!senderName || !senderEmail || !subject || !body) {
+      alert('Please fill in Name, Email, Subject, and Message.');
       return;
     }
 
@@ -820,7 +829,7 @@ const mailLogic = {
     // Integrate with a real service here later. For now, simulate.
     setTimeout(() => {
       const cc = document.getElementById('compose-cc').value;
-      this.saveToSent(to, subject, body, cc);
+      this.saveToSent(senderName, senderEmail, subject, body, cc);
 
       // Success State
       iconInfo.style.animation = 'none';
@@ -844,10 +853,12 @@ const mailLogic = {
     }, 1500);
   },
 
-  saveToSent: function (to, subject, body, cc) {
+  saveToSent: function (senderName, senderEmail, subject, body, cc) {
     const message = {
       id: Date.now(),
-      to: to,
+      senderName: senderName,
+      senderEmail: senderEmail,
+      to: "Dipayan Das", // Hardcoded for now based on UI
       cc: cc || '',
       subject: subject,
       body: body,
@@ -862,7 +873,8 @@ const mailLogic = {
   },
 
   resetForm: function () {
-    this.toInput.value = '';
+    this.senderNameInput.value = '';
+    this.senderEmailInput.value = '';
     document.getElementById('compose-cc').value = '';
     this.subjectInput.value = '';
     this.bodyInput.value = '';
