@@ -103,11 +103,9 @@ const photosApp = {
 
 // Event Listeners for Photos App
 photosApp.opening.addEventListener("click", () => {
-  // Logic to open window (using existing open_window function pattern)
-  photosApp.window.style.display = "block";
   document.querySelector(".navbar").style.display = "flex";
-  // Bring to front
-  photosApp.window.style.zIndex = "100";
+  bringToFront(photosApp.window);
+  animateGenie(photosApp.window, photosApp.opening, true);
 });
 
 photosApp.close.addEventListener("click", () => {
@@ -119,7 +117,7 @@ photosApp.full.addEventListener("click", () => {
 });
 
 photosApp.backfull.addEventListener("click", () => {
-  handleMinimize(photosApp.window);
+  minimizeWindowToDock(photosApp.window, photosApp.opening);
 });
 
 // Make it draggable (jQuery UI required, which is already in your project)
@@ -192,7 +190,89 @@ function handleFullScreen(maximize) {
   maximize.style.height = "90%";
 }
 
+function animateGenie(windowElem, dockIcon, isOpening, onFinish) {
+  // Ensure window is visible for measurement if opening
+  if (isOpening) {
+    windowElem.style.display = "block";
+    windowElem.style.opacity = "0";
+  }
+
+  const windowRect = windowElem.getBoundingClientRect();
+  const iconRect = dockIcon.getBoundingClientRect();
+
+  const windowCenter = {
+    x: windowRect.left + windowRect.width / 2,
+    y: windowRect.top + windowRect.height / 2,
+  };
+
+  const iconCenter = {
+    x: iconRect.left + iconRect.width / 2,
+    y: iconRect.top + iconRect.height / 2,
+  };
+
+  // Calculate translation delta
+  const deltaX = iconCenter.x - windowCenter.x;
+  const deltaY = iconCenter.y - windowCenter.y;
+
+  // We want the window to scale down into the icon
+  // Setting transform origin to center simplifies calculation
+  // but for "Genie", origin might be better at the bottom?
+  // Let's stick to center + translate for 60fps stability/simplicity first.
+
+  const keyframes = isOpening ? [{
+    transform: `translate(${deltaX}px, ${deltaY}px) scale(0.1)`,
+    opacity: 0,
+    filter: "blur(20px)",
+  },
+  {
+    transform: "translate(0, 0) scale(1)",
+    opacity: 1,
+    filter: "blur(0px)",
+  },
+  ] : [{
+    transform: "translate(0, 0) scale(1)",
+    opacity: 1,
+    filter: "blur(0px)",
+  },
+  {
+    transform: `translate(${deltaX}px, ${deltaY}px) scale(0.1)`,
+    opacity: 0,
+    filter: "blur(20px)",
+  },
+  ];
+
+  const timing = {
+    duration: 500,
+    easing: "cubic-bezier(0.25, 1, 0.5, 1)", // Smooth spring-like ease
+    fill: "forwards",
+  };
+
+  const animation = windowElem.animate(keyframes, timing);
+
+  animation.onfinish = () => {
+    if (!isOpening) {
+      windowElem.style.display = "none";
+      windowElem.style.opacity = "";
+      windowElem.style.filter = "";
+      windowElem.style.transform = "";
+    } else {
+      windowElem.style.opacity = "1";
+      windowElem.style.filter = "";
+      windowElem.style.transform = "";
+    }
+    if (onFinish) onFinish();
+  };
+}
+
+function minimizeWindowToDock(windowElem, dockIcon) {
+  animateGenie(windowElem, dockIcon, false);
+}
+
 function close_window(close, point, appName) {
+  // If we want "Close" to also animate, we could use animateGenie here too.
+  // usually close just fades out, but minimizing sucks to dock.
+  // Standard behavior: Close = Gone. Minimize = Dock.
+  // Let's keep close simple for now, or maybe fade it out.
   close.style.display = "none";
   point.style.display = "none";
   appName.style.display = "none";
@@ -200,7 +280,33 @@ function close_window(close, point, appName) {
 
 function open_window(open, point, appName) {
   elements.navbar.style.display = "flex";
-  open.style.display = "block";
+
+  // Find the dock icon button corresponding to this app
+  // The 'point' element is usually inside the button or related to it?
+  // Let's look at how we call this function.
+  // e.g. open_window(terminalApp.window, terminalApp.point, terminalApp.app_name)
+  // We need the dock icon element.
+  // Fortunately, our 'App' objects store the dock button in the '.opening' property!
+
+  // We need to reverse-lookup which 'App' object owns this 'open' window
+  // OR, we can just pass the dock icon in.
+  // But changing the signature of 'open_window' requires changing all callsites.
+  // Let's try to find the dock icon based on the 'point' element's parent, if possible.
+  // The 'point' is usually <hr class="point" ...> inside the <button class="icon ...">
+
+  let dockIcon = null;
+  if (point && point.parentElement && point.parentElement.classList.contains('icon')) {
+    dockIcon = point.parentElement;
+  }
+
+  // If we found the dock icon, animate!
+  if (dockIcon) {
+    animateGenie(open, dockIcon, true);
+  } else {
+    // Fallback
+    open.style.display = "block";
+  }
+
   launchpad.container.style.display = "flex";
   launchpad.window.style.display = "none";
   launchpad.point.style.display = "none";
@@ -239,7 +345,7 @@ function handleLaunchpadSearch(e) {
 
 // Calculator app start
 function handleOpenCal_lunchpad() {
-  calculatorApp.window.style.display = "block";
+  animateGenie(calculatorApp.window, calculatorApp.opening, true);
   calculatorApp.app_name.style.display = "block";
   launchpad.container.style.display = "flex";
   elements.navbar.style.display = "flex";
@@ -253,10 +359,13 @@ handleopen_spotlight();
 handleOpenLaunching();
 notesApp.adding.addEventListener("click", handleAdding);
 calculatorApp.backfull.addEventListener("click", () =>
-  handleMinimize(terminalApp.window)
+  minimizeWindowToDock(calculatorApp.window, calculatorApp.opening)
 );
 notesApp.backfull.addEventListener("click", () =>
-  handleMinimize(notesApp.window)
+  minimizeWindowToDock(notesApp.window, notesApp.opening)
+);
+terminalApp.backfull.addEventListener("click", () =>
+  minimizeWindowToDock(terminalApp.window, terminalApp.opening)
 );
 terminalApp.close.addEventListener("click", () =>
   close_window(terminalApp.window, terminalApp.point, terminalApp.app_name)
@@ -307,7 +416,7 @@ vscodeApp.backfull.addEventListener("click", () =>
 );
 */
 mapsApp.backfull.addEventListener("click", () =>
-  handleMinimize(mapsApp.window)
+  minimizeWindowToDock(mapsApp.window, mapsApp.opening)
 );
 calculatorApp.close.addEventListener("click", () =>
   close_window(
@@ -758,10 +867,9 @@ const mailApp = {
 
 // Event Listeners for Mail App
 mailApp.opening.addEventListener("click", () => {
-  mailApp.window.style.display = "block";
   document.querySelector(".navbar").style.display = "flex";
-  // Bring to front
   bringToFront(mailApp.window);
+  animateGenie(mailApp.window, mailApp.opening, true);
 });
 
 mailApp.close.addEventListener("click", () => {
@@ -773,7 +881,7 @@ mailApp.full.addEventListener("click", () => {
 });
 
 mailApp.backfull.addEventListener("click", () => {
-  handleMinimize(mailApp.window);
+  minimizeWindowToDock(mailApp.window, mailApp.opening);
 });
 
 // Make Mail App Draggable

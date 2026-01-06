@@ -776,7 +776,7 @@ li>.menu__container>.grid__controling .control_center--grid {
   border-radius: 1rem;
   box-shadow: var(--shadow-window);
   border: 1px solid var(--border-light);
-  animation: zoom-out 0.3s;
+  /* animation: zoom-out 0.3s; */
   background: var(--surface-window);
   z-index: 10;
   touch-action: none;
