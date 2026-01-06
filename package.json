@@ -2,7 +2,7 @@
   "name": "portfolio-root",
   "private": true,
   "scripts": {
-    "build": "cd background-live && npm install && npm run build",
+    "build": "cd background-live && npm install && npm run build && cd ../silk && npm install && npm run build",
     "start": "cd backend && npm start",
     "setup": "npm run build && cd backend && npm install"
   },
