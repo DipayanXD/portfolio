@@ -882,21 +882,25 @@ const mailLogic = {
       })
         .then(async response => {
           const text = await response.text(); // Get raw text first
+          let data;
+
           try {
-            const data = JSON.parse(text); // Try parsing JSON
-            if (!response.ok) {
-              // If server returned 400/500 but still valid JSON error
-              throw new Error(data.error || `Server Error: ${response.status}`);
-            }
-            if (data.success) {
-              return data;
-            } else {
-              throw new Error(data.error || 'Failed to send');
-            }
+            data = JSON.parse(text); // Try parsing JSON
           } catch (e) {
-            // If JSON parse fails, it means we got HTML (like 404/500 page)
+            // If JSON parse fails, it means we got HTML (like 404/520 page)
             console.error('Server returned non-JSON response:', text);
-            throw new Error(`Server returned invalid response (${response.status}). Check console for details.`);
+            throw new Error(`Server returned invalid response (${response.status}). Check console.`);
+          }
+
+          if (!response.ok) {
+            // If server returned 400/500 but still valid JSON error
+            throw new Error(data.error || `Server Error: ${response.status}`);
+          }
+
+          if (data.success) {
+            return data;
+          } else {
+            throw new Error(data.error || 'Failed to send');
           }
         })
         .then(data => {
