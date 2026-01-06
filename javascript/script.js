@@ -862,7 +862,13 @@ const mailLogic = {
       const cc = document.getElementById('compose-cc').value;
       const to = "Dipayan Das"; // Hardcoded recipient name as per UI
 
-      fetch('http://localhost:3000/api/send-email', {
+      // Determine API URL based on environment
+      // If hostname is localhost or 127.0.0.1, assume local dev backend is at port 3000
+      // Otherwise (production), use relative path which Vercel will route
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const apiUrl = isLocal ? 'http://localhost:3000/api/send-email' : '/api/send-email';
+
+      fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
