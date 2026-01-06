@@ -81,11 +81,6 @@ app.post('/api/send-email', async (req, res) => {
 });
 
 // Export the app for Vercel (serverless)
+// Export the app for Vercel (serverless) and local start.js
 module.exports = app;
 
-// Only start the server if running directly (local dev)
-if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`Server running on http://localhost:${PORT}`);
-    });
-}
