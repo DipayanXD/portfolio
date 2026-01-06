@@ -880,33 +880,47 @@ const mailLogic = {
           cc: cc
         })
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            this.saveToSent(senderName, senderEmail, subject, body, cc);
-
-            // Success State
-            iconInfo.style.animation = 'none';
-            iconInfo.innerText = 'check';
-            this.sendBtn.style.background = '#32d74b'; // Success Green
-            this.sendBtn.style.transform = 'scale(1.1)';
-
-            setTimeout(() => {
-              this.composeOverlay.style.display = 'none';
-              this.resetForm();
-
-              // Reset Button
-              iconInfo.innerText = 'arrow_upward';
-              this.sendBtn.style.background = '#0a84ff';
-              this.sendBtn.style.transform = 'scale(1)';
-            }, 1000);
-          } else {
-            throw new Error(data.error || 'Failed to send');
+        .then(async response => {
+          const text = await response.text(); // Get raw text first
+          try {
+            const data = JSON.parse(text); // Try parsing JSON
+            if (!response.ok) {
+              // If server returned 400/500 but still valid JSON error
+              throw new Error(data.error || `Server Error: ${response.status}`);
+            }
+            if (data.success) {
+              return data;
+            } else {
+              throw new Error(data.error || 'Failed to send');
+            }
+          } catch (e) {
+            // If JSON parse fails, it means we got HTML (like 404/500 page)
+            console.error('Server returned non-JSON response:', text);
+            throw new Error(`Server returned invalid response (${response.status}). Check console for details.`);
           }
+        })
+        .then(data => {
+          this.saveToSent(senderName, senderEmail, subject, body, cc);
+
+          // Success State
+          iconInfo.style.animation = 'none';
+          iconInfo.innerText = 'check';
+          this.sendBtn.style.background = '#32d74b'; // Success Green
+          this.sendBtn.style.transform = 'scale(1.1)';
+
+          setTimeout(() => {
+            this.composeOverlay.style.display = 'none';
+            this.resetForm();
+
+            // Reset Button
+            iconInfo.innerText = 'arrow_upward';
+            this.sendBtn.style.background = '#0a84ff';
+            this.sendBtn.style.transform = 'scale(1)';
+          }, 1000);
         })
         .catch(error => {
           console.error('Error:', error);
-          alert('Error sending email: ' + error.message + '\n\nCheck if server is running on port 3000 and .env credentials are correct.');
+          alert('Error sending email: ' + error.message);
 
           // Reset State
           iconInfo.style.animation = 'none';
