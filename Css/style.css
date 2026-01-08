@@ -3534,3 +3534,237 @@ body.light-mode .calculator {
     opacity: 0;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Premium Social Dropdown - macOS Tahoe Glass UI
+   ═══════════════════════════════════════════════════════════════ */
+
+.social-menu {
+  position: relative;
+}
+
+/* Invisible bridge to prevent menu from closing when crossing the gap */
+.social-menu::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 180px;
+  /* Match dropdown width */
+  height: 20px;
+  /* Bridge the 8px gap */
+  background: transparent;
+  display: block;
+}
+
+.social-dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 180px;
+  padding: 8px;
+
+  /* Layered Glass Background - subtle vertical gradient */
+  background: linear-gradient(180deg,
+      rgba(50, 50, 55, 0.65) 0%,
+      rgba(25, 25, 30, 0.75) 100%);
+
+  /* Frosting */
+  backdrop-filter: blur(50px) saturate(200%);
+  -webkit-backdrop-filter: blur(50px) saturate(200%);
+
+  /* Rounded corners */
+  border-radius: 18px;
+
+  /* SHARP GLASS EDGES - Dual Border Technique */
+  /* Main border is thin and translucent */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  /* DEPTH SHADOWS - creating the 'slab' look */
+  box-shadow:
+    /* 1. Rim Highlight (Top/Left light source) */
+    inset 1px 1px 0 rgba(255, 255, 255, 0.25),
+    /* 2. Dark Edge (Bottom/Right occlusion) */
+    inset -1px -1px 0 rgba(0, 0, 0, 0.2),
+    /* 3. Soft Inner Glow */
+    inset 0 0 40px rgba(255, 255, 255, 0.05),
+    /* 4. Crisp Drop Shadow (Close) - physical thickness */
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    /* 5. Diffuse Drop Shadow (Far) - float height */
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    /* 6. Subtle Outer Ring for separation */
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+
+  /* Smooth entrance animation */
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* Micro grain texture to kill plastic look */
+.social-dropdown::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Top edge inner reflection highlight line */
+.social-dropdown::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.25) 20%,
+      rgba(255, 255, 255, 0.35) 50%,
+      rgba(255, 255, 255, 0.25) 80%,
+      transparent 100%);
+  pointer-events: none;
+}
+
+.social-menu:hover .social-dropdown {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Override default navbar li styles */
+.social-dropdown li {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  position: relative;
+}
+
+.social-dropdown li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  position: relative;
+
+  /* Clean light sans-serif typography */
+  font-family: "Lexend", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+
+  /* White text at ~90% opacity */
+  color: rgba(255, 255, 255, 0.9);
+
+  /* Smooth spring-like easing for motion */
+  transition:
+    background 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hover: Floating Glass Plate - glass-on-glass effect */
+.social-dropdown li a:hover {
+
+  /* Radial Light Bloom - curved glass effect */
+  background:
+    /* Central light bloom */
+    radial-gradient(ellipse 80% 50% at 30% 20%,
+      rgba(255, 255, 255, 0.22) 0%,
+      transparent 50%),
+    /* Secondary diffuse glow */
+    radial-gradient(ellipse 100% 80% at 50% 100%,
+      rgba(100, 180, 255, 0.06) 0%,
+      transparent 60%),
+    /* Base frosted glass */
+    linear-gradient(135deg,
+      rgba(90, 140, 220, 0.12) 0%,
+      rgba(50, 100, 180, 0.08) 100%);
+
+  transform: translateY(-3px) scale(1.02);
+
+  /* GLASS-ON-GLASS LAYERED SHADOWS */
+  box-shadow:
+    /* === INNER GLASS RIM (creates physical edge) === */
+    /* Top-left bright rim (light catching edge) */
+    inset 2px 2px 0 rgba(255, 255, 255, 0.3),
+    /* Inner soft highlight below rim */
+    inset 0 3px 6px rgba(255, 255, 255, 0.1),
+    /* Bottom-right dark rim (shadow edge) */
+    inset -2px -2px 0 rgba(0, 0, 0, 0.12),
+    /* Inner bottom shadow */
+    inset 0 -3px 6px rgba(0, 0, 0, 0.08),
+
+    /* === INNER GLASS GLOW === */
+    inset 0 0 20px rgba(100, 180, 255, 0.08),
+
+    /* === OUTER DEPTH LAYERS === */
+    /* Crisp outer rim (glass edge) */
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    /* Secondary outer rim (depth separation) */
+    0 0 0 2px rgba(0, 0, 0, 0.08),
+    /* Soft ambient glow */
+    0 0 24px rgba(100, 180, 255, 0.15),
+    /* Close shadow (tile thickness) */
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    /* Mid shadow (physical lift) */
+    0 8px 16px rgba(0, 0, 0, 0.25),
+    /* Far shadow (float height) */
+    0 16px 32px rgba(0, 0, 0, 0.15);
+
+  /* Double border technique for glass edge */
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+
+  /* Ensure tile appears above siblings */
+  z-index: 1;
+  position: relative;
+}
+
+.social-dropdown li a:active {
+  background: linear-gradient(135deg,
+      rgba(100, 160, 240, 0.2) 0%,
+      rgba(70, 130, 200, 0.15) 100%);
+  transform: translateY(-1.5px) scale(1.01);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 8px rgba(100, 180, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 10px rgba(100, 180, 255, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Minimalist monoline icons - softened */
+.social-dropdown li a svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+  stroke: rgba(255, 255, 255, 0.8);
+  fill: rgba(255, 255, 255, 0.8);
+  transition:
+    opacity 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Hover: subtle micro glow */
+.social-dropdown li a:hover svg {
+  opacity: 1;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
+}
+
+.social-dropdown li a span {
+  flex: 1;
+}
