@@ -35,7 +35,12 @@
 </head>
 
 <body onload="digi(), calculateBattery()">
-    <iframe id="wallpaper-frame" src="./silk/dist/index.html"></iframe>
+    <div id="silk-canvas"></div>
+    <script type="module">
+        import * as THREE from 'https://cdn.skypack.dev/three@0.129.0';
+        window.THREE = THREE; // Make available globally if needed by other non-module scripts, though silk.js imports it directly.
+    </script>
+    <script type="module" src="./javascript/silk.js"></script>
     <div class="navbar">
         <ul>
             <li class="leftLi logo">
@@ -123,7 +128,7 @@
                     </li>
                     <li>
                         <a href="https://www.instagram.com/offx.dipayan/" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-instagram" viewBox="0 0 16 16">
                                 <path
                                     d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
@@ -142,7 +147,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.linkedin.com/in/contactdipayandas/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.linkedin.com/in/contactdipayandas/" target="_blank"
+                            rel="noopener noreferrer">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path
@@ -802,76 +808,218 @@
     </div>
 
     <div class="window note">
-        <div class="window__taskbar">
-            <div class="window__taskbar--actions">
-                <button class="close-note"></button>
-                <button class="backfull-note"></button>
-                <button class="full-note">
-                    <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"
-                        stroke-linejoin="round" stroke-miterlimit="2">
-                        <path d="M4.871 3.553L9.37 8.098V3.553H4.871zm3.134 5.769L3.506 4.777v4.545h4.499z"></path>
-                        <circle cx="6.438" cy="6.438" r="6.438" fill="black"></circle>
-                    </svg>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <!-- New 3-Pane Notes Layout with Glass Toolbar -->
+        <div class="note-app-container"
+            style="display: flex; flex-direction: column; width: 100%; height: 100%; overflow: hidden; position: relative;">
+
+            <!-- Glass Toolbar (Floating) - 3 Capsule Groups -->
+            <div class="note-glass-toolbar dark" style="left: 220px;">
+
+                <!-- Group 1 (Left): View & File Actions -->
+                <div class="note-toolbar-group">
+                    <button class="note-control-btn" id="btn-view-list" title="List View">
+                        <i data-lucide="layout-list"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-view-grid" title="Gallery View">
+                        <i data-lucide="layout-grid"></i>
+                    </button>
+
+                    <div class="note-toolbar-separator"></div>
+
+                    <button class="note-control-btn" id="btn-folder-move" title="Move to Folder">
+                        <i data-lucide="folder-input"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-delete-note-toolbar" title="Delete Note">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </div>
+
+                <!-- Group 2 (Center): Editor Tools -->
+                <div class="note-toolbar-group">
+                    <button class="note-control-btn" id="btn-new-note-toolbar" title="New Note">
+                        <i data-lucide="square-pen"></i>
+                    </button>
+
+                    <div class="note-toolbar-separator"></div>
+
+                    <!-- Added Content More Options -->
+                    <button class="note-control-btn" id="btn-content-more" title="Content Options">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+
+                    <button class="note-control-btn" id="btn-text-format" title="Text Format">
+                        <span class="icon-text-aa">Aa</span>
+                    </button>
+                    <button class="note-control-btn" id="btn-checklist" title="Checklist">
+                        <i data-lucide="check-square"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-table" title="Insert Table">
+                        <i data-lucide="table"></i>
+                    </button>
+
+                    <div class="note-toolbar-separator"></div>
+
+                    <button class="note-control-btn" id="btn-audio" title="Record Audio">
+                        <i data-lucide="mic"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-image" title="Insert Image">
+                        <i data-lucide="image"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-attach" title="Attach File">
+                        <i data-lucide="paperclip"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-drawing" title="Sketch">
+                        <i data-lucide="pencil"></i>
+                    </button>
+                </div>
+
+                <!-- Group 3 (Right): Window Actions -->
+                <div class="note-toolbar-group">
+                    <!-- Link Moved Here -->
+                    <button class="note-control-btn" id="btn-link" title="Link">
+                        <i data-lucide="link"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-lock" title="Lock Note">
+                        <i data-lucide="lock"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-share" title="Share">
+                        <i data-lucide="share"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-more" title="More Options">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                    <button class="note-control-btn" id="btn-search-notes" title="Search">
+                        <i data-lucide="search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Persistent Header Row -->
+            <div class="note-app-header"
+                style="height: 52px; display: flex; align-items: center; padding-left: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #202020; z-index: 200; position: relative;">
+                <!-- Traffic Lights -->
+                <div class="window__taskbar--actions"
+                    style="position: static; padding: 0; width: auto; margin-right: 15px;">
+                    <button class="close-note" title="Close"
+                        style="background-color: #ff5f56; box-shadow: 0 0 0 0.5px #e0443e;"></button>
+                    <button class="backfull-note" title="Minimize"
+                        style="background-color: #ffbd2e; box-shadow: 0 0 0 0.5px #bea030;"></button>
+                    <button class="full-note" title="Maximize"
+                        style="background-color: #27c93f; box-shadow: 0 0 0 0.5px #1aab29;"></button>
+                </div>
+
+                <!-- Separator -->
+                <div style="width: 1px; height: 16px; background: rgba(255,255,255,0.2); margin-right: 10px;"></div>
+
+                <!-- Sidebar Toggle -->
+                <button class="note-control-btn" id="btn-sidebar-toggle" title="Toggle Sidebar"
+                    style="width: 28px; height: 28px;">
+                    <i data-lucide="panel-left" style="width: 16px; height: 16px;"></i>
                 </button>
             </div>
 
-            <div class="window__taskbar--right">
+            <!-- Content Panes Wrapper -->
+            <div class="note-panes-wrapper" style="display: flex; flex: 1; height: calc(100% - 52px);">
 
-                <div class="Customize__icon hidden">
-                    <span class="material-icons" accesskey="v"> window </span>
-                </div>
-                <div class="Customize__icon">
-                    <span class="material-icons adding" accesskey="n"> add_circle </span>
-                </div>
-                <div class="Customize__icon">
-                    <span class="material-icons deleting" accesskey="r"> delete </span>
-                </div>
-                <div class="Customize__icon hidden">
-                    <span class="material-icons"> ios_share </span>
-                </div>
-                <div class="containerSearch">
-                    <svg width="24" height="24">
-                        <path
-                            d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z">
-                        </path>
-                    </svg>
-                    <input type="search" name="search" placeholder="search" accesskey="s" />
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="content__sidebar">
-                <div class="content__sidebar--notes">
-                    <input type="text" value="About Me" readonly class="notes-sidebar-item">
-                    <input type="text" value="Skills" readonly class="notes-sidebar-item">
-                    <input type="text" value="Education" readonly class="notes-sidebar-item">
-                </div>
-            </div>
-            <div class="Parent__content--typing">
-                <div class="content__typing notes-typing-box">
+                <!-- Pane 1: Sidebar (Folders) -->
+                <div class="note-sidebar"
+                    style="width: 260px; display: flex; flex-direction: column; border-right: 1px solid rgba(0,0,0,0.3); background: #1e1e1e;">
+                    <!-- Traffic lights removed from here -->
 
-                    <h2 class="notes-skills-header">Technical Skills
-                    </h2>
-                    <ul class="notes-skills-list">
-                        [cite_start]<li><strong>Languages:</strong> C, Python [cite: 1927]</li>
-                        [cite_start]<li><strong>Web:</strong> HTML, CSS, JavaScript (Learning) [cite: 1928]</li>
-                        [cite_start]<li><strong>Tools:</strong> Git, GitHub, VS Code, Linux Command Line [cite:
-                            1929]</li>
-                    </ul>
+                    <div class="note-folders-list"
+                        style="flex: 1; padding: 10px; overflow-y: auto; background: #1e1e1e;">
 
-                    <h2 style="border-bottom: 1px solid var(--border-medium); padding-bottom: 5px; margin-top: 20px;">
-                        Achievements
-                    </h2>
-                    <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
-                        [cite_start]<li><strong>1st Position:</strong> BUG HUNT Competition (2025) [cite: 1944]</li>
-                        [cite_start]<li><strong>Open Source:</strong> Hacktoberfest 2024 & Open Odyssey 1.0
-                            Contributor [cite: 1950]</li>
-                    </ul>
+                        <!-- Quick Notes -->
+                        <div class="note-folder-item"
+                            style="display: flex; align-items: center; padding: 8px 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer;">
+                            <i data-lucide="sticky-note"
+                                style="width: 16px; height: 16px; color: #facc15; margin-right: 8px;"></i>
+                            <span style="font-size: 13px; color: #a0a0a0; flex: 1;">Quick Notes</span>
+                        </div>
 
-                    <h2 style="border-bottom: 1px solid var(--border-medium); padding-bottom: 5px; margin-top: 20px;">
-                        Education</h2>
-                    <p><strong>Bachelor of Computer Applications (BCA)</strong><br>
-                        [cite_start]Techno Main Salt Lake (Expected 2028) [cite: 1921, 1922, 1924]</p>
+                        <!-- iCloud Section -->
+                        <div class="note-sidebar-header"
+                            style="padding: 5px 12px; font-size: 11px; font-weight: 700; color: #6e6e6e; text-transform: uppercase;">
+                            iCloud</div>
+
+                        <div class="note-folder-item active" id="folder-all"
+                            style="display: flex; align-items: center; padding: 8px 12px; margin-bottom: 2px; border-radius: 6px; cursor: pointer;">
+                            <i data-lucide="folder"
+                                style="width: 16px; height: 16px; color: #FFD60A; margin-right: 8px; fill: #FFD60A;"></i>
+                            <span
+                                style="font-size: 13px; color: #fff; flex: 1; font-weight: 600; letter-spacing: -0.01em;">Notes</span>
+                            <span style="font-size: 12px; color: #6e6e6e;">19</span>
+                        </div>
+
+                        <div class="note-folder-item"
+                            style="display: flex; align-items: center; padding: 8px 12px; margin-bottom: 2px; border-radius: 6px; cursor: pointer;">
+                            <i data-lucide="trash-2"
+                                style="width: 16px; height: 16px; color: rgba(255,255,255,0.5); margin-right: 8px;"></i>
+                            <span style="font-size: 13px; color: #a0a0a0; flex: 1;">Recently Deleted</span>
+                        </div>
+
+                        <div style="height: 15px;"></div>
+
+                        <!-- Tags Section -->
+                        <div class="note-sidebar-header"
+                            style="padding: 5px 12px; font-size: 11px; font-weight: 700; color: #6e6e6e; text-transform: uppercase;">
+                            Tags</div>
+
+                        <div class="note-folder-item"
+                            style="display: flex; align-items: center; padding: 6px 12px; margin-bottom: 1px; border-radius: 6px; cursor: pointer;">
+                            <i data-lucide="hash"
+                                style="width: 14px; height: 14px; color: #a0a0a0; margin-right: 8px;"></i>
+                            <span style="font-size: 13px; color: #a0a0a0; flex: 1;">apple design</span>
+                        </div>
+                        <div class="note-folder-item"
+                            style="display: flex; align-items: center; padding: 6px 12px; margin-bottom: 1px; border-radius: 6px; cursor: pointer;">
+                            <i data-lucide="hash"
+                                style="width: 14px; height: 14px; color: #a0a0a0; margin-right: 8px;"></i>
+                            <span style="font-size: 13px; color: #a0a0a0; flex: 1;">my vision</span>
+                        </div>
+                        <div class="note-folder-item"
+                            style="display: flex; align-items: center; padding: 6px 12px; margin-bottom: 1px; border-radius: 6px; cursor: pointer;">
+                            <i data-lucide="hash"
+                                style="width: 14px; height: 14px; color: #a0a0a0; margin-right: 8px;"></i>
+                            <span style="font-size: 13px; color: #a0a0a0; flex: 1;">portfolio</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Pane 2: Note List -->
+                <div class="note-list-pane"
+                    style="width: 250px; background: #232323; display: flex; flex-direction: column; border-right: 1px solid rgba(0,0,0,0.3); padding-top: 60px;">
+                    <!-- Title -->
+                    <div class="note-list-header"
+                        style="height: 60px; display: flex; flex-direction: column; justify-content: center; padding: 0 20px;">
+                        <div style="font-size: 15px; font-weight: 700; color: #fff;">All iCloud</div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px;">5 notes</div>
+                    </div>
+
+                    <!-- Notes Container -->
+                    <div class="note-items-container" id="note-items-container"
+                        style="flex: 1; overflow-y: auto; overflow-x: hidden;">
+                        <!-- JS will populate this -->
+                    </div>
+                </div>
+
+                <!-- Pane 3: Editor -->
+                <div class="note-editor-pane"
+                    style="flex: 1; background: #1c1c1e; display: flex; flex-direction: column; position: relative; padding-top: 60px;">
+                    <!-- Content -->
+                    <div class="note-content-wrapper"
+                        style="flex: 1; overflow-y: auto; padding: 20px 40px; padding-top: 10px !important;">
+                        <div class="note-timestamp" id="note-timestamp"
+                            style="text-align: center; color: rgba(255,255,255,0.3); font-size: 11px; margin-bottom: 20px;">
+                            Select a note
+                        </div>
+                        <div class="note-editor-content" id="note-editor-content" contenteditable="true"
+                            style="outline: none; color: rgba(255,255,255,0.9); font-size: 16px; line-height: 1.6; min-height: 200px;">
+                            <!-- Content goes here -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1469,6 +1617,7 @@
 
     <script src="./javascript/script.js"></script>
     <script src="./javascript/app.js"></script>
+    <script src="./javascript/notes-app.js"></script>
 
 </body>
 

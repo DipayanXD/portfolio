@@ -129,18 +129,18 @@ body {
   overflow: hidden;
 }
 
-#wallpaper-frame {
+#silk-canvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0;
+  z-index: -1;
   border: none;
   pointer-events: auto;
 }
 
-body.static-mode #wallpaper-frame {
+body.static-mode #silk-canvas {
   display: none !important;
 }
 
@@ -820,9 +820,9 @@ li>.menu__container>.grid__controling .control_center--grid {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 0.8rem;
-  height: 0.8rem;
-  padding: 8px;
+  width: 12px;
+  height: 12px;
+  padding: 0;
   border-radius: 50%;
   transition: 0.4s;
 }
@@ -838,13 +838,14 @@ li>.menu__container>.grid__controling .control_center--grid {
 
 .window__taskbar--actions button::after {
   display: block;
-  font-size: 14px;
+  font-size: 9px;
+  line-height: 1;
   color: transparent;
   font-weight: 900;
 }
 
 .window__taskbar--actions button:nth-child(1)::after {
-  content: "×";
+  content: "\00D7";
 }
 
 .window__taskbar--actions button:nth-child(1):hover {
@@ -857,7 +858,7 @@ li>.menu__container>.grid__controling .control_center--grid {
 }
 
 .window__taskbar--actions button:nth-child(2)::after {
-  content: "−";
+  content: "\2212";
 }
 
 .window__taskbar--actions button:nth-child(2):hover {
@@ -870,7 +871,7 @@ li>.menu__container>.grid__controling .control_center--grid {
 }
 
 .window__taskbar--actions button:nth-child(3)::after {
-  content: "⤡";
+  content: "\002B";
 }
 
 .window__taskbar--actions button:nth-child(3):hover {
@@ -1918,6 +1919,42 @@ body.light-mode .calculator {
   line-height: 1.6;
 }
 
+
+/* =========================================
+   APP WINDOW SIZES
+   ========================================= */
+
+.window.note {
+  width: 1100px;
+  height: 650px;
+  min-width: 800px;
+  /* Use !important to override generic .window settings if needed, 
+     but specific class should be enough usually. 
+     However, .window uses min-width 50% which is strong. */
+  min-width: 800px !important;
+  max-width: 95vw !important;
+
+  /* Fix Open Location: Center the window absolutely */
+  position: absolute;
+  top: calc(50% - 325px);
+  /* Half of height */
+  left: calc(50% - 550px);
+  /* Half of width */
+}
+
+.window.terminal {
+  width: 700px;
+  height: 480px;
+  min-width: 500px !important;
+}
+
+.window.calculator {
+  /* Calculator is usually fixed size and smaller */
+  width: 300px;
+  height: 420px;
+  min-width: 300px !important;
+  max-width: 300px !important;
+}
 
 /* =========================================
    MAIL APP STYLES
@@ -3768,3 +3805,483 @@ body.light-mode .calculator {
 .social-dropdown li a span {
   flex: 1;
 }
+
+/* Notes App Custom Styles */
+/* Notes App Custom Styles */
+.note-folder-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.note-folder-item.active {
+  background: rgba(255, 214, 10, 0.15) !important;
+  /* Warm Golden Yellow */
+  border-radius: 6px;
+}
+
+.note-folder-item.active .material-icons-round {
+  color: #FFD60A;
+}
+
+.note-folder-item.active span {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.note-sidebar-header {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #6e6e6e;
+  /* Tertiary */
+}
+
+/* Advanced Note List Styling */
+.note-list-header-group {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6e6e6e;
+  /* Tertiary */
+  text-transform: uppercase;
+  padding: 15px 20px 5px 20px;
+}
+
+.note-list-item {
+  padding: 12px;
+  /* 12px padding */
+  margin: 0 10px;
+  border-radius: 6px;
+  /* 6px radius */
+  border-bottom: none;
+  margin-bottom: 8px;
+  /* 8px gap */
+}
+
+.note-list-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.note-list-item.active {
+  background: rgba(255, 214, 10, 0.15) !important;
+  /* Warm Golden Yellow */
+  border-left: none;
+}
+
+/* Specific text styling inside card */
+.note-list-item.active .note-list-title {
+  color: #fff !important;
+}
+
+.note-list-item.active .note-list-date,
+.note-list-item.active .note-list-preview,
+.note-list-item.active .note-card-folder span,
+.note-list-item.active .note-card-folder i {
+  color: #a0a0a0 !important;
+  /* Secondary */
+}
+
+.note-list-title {
+  font-size: 15px;
+  /* 15px Medium */
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.note-list-preview-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.note-list-date {
+  font-size: 13px;
+  /* 13px Regular */
+  color: #a0a0a0;
+  /* Secondary */
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.note-list-preview {
+  font-size: 13px;
+  /* 13px Regular */
+  color: #6e6e6e;
+  /* Tertiary */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-card-folder {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.5;
+}
+
+.note-card-folder i {
+  width: 12px;
+  height: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.note-card-folder span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.note-timestamp {
+  text-align: center;
+  color: #a0a0a0;
+  /* Secondary */
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+/* Notes App Typography Upgrade */
+/* Notes App Typography Upgrade */
+.window.note {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.note-editor-content {
+  outline: none;
+  color: #fff;
+  /* Primary */
+  font-size: 16px;
+  /* 16px Body */
+  line-height: 1.6;
+  /* Increased LH */
+  padding: 40px 24px 0 24px;
+  /* Detail View Padding */
+  min-height: 200px;
+}
+
+/* Make the first line look like a Title - Larger & Bolder */
+.note-editor-content::first-line {
+  font-size: 28px;
+  /* 28px Bold */
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  /* Space after title */
+  display: block;
+  /* Ensure block spacing behavior if possible */
+}
+
+/* Lighter Metadata */
+.note-timestamp {
+  text-align: center;
+  color: rgba(235, 235, 245, 0.6);
+  /* System Gray 2 equivalent opacity */
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.note-list-date {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  /* Increased from 0.4 */
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.note-list-preview {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  /* Increased to match 55% */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Scrollbar hover effect reuse */
+.note-folders-list::-webkit-scrollbar-thumb:hover,
+.note-items-container::-webkit-scrollbar-thumb:hover,
+.note-content-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Notes App Toolbar - authentic Apple glassmorphism */
+/* Notes App Toolbar - authentic Apple glassmorphism */
+.note-glass-toolbar {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  right: 20px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.note-toolbar-group {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* Increased gap */
+
+  /* 1. Surface & Lighting */
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%),
+    /* Top Light */
+    linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%),
+    /* Bottom Shadow */
+    #1B1C1F;
+  /* Warm Dark Base */
+
+  /* 2. Blur Stack (Saturate first for vibrancy) */
+  backdrop-filter: saturate(180%) blur(40px);
+  -webkit-backdrop-filter: saturate(180%) blur(40px);
+
+  /* 3. Edge Glow (Inner Border) & Dividers */
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  /* subtle outer border */
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.10),
+    /* Top Inner Glow */
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.25),
+    /* Bottom Inner Shadow */
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    /* Contact Shadow */
+    0 8px 24px rgba(0, 0, 0, 0.15);
+  /* Ambient Shadow */
+
+  border-radius: 50px;
+  padding: 6px 12px 4px 12px;
+  /* Top 6px, Bottom 4px to lower baseline */
+  height: 44px;
+}
+
+.note-toolbar-separator {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  /* #FFFFFF08 */
+  height: 20px;
+  margin: 0 4px;
+}
+
+.icon-text-aa {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: currentColor;
+  letter-spacing: -0.5px;
+}
+
+
+/* Icons color override for dark theme */
+.note-glass-toolbar {
+  color: #d1d1d1;
+  /* Soft white/gray for icons */
+}
+
+/* --- Detail Polish --- */
+
+/* 1. Lighten Sidebar Icons */
+.note-sidebar .note-folder-item i,
+.note-sidebar .note-sidebar-header i {
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.note-folder-item:hover i,
+.note-folder-item.active i {
+  opacity: 1;
+  /* Restore on hover/active */
+}
+
+/* 2. Custom Dash Bullets */
+.note-editor-content ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.note-editor-content ul li {
+  position: relative;
+  padding-left: 15px;
+  margin-bottom: 4px;
+}
+
+.note-editor-content ul li::before {
+  content: "–";
+  /* En dash */
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+/* 3. Consistent Window Control Spacing */
+.window__taskbar--actions button {
+  margin-right: 8px;
+  /* Consistent spacing */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+}
+
+.window__taskbar--actions button:last-child {
+  margin-right: 0;
+}
+
+/* 4. Toolbar Icon Sizing */
+.note-control-btn i,
+.note-control-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5px;
+  /* Lighter stroke */
+}
+
+.note-control-btn .icon-text-aa {
+  font-size: 16px;
+  /* Match icon visual weight */
+}
+
+.note-control-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 0;
+}
+
+.note-control-btn svg {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.note-control-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  /* Darken on hover for light glass */
+  transform: scale(1.05);
+}
+
+.note-glass-toolbar.dark .note-control-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.note-control-btn:active {
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(0.95);
+}
+
+.note-control-btn.active {
+  background: rgba(0, 0, 0, 0.15);
+  color: #DAA520;
+  /* Accent color */
+}
+
+/* Dropdown/Popover styles */
+.note-popover {
+  position: absolute;
+  top: 100%;
+  margin-top: 8px;
+  background: rgba(60, 60, 60, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 6px;
+  min-width: 150px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  display: none;
+  flex-direction: column;
+  z-index: 200;
+}
+
+.note-popover.open {
+  display: flex;
+}
+
+.note-popover-item {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.note-popover-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.note-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 8px;
+}
+
+.note-glass-toolbar.dark .note-divider {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Simulated Audio Waveform */
+.audio-wave-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 20px;
+  padding: 0 8px;
+}
+
+.audio-bar {
+  width: 2px;
+  background: #DAA520;
+  border-radius: 1px;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    height: 4px;
+  }
+
+  50% {
+    height: 16px;
+  }
+}
+
+/* Adjust Note Pane to accommodate toolbar */
+.window.note .note-editor-pane,
+.window.note .note-list-pane {
+  padding-top: 0;
+}
+
+.window.note .note-content-wrapper {
+  padding-top: 60px !important;
+  /* Push content down */
+}.note-editor-content h1 { font-size: 24px; font-weight: 700; margin-bottom: 15px; color: var(--text-primary); }

@@ -46,11 +46,13 @@ const notesApp = {
   close: document.querySelector(".close-note"),
   backfull: document.querySelector(".backfull-note"),
   point: document.querySelector("#point-note"),
-  adding: document.querySelector(".adding"),
-  deleting: document.querySelector(".deleting"),
-  content_typing: document.querySelector(".content__typing"),
   opening: document.querySelector(".open-note"),
-  notes: document.querySelector(".content__sidebar--notes"),
+  // New Elements for Functional App
+  container: document.getElementById("note-items-container"),
+  editor: document.getElementById("note-editor-content"),
+  timestamp: document.getElementById("note-timestamp"),
+  addBtn: document.getElementById("btn-new-note-toolbar"),
+  deleteBtn: document.getElementById("btn-delete-note-toolbar"),
 };
 
 // Terminal App
@@ -160,23 +162,183 @@ function handleopen_spotlight() {
 }
 
 // Notes app function start
-function handleAdding() {
-  const create_input = document.createElement("input");
-  create_input.placeholder = "Writing name";
-  notesApp.notes.appendChild(create_input);
+// Notes App Logic - New Implementation
+// Notes App Logic - New Implementation matching Reference
+let notesData = [
+  {
+    id: 1,
+    title: "About the Builder",
+    content: "<p>I make interfaces you can almost touch. Seriously obsessed with making pixels feel like they have weight—because flat design is what happens when designers give up.</p><br><p>Currently getting my BCA at Techno Main Salt Lake, where I'm supposed to be learning Java but instead I'm building tools that feel like they were carved from the OS itself. Not another landing page. Not another SaaS dashboard that looks like it was designed by a committee of beige paint samples.</p><br><p>I don't make websites. I make software that feels so native to your machine, you'll forget it didn't ship with your operating system. Light, motion, spacing, materials—the stuff most people scroll past without thinking? That's where the magic hides.</p>",
+    date: new Date().toISOString(), // Today
+    folder: "Notes"
+  },
+  {
+    id: 101,
+    title: "Personal Goals",
+    content: "– Become a system-level UI engineer<br>– Build privacy-first desktop tools<br>– Contribute to serious open-source software<br>– Master frontend architecture, not just frameworks<br>– Land an internship where I can work on real tools, not landing pages<br>",
+    date: new Date(Date.now() - 86400000).toISOString(), // Yesterday
+    folder: "Notes"
+  },
+  {
+    id: 102,
+    title: "Call with Thar",
+    content: "1 audio recording",
+    date: new Date(Date.now() - 86400000 * 1.5).toISOString(), // Yesterday
+    folder: "Notes"
+  },
+  {
+    id: 2,
+    title: "Technical Skills",
+    content: "<b>Languages:</b> C, Python<br><b>Web:</b> HTML, CSS, JavaScript<br><b>Tools:</b> Git, GitHub, VS Code",
+    date: "2024-10-10T10:00:00.000Z",
+    folder: "My Notebook"
+  },
+  {
+    id: 3,
+    title: "Achievements",
+    content: "<ul><li>1st Position: BUG HUNT Competition (2025)</li><li>Hacktoberfest 2024 Contributor</li></ul>",
+    date: "2024-04-14T10:00:00.000Z",
+    folder: "Inspiration"
+  }
+];
+
+let activeNoteId = 1;
+
+function renderNotesList() {
+  if (!notesApp.container) return;
+  notesApp.container.innerHTML = "";
+
+  // Sort by date desc
+  const sorted = [...notesData].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const groups = {};
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+  sorted.forEach(note => {
+    const d = new Date(note.date);
+    let groupName = "";
+    if (d.toDateString() === today) groupName = "Today";
+    else if (d.toDateString() === yesterday) groupName = "Yesterday";
+    else if (d > new Date(Date.now() - 30 * 86400000)) groupName = "Previous 30 Days";
+    else {
+      groupName = d.toLocaleDateString('en-US', { month: 'long' });
+    }
+
+    if (!groups[groupName]) groups[groupName] = [];
+    groups[groupName].push(note);
+  });
+
+  // Render Groups
+  const groupOrder = ["Today", "Yesterday", "Previous 30 Days"];
+  // Add other months as they appear
+  Object.keys(groups).forEach(k => {
+    if (!groupOrder.includes(k)) groupOrder.push(k);
+  });
+
+  groupOrder.forEach(group => {
+    if (!groups[group] || groups[group].length === 0) return;
+
+    const header = document.createElement("div");
+    header.className = "note-list-header-group";
+    header.innerText = group;
+    notesApp.container.appendChild(header);
+
+    groups[group].forEach(note => {
+      const el = document.createElement("div");
+      el.className = `note-list-item ${note.id === activeNoteId ? 'active' : ''}`;
+      el.onclick = () => loadNote(note.id);
+
+      // clean text for preview
+      const tmp = document.createElement("DIV");
+      tmp.innerHTML = note.content;
+      const plainText = tmp.textContent || tmp.innerText || "";
+
+      // Format time/date for preview
+      const d = new Date(note.date);
+      const timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const dateStr = d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+      const displayDate = group === "Today" ? timeStr : (group === "Yesterday" ? "Yesterday" : dateStr);
+
+      el.innerHTML = `
+          <div class="note-list-title">${note.title}</div>
+          <div class="note-list-preview-row">
+            <span class="note-list-date">${displayDate}</span>
+            <span class="note-list-preview">${plainText.substring(0, 30)}</span>
+          </div>
+          <div class="note-card-folder">
+             <i data-lucide="folder"></i>
+             <span>${note.folder || "Notes"}</span>
+          </div>
+        `;
+      notesApp.container.appendChild(el);
+    });
+  });
+
+  // Refresh icons
+  if (window.lucide) window.lucide.createIcons();
 }
 
-function handleDeleting() {
-  const inputChild = document.querySelector(".content__sidebar--notes input");
-  inputChild.remove();
-  notesApp.content_typing.style.display = "none";
+function loadNote(id) {
+  activeNoteId = id;
+  const note = notesData.find(n => n.id === id);
+  if (note && notesApp.editor) {
+    notesApp.editor.innerHTML = `<h1>${note.title}</h1><br>${note.content}`;
+
+    // Format timestamp for Top of Editor
+    const d = new Date(note.date);
+    const dateStr = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+    const timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    notesApp.timestamp.innerText = `${dateStr} at ${timeStr}`;
+  }
+  renderNotesList();
 }
 
-function handleNotes() {
-  notesApp.content_typing.style.display = "block";
+function addNewNote() {
+  const newId = Date.now();
+  const newNote = {
+    id: newId,
+    title: "New Note",
+    content: "Start typing...",
+    date: new Date().toISOString(),
+    folder: "Notes"
+  };
+  notesData.unshift(newNote);
+  loadNote(newId);
 }
 
-// Notes app function end
+function deleteNote() {
+  notesData = notesData.filter(n => n.id !== activeNoteId);
+  if (notesData.length > 0) activeNoteId = notesData[0].id;
+  else {
+    activeNoteId = null;
+    notesApp.editor.innerHTML = "";
+    notesApp.timestamp.innerText = "";
+  }
+  renderNotesList();
+  if (activeNoteId) loadNote(activeNoteId);
+}
+
+// Initialize listeners if elements exist
+if (notesApp.editor) {
+  notesApp.editor.addEventListener("input", (e) => {
+    const note = notesData.find(n => n.id === activeNoteId);
+    if (note) {
+      note.content = e.target.innerHTML;
+      const text = e.target.innerText.split('\n')[0];
+      note.title = text.substring(0, 25) || "New Note";
+      renderNotesList(); // Update title in real-time
+    }
+  });
+}
+if (notesApp.addBtn) notesApp.addBtn.addEventListener("click", addNewNote);
+if (notesApp.deleteBtn) notesApp.deleteBtn.addEventListener("click", deleteNote);
+
+// Initialize View
+setTimeout(() => {
+  renderNotesList();
+  loadNote(activeNoteId);
+}, 500); // Small delay to ensure DOM is ready
 
 function handleMinimize(Minimize) {
   Minimize.style.maxWidth = "80%";
@@ -357,7 +519,7 @@ function handleOpenCal_lunchpad() {
 
 handleopen_spotlight();
 handleOpenLaunching();
-notesApp.adding.addEventListener("click", handleAdding);
+// notesApp.adding.addEventListener("click", handleAdding); // Old listener removed
 calculatorApp.backfull.addEventListener("click", () =>
   minimizeWindowToDock(calculatorApp.window, calculatorApp.opening)
 );
@@ -376,7 +538,7 @@ notesApp.close.addEventListener("click", () =>
 mapsApp.close.addEventListener("click", () =>
   close_window(mapsApp.window, mapsApp.point, mapsApp.app_name)
 );
-notesApp.deleting.addEventListener("click", handleDeleting);
+// notesApp.deleting.addEventListener("click", handleDeleting); // Old listener removed
 terminalApp.full.addEventListener("click", () =>
   handleFullScreen(terminalApp.window)
 );
@@ -389,7 +551,7 @@ vscodeApp.full.addEventListener("click", () =>
 );
 */
 mapsApp.full.addEventListener("click", () => handleFullScreen(mapsApp.window));
-notesApp.window.addEventListener("click", handleNotes);
+// notesApp.window.addEventListener("click", handleNotes); // Old listener removed
 terminalApp.opening.addEventListener("click", () =>
   open_window(terminalApp.window, terminalApp.point, terminalApp.app_name)
 );
