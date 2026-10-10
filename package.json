@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "build:portfolio": "vite build",
     "build": "cd silk && npm install && npm run build",
     "start": "cd backend && npm start",
     "setup": "npm run build && cd backend && npm install"
