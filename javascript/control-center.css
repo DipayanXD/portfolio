@@ -104,6 +104,12 @@ body.light-mode .liquid-glass { --glass-reflex-light: 1; --glass-reflex-dark: 1;
 .cc-footer-dot { width: 4px; height: 4px; border-radius: 50%; background: #ffffff99; }
 .glass-button { transition: background-color .18s, color .18s, transform .28s cubic-bezier(.2,1.4,.4,1); }
 @media (hover: hover) { .glass-button:hover { background-color: #ffffff18; transform: scale(1.018); } .cc-circle[aria-pressed=true]:hover { background-color: #fff; } .glass-button:hover > svg { transform: translateY(-1px); } }
+/* Disclosure labels live inside a glass surface. Lighting belongs to that
+   surface, not a rectangular fill behind its nested button. */
+.cc-panel :is(.cc-network-expand, .cc-media-expand, .cc-slider-heading button):hover {
+  background-color: transparent;
+  transform: none;
+}
 .glass-button > svg { transition: transform .2s; }
 .cc-details { padding-top: 14px; }
 .cc-details p { font-size: 10px; line-height: 1.6; color: #ffffffad; margin-top: 10px; }
