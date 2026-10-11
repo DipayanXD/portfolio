@@ -2,7 +2,7 @@ import { icon, liquidGlass, glassButton, glassSlider, glassSwitcher, springFrame
 import './control-center.css';
 
 const $ = (selector, root = document) => root.querySelector(selector);
-const state = { controlCenterOpen: false, wifiEnabled: true, bluetoothEnabled: true, airdropEnabled: true, focusEnabled: false, stageEnabled: false, brightness: 66, volume: 81, appearance: localStorage.getItem('theme') || 'system', mediaPlaying: false };
+const state = { controlCenterOpen: false, wifiEnabled: true, bluetoothEnabled: true, airdropEnabled: true, focusEnabled: false, stageEnabled: false, brightness: 100, volume: 81, appearance: localStorage.getItem('theme') || 'system', mediaPlaying: false };
 const systemAppearance = matchMedia('(prefers-color-scheme: light)');
 const tracks = [
   { title: 'Besties', subtitle: 'Black Country, New Road', url: new URL('../music/audio/aurora-vale.wav', import.meta.url).href },
@@ -45,7 +45,7 @@ panel.innerHTML = `
     </section>
     <button class="cc-focus cc-module" aria-label="Toggle Focus mode" aria-pressed="false"><span class="cc-mini-circle">${icon('Moon')}</span><span><strong>Focus</strong><small class="cc-focus-status">Off</small></span></button>
     <div class="cc-secondary"><button class="cc-stage cc-circle cc-module" aria-label="Toggle Stage Manager" aria-pressed="false" title="Stage Manager">${icon('StageManager')}</button><button class="cc-mirror cc-circle cc-module" aria-label="Show portfolio preview selector" aria-expanded="false" title="Portfolio previews">${icon('Mirroring')}</button></div>
-    <section class="cc-display cc-module cc-wide" data-module="display"><div class="cc-slider-heading"><button aria-label="Show display options" aria-expanded="false">Display ${icon('ChevronRight')}</button><output id="cc-brightness-value">66%</output></div><div class="cc-slider-row">${icon('Sun')}<div class="cc-brightness-slot"></div>${icon('Sun')}</div><div class="cc-details" hidden><div class="cc-detail-heading">Desktop appearance</div><div class="cc-segmented"><button data-appearance="light">Light</button><button data-appearance="dark">Dark</button><button data-appearance="system">Auto</button></div><button id="bgToggle" class="cc-option">${icon('Monitor')}<span>Live wallpaper</span></button></div></section>
+    <section class="cc-display cc-module cc-wide" data-module="display"><div class="cc-slider-heading"><button aria-label="Show display options" aria-expanded="false">Display ${icon('ChevronRight')}</button><output id="cc-brightness-value">100%</output></div><div class="cc-slider-row">${icon('Sun')}<div class="cc-brightness-slot"></div>${icon('Sun')}</div><div class="cc-details" hidden><div class="cc-detail-heading">Desktop appearance</div><div class="cc-segmented"><button data-appearance="light">Light</button><button data-appearance="dark">Dark</button><button data-appearance="system">Auto</button></div><button id="bgToggle" class="cc-option">${icon('Monitor')}<span>Live wallpaper</span></button></div></section>
     <section class="cc-sound cc-module cc-wide" data-module="sound"><div class="cc-slider-heading"><button aria-label="Show sound output options" aria-expanded="false">Sound ${icon('ChevronRight')}</button><output id="cc-volume-value">81%</output></div><div class="cc-slider-row">${icon('SpeakerLow')}<div class="cc-volume-slot"></div>${icon('Volume2')}<button class="cc-output" aria-label="Show sound output options" aria-expanded="false">${icon('AirDrop')}</button></div><div class="cc-details" hidden><div class="cc-detail-heading">Output</div><div class="cc-detail-row">${icon('Volume2')}<span>Browser audio<small>Your device’s selected output</small></span>${icon('Check')}</div><button class="cc-option cc-mute">${icon('VolumeX')}<span>Mute ambience</span></button><p>Volume controls the portfolio ambience player.</p></div></section>
     <section class="cc-previews cc-module cc-wide" hidden><div class="cc-detail-heading">Portfolio previews <button class="cc-preview-close" aria-label="Close preview selector">${icon('X')}</button></div><button class="cc-option" data-preview=".open-note">${icon('PanelsTopLeft')}<span>About & notes</span>${icon('ChevronRight')}</button><button class="cc-option" data-preview=".open-photos">${icon('Camera')}<span>Achievements</span>${icon('ChevronRight')}</button><button class="cc-option" data-preview=".open-terminal">${icon('Monitor')}<span>Developer terminal</span>${icon('ChevronRight')}</button></section>
     <div class="cc-quick cc-wide"><button class="cc-circle cc-appearance" aria-label="Change appearance" title="Appearance">${icon('Appearance')}</button><button class="cc-circle cc-calculator" aria-label="Open Calculator" title="Calculator">${icon('ReferenceCalculator')}</button><button class="cc-circle cc-timer" aria-label="Open Timer" title="Timer">${icon('ReferenceTimer')}</button><button class="cc-circle cc-camera" aria-label="Open Camera" title="Camera">${icon('ReferenceCamera')}</button></div>
@@ -312,4 +312,16 @@ $('.cc-camera', panel).onclick = () => {
     $('#cc-camera-status').textContent = 'Portrait captured. Save it below, or capture another.';
   };
 };
+// Compact-only Control Center for now. Keep the expansion implementation above
+// available for restoration, but expose no disclosure buttons or edit menu.
+panel.querySelectorAll('.cc-network-expand, .cc-media-expand, .cc-slider-heading button, .cc-mirror, .cc-output').forEach(button => {
+  const label = document.createElement('div');
+  label.className = button.className.replace(/\bglass-button\b/g, '').trim();
+  label.style.cssText = button.style.cssText;
+  label.innerHTML = button.innerHTML;
+  if (button.matches('.cc-mirror, .cc-output')) label.setAttribute('aria-hidden', 'true');
+  if (button.closest('.cc-slider-heading')) label.classList.add('cc-slider-label');
+  button.replaceWith(label);
+});
+$('.cc-footer', panel).hidden = true;
 updateConnection();

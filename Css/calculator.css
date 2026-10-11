@@ -1,0 +1,94 @@
+/* Preserve reference proportions at a readable 600 × 363 desktop size. */
+.calculator.liquid-glass, body.light-mode .calculator.liquid-glass {
+  --calc-unit: min(1.5px, calc((100vw - 24px) / 400), calc((100dvh - 100px) / 242));
+  --glass-reflex-light: .18;
+  --glass-reflex-dark: .5;
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  width: calc(400 * var(--calc-unit));
+  max-width: calc(100vw - 24px);
+  height: calc(242 * var(--calc-unit));
+  max-height: calc(100dvh - calc(72 * var(--calc-unit)));
+  overflow: auto;
+  top: max(calc(36 * var(--calc-unit)), calc(50% - calc(121 * var(--calc-unit))));
+  left: max(calc(12 * var(--calc-unit)), calc(50% - calc(200 * var(--calc-unit))));
+  margin: 0;
+  padding: 0 calc(5 * var(--calc-unit)) calc(5 * var(--calc-unit));
+  border: calc(1 * var(--calc-unit)) solid #ffffff16;
+  border-radius: calc(10 * var(--calc-unit));
+  background: rgba(31, 31, 31, .97);
+  box-shadow: var(--glass-reflections), 0 calc(14 * var(--calc-unit)) calc(36 * var(--calc-unit)) #0005;
+  z-index: 20;
+  color: #e8e8e8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.calculator.liquid-glass.calculator--expanded, body.light-mode .calculator.liquid-glass.calculator--expanded { --calc-unit: min(1.8px, calc((100vw - 24px) / 400), calc((100dvh - 100px) / 242)); }
+.calculator.liquid-glass::before { opacity: .15; }
+.calculator__top { height: calc(77 * var(--calc-unit)); display: flex; flex-direction: column; }
+.calculator__top--taskabr { position: relative; display: flex; align-items: center; gap: calc(5 * var(--calc-unit)); height: calc(28 * var(--calc-unit)); flex-shrink: 0; padding: 0 calc(5 * var(--calc-unit)); touch-action: none; }
+.calculator__top--taskabr button { display: grid; place-items: center; flex: 0 0 calc(8 * var(--calc-unit)); width: calc(8 * var(--calc-unit)); height: calc(8 * var(--calc-unit)); padding: 0; border: 0; border-radius: 50%; cursor: pointer; }
+.calculator__top--taskabr .close-cal { background: #ff6059; }
+.calculator__top--taskabr .min-cal { background: #ffbd2e; }
+.calculator__top--taskabr .max-cal { background: #474747; }
+.calculator__top--taskabr .max-cal:hover { background: #686868; }
+.calculator__top--taskabr .calculator__utility { width: calc(22 * var(--calc-unit)); height: calc(22 * var(--calc-unit)); flex-basis: calc(22 * var(--calc-unit)); border: calc(1 * var(--calc-unit)) solid #ffffff0b; background: #ffffff03; color: #c4c4c4; }
+.calculator__utility svg { width: calc(14 * var(--calc-unit)); height: calc(14 * var(--calc-unit)); fill: none; stroke: currentColor; stroke-width: 1.2; }
+.calculator__expression-toggle { margin-left: calc(10 * var(--calc-unit)); }
+.calculator__copy { margin-left: auto; margin-right: -5px; }
+.calculator__status { position: absolute; right: calc(28 * var(--calc-unit)); font-size: calc(10 * var(--calc-unit)); color: #aaa; pointer-events: none; }
+.calculator__expression { height: calc(21 * var(--calc-unit)); padding: 0 calc(1 * var(--calc-unit)); font-size: calc(10 * var(--calc-unit)); text-align: right; color: #999; white-space: nowrap; overflow: hidden; }
+.calculator--hide-expression .calculator__expression { visibility: hidden; }
+.calculator__top--output { box-sizing: border-box; width: 100%; min-width: 0; height: calc(28 * var(--calc-unit)); padding: 0 0 calc(3 * var(--calc-unit)); border: 0; outline: none; color: #e8e8e8; background: transparent; font: 400 calc(20 * var(--calc-unit))/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-variant-numeric: tabular-nums; text-align: right; }
+.calculator .input { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); grid-auto-rows: calc(29 * var(--calc-unit)); gap: calc(3 * var(--calc-unit)) calc(4 * var(--calc-unit)); }
+.calculator .button {
+  --glass-reflex-light: .18;
+  --glass-reflex-dark: .5;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  height: calc(29 * var(--calc-unit));
+  padding: 0;
+  border-radius: calc(999 * var(--calc-unit));
+  border: calc(1 * var(--calc-unit)) solid #ffffff0c;
+  border-top-color: #ffffff15;
+  background: #303030;
+  color: #e7e7e7;
+  font: 400 calc(10 * var(--calc-unit))/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  box-shadow: var(--glass-reflections);
+  cursor: pointer;
+  user-select: none;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+.calculator .button.liquid-glass::before { opacity: .16; }
+body.light-mode .calculator .button.liquid-glass { --glass-reflex-light: .18; --glass-reflex-dark: .5; }
+.calculator .number { background: #484848; font-size: calc(14 * var(--calc-unit)); }
+.calculator .operator-2 { background: #737373; font-size: calc(14 * var(--calc-unit)); }
+.calculator .operator { background: #ff9500; color: white; font-size: calc(23 * var(--calc-unit)); border-color: #ffffff0b; }
+.calculator .operator { display: flex; align-items: center; justify-content: center; }
+.calculator .calculator__operator-icon {
+  display: block;
+  flex: none;
+  width: calc(18 * var(--calc-unit));
+  height: calc(18 * var(--calc-unit));
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+}
+/* Shared glass-button hover motion must not shift a symbol inside its pill. */
+.calculator .operator.glass-button > svg { transform: none; }
+.calculator .button[aria-pressed='true'], .calculator .button.is-active { background: #656565; }
+@media (hover: hover) {
+  .calculator .button:hover { background-color: #414141; filter: brightness(1.08); }
+  .calculator .number:hover { background-color: #585858; }
+  .calculator .operator-2:hover { background-color: #838383; }
+  .calculator .operator:hover { background-color: #ffa51f; }
+  .calculator__utility:hover { background: #ffffff12; }
+}
+.calculator .button:active, .calculator .button.is-pressed { transform: scale(.96); filter: brightness(1.2); }
+.calculator button:focus-visible { outline: calc(2 * var(--calc-unit)) solid #91c9ff; outline-offset: calc(1 * var(--calc-unit)); }
+@media (max-width: 380px) { .calculator .input { column-gap: calc(3 * var(--calc-unit)); } .calculator .scientific { font-size: calc(9 * var(--calc-unit)); } }
+@media (prefers-reduced-motion: reduce) { .calculator .button { transition: none; } .calculator .button:hover, .calculator .button:active, .calculator .button.is-pressed { transform: none; } }

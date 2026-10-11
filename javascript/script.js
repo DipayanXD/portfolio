@@ -597,73 +597,11 @@ elements.clockWrapper.addEventListener("click", () => {
   elements.widgetsPanel.classList.toggle("open");
 });
 
-// Calculator code
-// select all the buttons
-const calculatorButtons = document.querySelectorAll(".input button");
-// select the <input type="text" class="display" disabled> element
-const calculatorDisplay = document.querySelector(".display");
-
-// add eventListener to each button
-calculatorButtons.forEach((button) => {
-  button.addEventListener("click", (event) => {
-    calculate(event.target.value, calculatorDisplay);
-    console.log("btn");
-  });
-});
-
-function lastNumber(value) {
-  return value.split(/[\+\-\*\/\%]/).pop();
-}
-
-const operators = ["+", "-", "*", "/", "%"];
-
-function calculate(value, display) {
-  const latestChar = display.value[display.value.length - 1];
-
-  const isEmpty = display.value === "0";
-  const isDecimalLastOperand = lastNumber(display.value).includes(".");
-  const isNumber = /^[0-9]$/.test(value);
-
-  if (isEmpty && isNumber) {
-    return (display.value = value);
-  }
-
-  switch (value) {
-    case "=":
-      if (!isEmpty) display.value = eval(display.value);
-      return;
-    case ".":
-      if (!isDecimalLastOperand) display.value += ".";
-      return;
-    case "C":
-      return (display.value = "0");
-    case "+/-":
-      if (
-        !operators.some((operator) =>
-          display.value.replace(/^-/, "").includes(operator)
-        )
-      )
-        display.value = -1 * parseFloat(display.value);
-      return;
-    case "*":
-    case "/":
-    case "-":
-    case "+":
-    case "%":
-      if (operators.includes(latestChar)) {
-        return (display.value = display.value.slice(0, -1) + value);
-      }
-    // Fall through to default case
-    default:
-      display.value += value;
-  }
-}
-
 // App draggable
 $(function () {
   $(".terminal").draggable();
   $(".note").draggable();
-  $(".calculator").draggable();
+  $(".calculator").draggable({ handle: ".calculator__top--taskabr", containment: "window" });
   $(".Vscode").draggable();
   $(".spotlight_serach").draggable();
   $(".maps").draggable();

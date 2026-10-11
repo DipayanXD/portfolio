@@ -80,6 +80,8 @@ body.light-mode .liquid-glass { --glass-reflex-light: 1; --glass-reflex-dark: 1;
 .cc-display, .cc-sound { padding: 11px 14px 12px; }
 .cc-slider-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
 .cc-slider-heading button { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; }
+.cc-slider-label { font-size: 12px; font-weight: 500; }
+.cc-slider-label > svg { display: none; }
 .cc-slider-heading button svg { width: 11px; height: 11px; opacity: .5; transition: transform .2s; }
 .cc-slider-heading output { font-size: 10px; color: #ffffff99; font-variant-numeric: tabular-nums; }
 .cc-slider-row { display: flex; align-items: center; gap: 9px; height: 20px; }

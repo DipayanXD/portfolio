@@ -33,6 +33,7 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="stylesheet" href="./Css/style.css" />
 
+    <link rel="stylesheet" href="./Css/calculator.css" />
 </head>
 
 <body onload="digi(), calculateBattery()">
@@ -1443,36 +1444,33 @@
             </iframe>
         </div>
     </div>
-    <div class="calculator">
+    <div class="calculator" role="region" aria-label="Scientific Calculator">
         <div class="calculator__top">
             <div class="calculator__top--taskabr">
-                <button class="close-cal"></button>
-                <button class="max-cal" disabled></button>
-                <button class="min-cal" disabled></button>
+                <button class="close-cal" aria-label="Close Calculator" title="Close"></button>
+                <button class="min-cal" aria-label="Minimize Calculator" title="Minimize"></button>
+                <button class="max-cal" aria-label="Zoom Calculator" aria-pressed="false" title="Zoom"></button>
+                <button class="calculator__utility calculator__expression-toggle" aria-label="Show history" aria-expanded="false" aria-controls="calculator-history" title="History">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="4" width="14" height="12" rx="3"/><path d="M8 4v12"/></svg>
+                </button>
+                <button class="calculator__utility calculator__copy" aria-label="Calculator mode" aria-expanded="false" aria-controls="calculator-modes" title="Calculator mode">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6" y="3" width="8" height="14" rx="2"/><path d="M8 6h4M8 9h1m2 0h1m-4 3h1m2 0h1m-4 3h1m2-3v3"/></svg>
+                </button>
+                <span class="calculator__status" role="status"></span>
+                <div id="calculator-modes" class="calculator__modes" hidden>
+                    <button type="button" data-calculator-mode="basic" aria-pressed="false">Basic</button>
+                    <button type="button" data-calculator-mode="scientific" aria-pressed="true">Scientific</button>
+                </div>
             </div>
-            <input class="calculator__top--output display" type="text" value="0" />
+            <div class="calculator__expression" aria-hidden="true"></div>
+            <input class="calculator__top--output display" type="text" value="0" aria-label="Calculator result" readonly />
         </div>
-        <div class="input">
-            <button value="C" class="button operator-2">C</button>
-            <button value="+/-" class="button operator-2">+/-</button>
-            <button value="%" class="button operator-2">%</button>
-            <button value="/" class="button operator">÷</button>
-            <button value="7" class="button number">7</button>
-            <button value="8" class="button number">8</button>
-            <button value="9" class="button number">9</button>
-            <button value="*" class="button operator">×</button>
-            <button value="4" class="button number">4</button>
-            <button value="5" class="button number">5</button>
-            <button value="6" class="button number">6</button>
-            <button value="-" class="button operator">−</button>
-            <button value="1" class="button number">1</button>
-            <button value="2" class="button number">2</button>
-            <button value="3" class="button number">3</button>
-            <button value="+" class="button operator">+</button>
-            <button value="0" class="button number large">0</button>
-            <button value="." class="button number">.</button>
-            <button value="=" class="button operator r-radius">=</button>
-        </div>
+        <div class="input" role="group" aria-label="Calculator keypad"></div>
+        <aside id="calculator-history" class="calculator__history" aria-label="Calculation history" hidden>
+            <header>History <button type="button" class="calculator__clear-history">Clear</button></header>
+            <div class="calculator__history-list"></div>
+        </aside>
+    </div>
     </div>
     </div>
 
@@ -1508,6 +1506,7 @@
     </div>
 
     <script src="./javascript/script.js"></script>
+    <script type="module" src="./javascript/calculator.js"></script>
     <script src="./javascript/app.js"></script>
     <script src="./javascript/notes-app.js"></script>
     <script type="module" src="./javascript/control-center.js"></script>
