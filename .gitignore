@@ -1,7 +1,36 @@
-Reference images/
-backend/.env
-backend/node_modules/
+# Dependencies and local package-manager state
 node_modules/
+.npm/
+.yarn/cache/
+.pnpm-store/
+
+# Build and test output
+dist/
+build/
+coverage/
+.cache/
+.vite/
+*.tsbuildinfo
+
+# Local environment and credentials
 .env
+.env.*
+!.env.example
+!**/.env.example
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Operating system and editor state
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+
+# Local reference material and workspace state
+Reference images/
 .orchids/
-/dist/

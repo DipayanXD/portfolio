@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import { cp, mkdir } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 export default defineConfig({
@@ -17,16 +16,11 @@ export default defineConfig({
       for (const script of ['script.js', 'app.js', 'notes-app.js']) {
         await cp(resolve('javascript', script), resolve(output, 'javascript', script));
       }
-      if (existsSync(resolve('silk/dist'))) await cp(resolve('silk/dist'), resolve(output, 'silk/dist'), { recursive: true });
     },
   }],
   server: {
-    port: 5174, // Different from silk and backend
+    port: 5174,
     proxy: {
-      '/silk/dist': {
-        target: 'http://localhost:5173',
-        changeOrigin: true,
-      },
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,

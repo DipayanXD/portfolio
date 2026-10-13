@@ -1,5 +1,5 @@
 import { icon, liquidGlass, glassButton, glassSlider, glassSwitcher, springFrames, reducedMotion } from './ui/liquid-glass.js';
-import './control-center.css';
+import '../Css/control-center.css';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const state = { controlCenterOpen: false, wifiEnabled: true, bluetoothEnabled: true, airdropEnabled: true, focusEnabled: false, stageEnabled: false, brightness: 100, volume: 81, appearance: localStorage.getItem('theme') || 'system', mediaPlaying: false };

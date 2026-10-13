@@ -4,9 +4,10 @@
   "scripts": {
     "dev": "vite",
     "build:portfolio": "vite build",
-    "build": "cd silk && npm install && npm run build",
+    "build": "vite build",
+    "test": "node --test javascript/*.test.cjs",
     "start": "cd backend && npm start",
-    "setup": "npm run build && cd backend && npm install"
+    "setup": "npm install && npm --prefix backend install && npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",

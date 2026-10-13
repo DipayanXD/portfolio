@@ -4,13 +4,15 @@ A web-based simulation of the macOS interface, serving as a personal portfolio. 
 
 ## Project Structure
 
-- **root**: Contains the main `index.html` and core logic (`javascript/script.js`, `Css/style.css`).
-- **backend/**: An Express.js server that handles email dispatching using Nodemailer.
-- **background-live/**: A Vite + React application (likely for dynamic backgrounds).
+- **root**: `index.html` is the frontend entry point; `vite.config.mjs` and `vercel.json` configure building and deployment.
+- **javascript/** and **Css/**: Desktop behavior, app modules, styles, and calculator tests.
+- **icon/**, **images/**, **background/**, **cursor/**, **fonts/**, and **music/**: Runtime assets.
+- **api/** and **backend/**: Vercel serverless entry point and Express Mail API.
+- **design-references/**: Tracked design material, separate from runtime assets.
 
 ## Prerequisites
 
-- Node.js (v18 or higher recommended)
+- Node.js 20.19+ or 22.12+
 - npm
 
 ## Installation
@@ -22,23 +24,23 @@ A web-based simulation of the macOS interface, serving as a personal portfolio. 
     ```
 
 2.  **Setup Project**:
-    Run this command to install all dependencies (frontend & backend) and build the background:
+Run this command to install frontend and backend dependencies and build the frontend:
     ```bash
     npm run setup
     ```
 
 3.  **Setup Environment Variables**:
-    Create a `.env` file in the `backend/` directory with the following:
+Copy `backend/.env.example` to `backend/.env`, then fill in your own values:
     ```env
-    EMAIL_USER=your-email@gmail.com
+    EMAIL_USER=your-email@example.com
     EMAIL_PASS=your-app-specific-password
-    EMAIL_RECEIVER=your-email@gmail.com
+    EMAIL_RECEIVER=recipient@example.com
     ```
     *Note: For Gmail, you must use an "App Password", not your login password.*
 
 ## Running Locally
 
-To run the full experience, you need to start the backend server and serve the frontend.
+To run the full experience, start the API and Vite in separate terminals.
 
 1.  **Start the Backend**:
     Open a terminal:
@@ -46,15 +48,13 @@ To run the full experience, you need to start the backend server and serve the f
     cd backend
     npm start
     ```
-    *Server will start on http://localhost:3000*
+    *Server starts on http://localhost:3001.*
 
 2.  **Start the Frontend**:
-    - You can use the **Live Server** extension in VS Code to open `index.html`.
-    - Or run a simple HTTP server in the root directory:
-      ```bash
-      npx serve .
-      ```
-    *Access the site at http://localhost:5500 (or whatever port your server uses).*
+    ```bash
+    npm run dev
+    ```
+    *Open http://localhost:5174. Vite proxies `/api` to the backend.*
 
 ## Deployment (Vercel)
 
@@ -64,7 +64,7 @@ This project is configured to deploy easily on Vercel.
 2.  **Import to Vercel**:
     - Select your repository.
     - Leave the "Root Directory" as `./`.
-    - The configuration in `vercel.json` will automatically handle the backend routing.
+   - `vercel.json` routes API requests to `api/index.js`.
 3.  **Environment Variables**:
     - In the Vercel Project Settings, add the same environment variables as your local `.env` (`EMAIL_USER`, `EMAIL_PASS`, etc.).
 4.  **Deploy**: 
@@ -75,4 +75,8 @@ This project is configured to deploy easily on Vercel.
 - **Email not sending?**
   - Check the backend console (or Vercel logs) for errors.
   - Ensure your App Password is correct.
-  - Verify that the frontend is calling the right API URL (it auto-detects between `localhost:3000` and relative path `/api/`).
+  - Verify that the frontend can reach the API at `localhost:3001` locally or `/api/` in deployment.
+
+## Verification
+
+Run `npm test` for calculator tests and `npm run build` for the production frontend. The output is generated in `dist/` and is ignored by Git. Both npm lockfiles and the Bun lockfiles are retained for reproducible installation with either package manager.
